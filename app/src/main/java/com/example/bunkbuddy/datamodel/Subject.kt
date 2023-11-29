@@ -8,10 +8,11 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName="Subjects")
 @Parcelize
 data class Subject(
-    val name: String,
-    val missed: Int,
-    val attended: Int,
+    var name: String,
+    var missed: Int,
+    var attended: Int,
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val lastUpdated: String
+    var lastUpdated: String,
+    var requirement: Int
 ) : Parcelable

@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DA2C43</color>
     <color name="blue">#1560BD</color>
+<!--    <color name="card_color">#1b263b</color>-->
+    <color name="bg_color">#212529</color>
+    <color name="card_color">#343a40</color>
 </resources>

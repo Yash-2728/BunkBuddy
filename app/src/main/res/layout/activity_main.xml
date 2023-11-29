@@ -24,7 +24,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
         android:id="@+id/bottomNav"
-        android:layout_height="wrap_content"/>
-
+        app:itemActiveIndicatorStyle="@string/null_value"
+        app:itemIconSize="28sp"
+        app:itemIconTint="@color/bottom_nav_icon_text_color"
+        app:itemTextColor="@color/bottom_nav_icon_text_color"
+        android:layout_height="68sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

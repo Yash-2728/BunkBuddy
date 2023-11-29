@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="16sp"
-    app:cardCornerRadius="23sp">
+    app:cardCornerRadius="18sp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -12,8 +12,8 @@
         android:background="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="40sp"
-            android:layout_height="40sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:src="@drawable/ic_decrease"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

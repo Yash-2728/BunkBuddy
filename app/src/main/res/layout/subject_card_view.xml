@@ -1,124 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="12sp"
-    android:layout_marginEnd="12sp"
-    android:layout_marginTop="4sp"
-    app:cardCornerRadius="20sp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="6sp"
+    android:layout_marginTop="6sp"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="12sp"
-        android:layout_marginEnd="12sp"
-        android:paddingTop="4sp"
-        android:paddingBottom="8sp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="6sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
+        android:layout_marginTop="6sp"
+        android:elevation="32sp"
         android:layout_height="wrap_content">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lastUpdatedTxt"
-            android:textSize="10sp"
-            android:textAlignment="viewEnd"
-            android:text="Last updated on 26/22/22"
-            />
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/subjectName"
-            android:text="SubjectName"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:layout_marginStart="12sp"
+            android:layout_marginEnd="12sp"
+            android:layout_marginBottom="6sp"
             android:layout_marginTop="6sp"
             android:layout_height="wrap_content">
+
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="2sp"
+                android:id="@+id/lastUpdatedTxt"
                 android:textSize="10sp"
-                android:textStyle="bold"
-                android:id="@+id/attendedPercTv"/>
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_weight="1"
                 android:textAlignment="viewEnd"
-                android:textSize="10sp"
-                android:layout_marginEnd="2sp"
-                android:id="@+id/missedPercTv"/>
-        </LinearLayout>
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="match_parent"
-            app:trackColor="@color/red"
-            app:indicatorColor="@color/blue"
-            app:indicatorDirectionLinear="startToEnd"
-            android:progress="90"
-            android:layout_height="wrap_content"
-            app:trackCornerRadius="10sp"
-            android:layout_marginBottom="4sp"
-            app:trackThickness="20sp"
-            android:id="@+id/subjectProgress"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="6sp"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="11sp"
-                android:layout_height="11sp"
-                android:src="@color/blue"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_marginStart="4sp"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="@string/attended_classes_placeholder"/>
+                />
             <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:id="@+id/attendedClassTv"
-                android:layout_marginStart="3sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="6sp"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="11sp"
-                android:layout_height="11sp"
-                android:src="@color/red"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_marginStart="4sp"
+                android:id="@+id/subjectName"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                app:trackColor="@color/red"
+                app:indicatorColor="@color/blue"
+                app:indicatorDirectionLinear="startToEnd"
+                android:progress="90"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Missed: "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginStart="3sp"
-                android:id="@+id/missedClassTv"/>
-        </LinearLayout>
+                android:layout_marginTop="14sp"
+                app:trackCornerRadius="10sp"
+                android:layout_marginBottom="4sp"
+                app:trackThickness="20sp"
+                android:id="@+id/subjectProgress"/>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="6sp"
-            android:id="@+id/remarksTv"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-            android:text="You can bunk 2 classes"/>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6sp"
+                    android:layout_marginStart="16sp"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="11sp"
+                        android:layout_height="11sp"
+                        android:src="@color/blue"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="4sp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="@string/attended_classes_placeholder"/>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:id="@+id/attendedClassTv"
+                        android:layout_marginStart="3sp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6sp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:layout_marginEnd="16sp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="11sp"
+                        android:layout_height="11sp"
+                        android:src="@color/red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="4sp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Missed: "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginStart="3sp"
+                        android:id="@+id/missedClassTv"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="8sp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <include layout="@layout/increase_button"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="4sp"
+                        android:id="@+id/incAttendenceButton"
+                        android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/decrease_button"
+                        android:layout_marginStart="8sp"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="4sp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/decAttendenceButton"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="8sp"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <include layout="@layout/increase_button"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="4sp"
+                        android:id="@+id/incMissedButton"
+                        android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/decrease_button"
+                        android:layout_marginStart="8sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4sp"
+                        android:id="@+id/decMissedButton"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/requirementTv"
+                android:textStyle="bold"
+                android:text="Requirement: 75%"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="6sp"
+                android:id="@+id/remarksTv"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="You can bunk 2 classes"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

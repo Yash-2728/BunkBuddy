@@ -10,4 +10,9 @@
         android:name="com.example.bunkbuddy.fragments.AllSubjectsFragment"
         android:label="fragment_all_subjects"
         tools:layout="@layout/fragment_all_subjects" />
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.bunkbuddy.fragments.TimetableFragment"
+        android:label="fragment_timetable"
+        tools:layout="@layout/fragment_timetable" />
 </navigation>
