@@ -1,5 +1,6 @@
 package com.example.bunkbuddy.fragments
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -42,6 +43,8 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     private var popUpWindow: PopupWindow? = null
     private lateinit var viewModel: SubjectViewModel
     private lateinit var adapter: SubjectAdapter
+    private lateinit var sharedPreference: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +66,20 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         this.also { listener = it }
         viewModel = (activity as MainActivity).viewModel
+
+        sharedPreference = (activity as MainActivity).sharedPreferences
+        editor = sharedPreference.edit()
+        val lastUpdatedDate = sharedPreference.getString("last_updated_date", "")
+        val lastUpdatedTime = sharedPreference.getString("last_updated_time", "")
+        if(lastUpdatedDate.isNullOrEmpty()) binding.lastUpdatedTv.visibility = View.GONE
+        else {
+            binding.lastUpdatedTv.visibility = View.VISIBLE
+            binding.lastUpdatedTv.text = "Last updated on $lastUpdatedDate at $lastUpdatedTime"
+        }
+
         setUpRecyclerView()
         val dayAndDate = getDayAndDate()
-        binding.currentDateTv.text = dayAndDate[1]
+        setCurrentDate(dayAndDate[1])
         viewModel.savedSubjects.observe(viewLifecycleOwner, Observer {
             it?.let{list->
                 adapter.setData(list)
@@ -75,6 +89,10 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         binding.addSubjectIv.root.setOnClickListener {
             showAddSubjectPopup()
         }
+    }
+
+    private fun setCurrentDate(date: String) {
+        binding.currentDateTv.text = date
     }
 
     private fun setUpRecyclerView() {
@@ -193,6 +211,11 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     }
     private fun addNewSubject(subject: Subject){
         viewModel.addSubject(subject)
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        editor.apply()
+        updateDateAndTime(dayAndDate)
     }
 
     private fun Int.toPercent(a: Int): String{
@@ -203,29 +226,53 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         val currentDate = Calendar.getInstance().time
 
         return listOf(
-            SimpleDateFormat("EEEE", Locale.US).format(currentDate),
-            SimpleDateFormat("dd-MM-yyyy", Locale.US).format(currentDate)
+            SimpleDateFormat("HH:mm", Locale.US).format(currentDate),
+            SimpleDateFormat("d MMM yyyy", Locale.US).format(currentDate)
         )
     }
     private fun updateSubject(subject: Subject){
         viewModel.updateSubject(subject)
     }
+    private fun updateDateAndTime(list: List<String>){
+        binding.lastUpdatedTv.text = "Last updated on ${list[1]} at ${list[0]}"
+    }
     override fun onIncreaseAttendenceBtnClicked(subject: Subject) {
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        editor.apply()
+        updateDateAndTime(dayAndDate)
         subject.lastUpdated = getDayAndDate()[1]
         subject.attended = subject.attended.inc()
         updateSubject(subject)
     }
     override fun onDecreaseAttendenceBtnClicked(subject: Subject) {
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        editor.apply()
+        updateDateAndTime(dayAndDate)
         subject.attended = subject.attended.dec()
         subject.lastUpdated = getDayAndDate()[1]
         updateSubject(subject)
     }
     override fun onIncreaseMissedBtnClicked(subject: Subject) {
-        subject.lastUpdated = getDayAndDate()[1]
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        editor.apply()
+        updateDateAndTime(dayAndDate)
+        subject.lastUpdated = dayAndDate[1]
         subject.missed = subject.missed.inc()
         updateSubject(subject)
+        editor
     }
     override fun onDecreaseMissedBtnClicked(subject: Subject) {
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        editor.apply()
+        updateDateAndTime(dayAndDate)
         subject.lastUpdated = getDayAndDate()[1]
         subject.missed = subject.missed.dec()
         updateSubject(subject)

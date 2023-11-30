@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".fragments.AllSubjectsFragment">
 
     <include
@@ -27,84 +28,62 @@
         android:id="@+id/topLinearLayout"
         android:layout_marginStart="18sp"
         android:layout_marginEnd="18sp"
-        android:layout_marginTop="12sp"
+        android:layout_marginTop="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="64sp">
+        android:layout_height="wrap_content">
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_marginStart="3sp"
             android:layout_height="wrap_content"
             android:text="26th Nov 2023"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
             android:id="@+id/currentDateTv"/>
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Attendance"
-            android:layout_marginStart="2sp"
             android:layout_marginTop="-9sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Updated on "
+            android:layout_marginTop="-2sp"
+            android:id="@+id/lastUpdatedTv"
+            android:layout_marginStart="1sp"
+            android:textColor="@color/text_secondary"/>
     </LinearLayout>
 
-
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/topLinearLayout"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/allSubjectsRcv"-->
-<!--        android:id="@+id/searchInput"-->
-<!--        app:boxCornerRadiusBottomEnd="20sp"-->
-<!--        app:boxCornerRadiusBottomStart="20sp"-->
-<!--        app:boxCornerRadiusTopEnd="20sp"-->
-<!--        app:boxCornerRadiusTopStart="20sp"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:hint="Search subjects"-->
-<!--        app:boxStrokeWidthFocused="0sp"-->
-<!--        app:startIconDrawable="@drawable/ic_search"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="36sp"/>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/topLinearLayout"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/allSubjectsRcv"-->
-<!--        app:boxCornerRadiusTopStart="24sp"-->
-<!--        app:boxCornerRadiusTopEnd="24sp"-->
-<!--        app:boxCornerRadiusBottomStart="24sp"-->
-<!--        app:boxCornerRadiusBottomEnd="24sp"-->
-<!--        app:boxStrokeWidth="1dp"-->
-<!--        android:layout_marginTop="4sp"-->
-<!--        android:id="@+id/searchInput"-->
-<!--        app:hintEnabled="false"-->
-<!--        android:gravity="center_vertical"-->
-<!--        app:boxStrokeWidthFocused="1dp"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:id="@+id/searchEdit"-->
-<!--            android:drawableStart="@drawable/ic_search"-->
-<!--            android:maxLines="1"-->
-<!--            android:hint="@string/search_subjects"-->
-<!--            android:textColorHint="@color/black"-->
-<!--            android:drawablePadding="8sp"-->
-<!--            android:textStyle="italic"-->
-<!--            android:textSize="16sp"-->
-<!--            android:layout_height="54sp"-->
-<!--            android:paddingStart="16sp"-->
-<!--            android:paddingEnd="16sp"/>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/searchInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_search"
+        android:layout_marginTop="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
+        app:layout_constraintTop_toBottomOf="@id/topLinearLayout"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusTopEnd="10sp"
+        app:boxCornerRadiusTopStart="10sp"
+        app:boxCornerRadiusBottomStart="10sp"
+        app:boxCornerRadiusBottomEnd="10sp"
+        app:boxStrokeWidth="0sp"
+        app:boxBackgroundColor="@color/card_bg"
+        app:boxStrokeWidthFocused="0sp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:hint="@string/search_for_subjects"
+            android:textStyle="bold"
+            android:id="@+id/searchEdit"
+            android:textColor="@color/white"
+            android:layout_height="44sp" />
+    </com.google.android.material.textfield.TextInputLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allSubjectsRcv"
         android:layout_width="match_parent"
@@ -114,8 +93,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        android:background="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topLinearLayout"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@id/searchInput"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/subject_card_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

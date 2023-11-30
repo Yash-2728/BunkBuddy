@@ -13,4 +13,5 @@
     <string name="requirement">Requirement</string>
     <string name="add">ADD</string>
     <string name="cancel">CANCEL</string>
+    <string name="search_for_subjects">Search for subjects</string>
 </resources>

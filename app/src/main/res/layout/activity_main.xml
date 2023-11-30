@@ -28,9 +28,10 @@
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         android:id="@+id/bottomNav"
+        android:background="@color/gray"
         app:itemActiveIndicatorStyle="@string/null_value"
         app:itemIconSize="28sp"
         app:itemIconTint="@color/bottom_nav_icon_text_color"
         app:itemTextColor="@color/bottom_nav_icon_text_color"
-        android:layout_height="68sp"/>
+        android:layout_height="64sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

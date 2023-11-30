@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="18sp"
+    app:cardBackgroundColor="@color/gray"
     app:cardCornerRadius="23sp">
 
     <LinearLayout
@@ -14,6 +15,7 @@
         <ImageView
             android:layout_width="30sp"
             android:layout_height="30sp"
+            app:tint="@color/primary_blue"
             android:src="@drawable/ic_increase"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -7,4 +7,11 @@
 <!--    <color name="card_color">#1b263b</color>-->
     <color name="bg_color">#212529</color>
     <color name="card_color">#343a40</color>
+
+<!--    Dark Mode-->
+    <color name="gray">#383838</color>
+    <color name="card_bg">#242222</color>
+    <color name="primary_blue">#007aff</color>
+    <color name="text_primary">#717171</color>
+    <color name="text_secondary">#8d8d8d</color>
 </resources>

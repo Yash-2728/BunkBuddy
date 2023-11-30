@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -24,16 +25,19 @@ class SubjectAdapter(
     class SubjectViewHolder(view: View):RecyclerView.ViewHolder(view){
         val nameTv: TextView = view.findViewById(R.id.subjectName)
         val progress: LinearProgressIndicator = view.findViewById(R.id.subjectProgress)
-        val lastUpdatedTv: TextView = view.findViewById(R.id.lastUpdatedTxt)
-        val attendedClassTv: TextView = view.findViewById(R.id.attendedClassTv)
-        val remarks: TextView = view.findViewById(R.id.remarksTv)
-        val missedClasTv: TextView = view.findViewById(R.id.missedClassTv)
-        val requirementTv: TextView = view.findViewById(R.id.requirementTv)
+        val attendedClassTv: TextView = view.findViewById(R.id.attended_tv)
+        val remarks: TextView = view.findViewById(R.id.remarks_tv)
+        val missedClasTv: TextView = view.findViewById(R.id.missed_tv)
+        val requirementTv: TextView = view.findViewById(R.id.requirement_tv)
 
-        val incAttendenceBtn: CardView = view.findViewById(R.id.incAttendenceButton)
-        val decAttendenceBtn: CardView = view.findViewById(R.id.decAttendenceButton)
-        val incMissedBtn: CardView = view.findViewById(R.id.incMissedButton)
-        val decMissedBtn: CardView = view.findViewById(R.id.decMissedButton)
+        val incAttendanceBtn: CardView = view.findViewById(R.id.inc_attendance_btn)
+        val decAttendanceBtn: CardView = view.findViewById(R.id.dec_attendance_btn)
+        val incMissedBtn: CardView = view.findViewById(R.id.inc_missed_btn)
+        val decMissedBtn: CardView = view.findViewById(R.id.dec_missed_btn)
+
+        val attendanceTv: TextView = view.findViewById(R.id.attended_tv)
+
+        val incDecLl: LinearLayout = view.findViewById(R.id.ll_with_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder {
@@ -50,10 +54,10 @@ class SubjectAdapter(
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
         val item = list[position]
 
-        holder.incAttendenceBtn.setOnClickListener {
+        holder.incAttendanceBtn.setOnClickListener {
             listener.onIncreaseAttendenceBtnClicked(item)
         }
-        holder.decAttendenceBtn.setOnClickListener {
+        holder.decAttendanceBtn.setOnClickListener {
             if(item.missed+item.attended>1) listener.onDecreaseAttendenceBtnClicked(item)
         }
 
@@ -65,11 +69,16 @@ class SubjectAdapter(
             listener.onIncreaseMissedBtnClicked(item)
         }
 
+        holder.itemView.setOnClickListener {
+            if(holder.incDecLl.visibility == View.GONE) holder.incDecLl.visibility = View.VISIBLE
+            else holder.incDecLl.visibility = View.GONE
+        }
+
 
         holder.apply {
             nameTv.text = item.name
-            missedClasTv.text = item.missed.toString()
-            attendedClassTv.text = item.attended.toString()
+            missedClasTv.text = "Missed ${item.missed}"
+            attendedClassTv.text ="Attended ${item.attended}"
             requirementTv.text = "Requirement: ${item.requirement.toString()}%"
 
             val missed = item.missed.toDouble()
@@ -79,9 +88,9 @@ class SubjectAdapter(
             val attendedPerc = 100 - missedPerc
             val requirement = item.requirement
 
-            progress.setProgress(attendedPerc, true)
+            attendanceTv.text = "Attendance: ${attendedPerc}%"
 
-            lastUpdatedTv.text = "Last updated on ${item.lastUpdated}"
+            progress.setProgress(attendedPerc, true)
             var remarksText=""
 
             if(attendedPerc>=requirement){
