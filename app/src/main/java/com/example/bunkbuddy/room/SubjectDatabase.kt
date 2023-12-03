@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.bunkbuddy.datamodel.Lecture
 import com.example.bunkbuddy.datamodel.Subject
 
-@Database(entities = [Subject::class], version = 1, exportSchema = false)
+@Database(entities = [Subject::class, Lecture::class], version = 1, exportSchema = false)
+@TypeConverters(TypeConverter::class)
 abstract class SubjectDatabase: RoomDatabase() {
 
     abstract fun getDao(): SubjectDao

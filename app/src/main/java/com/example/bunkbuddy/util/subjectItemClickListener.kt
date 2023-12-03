@@ -9,4 +9,6 @@ interface subjectItemClickListener {
 
     fun onIncreaseMissedBtnClicked(subject: Subject)
     fun onDecreaseMissedBtnClicked(subject: Subject)
+
+    fun onDeleteBtnClicked(subject: Subject)
 }

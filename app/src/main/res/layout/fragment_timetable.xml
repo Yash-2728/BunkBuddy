@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.TimetableFragment">
+    <include
+        android:id="@+id/add_lecture_btn"
+        layout="@layout/add_new_lecture_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
+        android:layout_marginTop="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="30sp"
+        android:id="@+id/heading_tv"
+        android:textStyle="bold"
+        android:text="Your Timetable"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16sp"
+        android:id="@+id/scrollView"
+        android:scrollbars="none"
+        android:layout_marginEnd="16sp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            app:singleSelection="true"
+            android:id="@+id/chipgroup"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                android:checked="true"
+                android:id="@+id/monday_chip"
+                style="@style/style_for_chip"
+                android:text="@string/monday"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tuesday_chip"
+                style="@style/style_for_chip"
+                android:text="@string/tuesday"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/wednesday_chip"
+                style="@style/style_for_chip"
+                android:text="@string/wednesday"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/thursday_chip"
+                style="@style/style_for_chip"
+                android:text="@string/thursday"/>
+            <com.google.android.material.chip.Chip
+                style="@style/style_for_chip"
+                android:id="@+id/friday_chip"
+                android:text="@string/friday"/>
+            <com.google.android.material.chip.Chip
+                style="@style/style_for_chip"
+                android:id="@+id/saturday_chip"
+                android:text="@string/saturday"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sunday_chip"
+                style="@style/style_for_chip"
+                android:text="@string/sunday"/>
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedHeight="true"
+        android:id="@+id/rcv"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

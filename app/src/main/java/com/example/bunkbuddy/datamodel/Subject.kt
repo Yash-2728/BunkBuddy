@@ -2,10 +2,11 @@ package com.example.bunkbuddy.datamodel
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName="Subjects")
+@Entity(tableName="subjects")
 @Parcelize
 data class Subject(
     var name: String,

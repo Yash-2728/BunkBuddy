@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -36,8 +37,8 @@ class SubjectAdapter(
         val decMissedBtn: CardView = view.findViewById(R.id.dec_missed_btn)
 
         val attendanceTv: TextView = view.findViewById(R.id.attended_tv)
-
         val incDecLl: LinearLayout = view.findViewById(R.id.ll_with_btn)
+        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder {
@@ -74,7 +75,9 @@ class SubjectAdapter(
             else holder.incDecLl.visibility = View.GONE
         }
 
-
+        holder.deleteBtn.setOnClickListener {
+            listener.onDeleteBtnClicked(item)
+        }
         holder.apply {
             nameTv.text = item.name
             missedClasTv.text = "Missed ${item.missed}"

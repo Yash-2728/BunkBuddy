@@ -218,6 +218,10 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         updateDateAndTime(dayAndDate)
     }
 
+    override fun onDeleteBtnClicked(subject: Subject) {
+        viewModel.deleteSubject(subject)
+    }
+
     private fun Int.toPercent(a: Int): String{
         return "${a}%"
     }

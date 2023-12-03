@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="style_for_chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/bottom_nav_icon_text_color</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipBackgroundColor">@color/bg_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">4sp</item>
+        <item name="chipCornerRadius">12sp</item>
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">55sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/bottom_nav_icon_text_color</item>
+    </style>
+</resources>

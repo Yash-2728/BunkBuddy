@@ -27,17 +27,38 @@
             android:layout_marginBottom="12sp"
             android:layout_marginTop="12sp"
             android:layout_height="wrap_content">
-
-            <com.google.android.material.textview.MaterialTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/subjectName"
-                android:text="Hello"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subjectName"
+                    android:text="Hello"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"/>
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="32sp"
+                    android:layout_height="32sp"
+                    android:src="@drawable/ic_delete"
+                    android:layout_gravity="end"
+                    android:id="@+id/delete_btn"
+                    android:hapticFeedbackEnabled="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:tint="@color/text_secondary"/>
+
+            </LinearLayout>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,6 +72,7 @@
                 app:indicatorDirectionLinear="startToEnd"
                 android:progress="90"
                 android:layout_height="wrap_content"
+                android:elevation="32sp"
                 android:layout_marginTop="14sp"
                 app:trackCornerRadius="10sp"
                 android:layout_marginBottom="4sp"
@@ -124,9 +146,9 @@
                         android:layout_marginTop="4sp"
                         android:gravity="center"
                         android:layout_height="wrap_content">
-                        <include layout="@layout/increase_button"
+                        <include layout="@layout/decrease_button"
                             android:layout_width="wrap_content"
-                            android:id="@+id/inc_attendance_btn"
+                            android:id="@+id/dec_attendance_btn"
                             android:layout_height="wrap_content"/>
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
@@ -135,9 +157,9 @@
                             android:textColor="@color/text_secondary"
                             android:layout_marginStart="4sp"
                             android:layout_marginEnd="4sp"/>
-                        <include layout="@layout/decrease_button"
+                        <include layout="@layout/increase_button"
                             android:layout_width="wrap_content"
-                            android:id="@+id/dec_attendance_btn"
+                            android:id="@+id/inc_attendance_btn"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <LinearLayout
@@ -147,9 +169,9 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:layout_height="wrap_content">
-                        <include layout="@layout/increase_button"
+                        <include layout="@layout/decrease_button"
                             android:layout_width="wrap_content"
-                            android:id="@+id/inc_missed_btn"
+                            android:id="@+id/dec_missed_btn"
                             android:layout_height="wrap_content"/>
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
@@ -158,9 +180,9 @@
                             android:textColor="@color/text_secondary"
                             android:layout_marginStart="4sp"
                             android:layout_marginEnd="4sp"/>
-                        <include layout="@layout/decrease_button"
+                        <include layout="@layout/increase_button"
                             android:layout_width="wrap_content"
-                            android:id="@+id/dec_missed_btn"
+                            android:id="@+id/inc_missed_btn"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
