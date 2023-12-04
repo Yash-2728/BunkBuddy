@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -28,12 +27,9 @@ import com.example.bunkbuddy.UI.SubjectViewModel
 import com.example.bunkbuddy.activities.MainActivity
 import com.example.bunkbuddy.databinding.FragmentTimetableBinding
 import com.example.bunkbuddy.datamodel.Lecture
-import com.example.bunkbuddy.util.SubjectDropdownAdapter
 import com.example.bunkbuddy.datamodel.Subject
 import com.example.bunkbuddy.util.TimetableAdapter
-import com.example.bunkbuddy.util.onDropdownItemClickListener
 import com.google.android.material.chip.Chip
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -69,16 +65,22 @@ class TimetableFragment : Fragment() {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.chipgroup.clearCheck()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        setUpRecyclerView()
-        startLoop()
         val list = viewModel.getAllSubjectSync()
         val days = resources.getStringArray(R.array.days).toList()
 
         val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        selectChip((today+5)%7)
+        val chipIndex = (today+5)%7
+        selectChip(chipIndex)
+        setUpRecyclerView(chipIndex)
+        startLoop()
         binding.mondayChip.setOnClickListener{
             viewModel.monday.observe(viewLifecycleOwner, Observer{
                 adapter.setData(it)
@@ -119,6 +121,11 @@ class TimetableFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopLoop()
+    }
+
     private fun startLoop(){
         handler.postDelayed(runnable, 2000)
     }
@@ -126,10 +133,22 @@ class TimetableFragment : Fragment() {
         handler.removeCallbacks(runnable)
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(initIndex: Int) {
         adapter = TimetableAdapter(requireContext())
         binding.rcv.adapter = adapter
         binding.rcv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val initViewModel = when(initIndex){
+            0->viewModel.monday
+            1->viewModel.tuesday
+            2->viewModel.wednesday
+            3->viewModel.thursday
+            4->viewModel.friday
+            5->viewModel.saturday
+            else->viewModel.sunday
+        }
+        initViewModel.observe(viewLifecycleOwner, Observer {
+            adapter.setData(it)
+        })
     }
 
     private fun selectChip(index: Int){
@@ -138,7 +157,9 @@ class TimetableFragment : Fragment() {
             val chip = binding.chipgroup.getChildAt(index) as Chip
             Log.w("bunkbuddyerrorlogs", "${chip.text}")
             chip.isChecked = true
-            binding.scrollView.smoothScrollTo(chip.left, 0)
+            Handler().postDelayed({
+                binding.scrollView.smoothScrollTo(chip.left, 0)
+            }, 500)
         }
     }
 

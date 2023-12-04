@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bunkbuddy.R
 import com.example.bunkbuddy.datamodel.Subject
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import org.w3c.dom.Text
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -30,13 +31,14 @@ class SubjectAdapter(
         val remarks: TextView = view.findViewById(R.id.remarks_tv)
         val missedClasTv: TextView = view.findViewById(R.id.missed_tv)
         val requirementTv: TextView = view.findViewById(R.id.requirement_tv)
+        val totalTv: TextView = view.findViewById(R.id.total_tv)
 
         val incAttendanceBtn: CardView = view.findViewById(R.id.inc_attendance_btn)
         val decAttendanceBtn: CardView = view.findViewById(R.id.dec_attendance_btn)
         val incMissedBtn: CardView = view.findViewById(R.id.inc_missed_btn)
         val decMissedBtn: CardView = view.findViewById(R.id.dec_missed_btn)
 
-        val attendanceTv: TextView = view.findViewById(R.id.attended_tv)
+        val attendanceTv: TextView = view.findViewById(R.id.percent_tv)
         val incDecLl: LinearLayout = view.findViewById(R.id.ll_with_btn)
         val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
     }
@@ -87,6 +89,7 @@ class SubjectAdapter(
             val missed = item.missed.toDouble()
             val attended = item.attended.toDouble()
             val total = missed+attended
+            totalTv.text = "Total ${(attended+missed).toInt()}"
             val missedPerc = (missed/total).times(100).roundToInt()
             val attendedPerc = 100 - missedPerc
             val requirement = item.requirement
