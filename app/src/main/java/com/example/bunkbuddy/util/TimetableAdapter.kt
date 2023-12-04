@@ -47,7 +47,7 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
 
             val attended = lecture.subject.attended.toDouble()
             val missed = lecture.subject.missed.toDouble()
-            val perc = ceil((attended).div(attended + missed)).times(100)
+            val perc = ceil((attended).div(attended + missed).times(100)).toInt()
 
             if(perc>lecture.subject.requirement) {
                 remarksTv.setTextColor(context.resources.getColor(R.color.primary_blue))

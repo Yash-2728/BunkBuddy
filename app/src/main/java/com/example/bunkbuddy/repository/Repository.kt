@@ -18,6 +18,9 @@ class SubjectRepository(private val db: SubjectDatabase) {
     val saturday = dao.getLecturesForDay(5)
     val sunday = dao.getLecturesForDay(6)
 
+    suspend fun updateSubjectAndLectures(subject:Subject){
+        dao.updateSubjectAndRelatedLectures(subject)
+    }
     fun getSubjectSync(): List<Subject>{
         return dao.getAllSubjectsSync()
     }

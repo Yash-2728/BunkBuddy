@@ -22,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.PopUpToBuilder
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bunkbuddy.R
 import com.example.bunkbuddy.UI.SubjectViewModel
 import com.example.bunkbuddy.activities.MainActivity
@@ -89,6 +90,16 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         binding.addSubjectIv.root.setOnClickListener {
             showAddSubjectPopup()
         }
+
+        binding.allSubjectsRcv.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy>0){
+                    hideViews()
+                }
+                else showViews()
+            }
+        })
     }
 
     private fun setCurrentDate(date: String) {
@@ -206,6 +217,40 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         popUpWindow?.showAtLocation(popUpView, Gravity.BOTTOM, 0, 0)
     }
 
+    private fun hideViews() {
+        binding.addSubjectIv.root.animate()
+            .translationY(binding.addSubjectIv.root.height.toFloat())
+            .withEndAction {
+                binding.addSubjectIv.root.visibility = View.GONE
+            }
+            .setDuration(300)
+            .start()
+
+//        binding.searchInput.animate()
+//            .translationY(-binding.searchInput.height.toFloat())
+//            .withEndAction {
+//                binding.searchInput.visibility = View.GONE
+//            }
+//            .setDuration(300)
+//            .start()
+    }
+
+    private fun showViews() {
+        binding.addSubjectIv.root.animate()
+            .translationY(0f)
+            .withEndAction {
+                binding.addSubjectIv.root.visibility = View.VISIBLE
+            }
+            .start()
+
+//        binding.searchInput.animate()
+//            .translationY(0f)
+//            .withEndAction {
+//                binding.searchInput.visibility = View.VISIBLE
+//            }
+//            .start()
+    }
+
     private fun showToast(message: String){
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -235,7 +280,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         )
     }
     private fun updateSubject(subject: Subject){
-        viewModel.updateSubject(subject)
+        viewModel.updateSubjectAndLectures(subject)
     }
     private fun updateDateAndTime(list: List<String>){
         binding.lastUpdatedTv.text = "Last updated on ${list[1]} at ${list[0]}"

@@ -8,16 +8,18 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navHostFragment"
-        android:layout_width="match_parent"
-        app:defaultNavHost="true"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/nav_graph"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
         app:layout_constrainedHeight="true"
-        android:layout_height="match_parent"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -26,12 +28,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="@color/white"
         app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
         android:id="@+id/bottomNav"
-        android:background="@color/gray"
-        app:itemActiveIndicatorStyle="@string/null_value"
-        app:itemIconSize="28sp"
+        android:background="@color/black"
+        app:itemActiveIndicatorStyle="@color/primary_blue"
+        app:itemIconSize="24sp"
         app:itemIconTint="@color/bottom_nav_icon_text_color"
         app:itemTextColor="@color/bottom_nav_icon_text_color"
-        android:layout_height="64sp"/>
+        android:layout_height="60sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

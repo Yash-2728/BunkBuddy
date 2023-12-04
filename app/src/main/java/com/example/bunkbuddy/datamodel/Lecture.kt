@@ -13,7 +13,8 @@ import kotlinx.android.parcel.Parcelize
         entity = Subject::class,
         parentColumns = ["id"],
         childColumns = ["subjectId"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
     )]
 )
 @Parcelize

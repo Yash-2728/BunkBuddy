@@ -53,6 +53,7 @@
                     android:src="@drawable/ic_delete"
                     android:layout_gravity="end"
                     android:id="@+id/delete_btn"
+
                     android:hapticFeedbackEnabled="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -62,6 +63,8 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="-7sp"
                 android:textColor="@color/text_secondary"
                 android:id="@+id/requirement_tv"
                 android:text="Requirement: 75%"/>
@@ -73,7 +76,7 @@
                 android:progress="90"
                 android:layout_height="wrap_content"
                 android:elevation="32sp"
-                android:layout_marginTop="14sp"
+                android:layout_marginTop="6sp"
                 app:trackCornerRadius="10sp"
                 android:layout_marginBottom="4sp"
                 app:trackThickness="20sp"

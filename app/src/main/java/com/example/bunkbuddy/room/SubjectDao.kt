@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.example.bunkbuddy.datamodel.Lecture
 import com.example.bunkbuddy.datamodel.Subject
@@ -26,7 +27,20 @@ interface SubjectDao {
     @Delete
     suspend fun deleteSubject(subject: Subject)
 
+    @Transaction
+    suspend fun updateSubjectAndLectures(subject: Subject, lectures: List<Lecture>){
+        updateSubject(subject)
+        updateLectures(lectures)
+    }
 
+
+    suspend fun updateSubjectAndRelatedLectures(subject: Subject){
+        val relatedLectures = getLecturesForSubject(subject.id)
+        updateSubjectAndLectures(subject, relatedLectures)
+    }
+
+    @Query("select * from lectures where subjectId= :subjectId")
+    suspend fun getLecturesForSubject(subjectId: Int): List<Lecture>
 
     @Query("SELECT * FROM lectures WHERE dayNumber= :day")
     fun getLecturesForDay(day: Int): LiveData<List<Lecture>>
@@ -35,7 +49,7 @@ interface SubjectDao {
     @Insert
     fun addLecture(lecture: Lecture)
     @Update
-    fun updateLecture(lecture: Lecture)
+    fun updateLectures(lectures: List<Lecture>)
     @Delete
     fun deleteLecture(lecture: Lecture)
 

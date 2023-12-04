@@ -27,6 +27,12 @@ class SubjectViewModel(val app: Application, private val repository: SubjectRepo
         }
     }
 
+    fun updateSubjectAndLectures(subject: Subject){
+        viewModelScope.launch {
+            repository.updateSubjectAndLectures(subject)
+        }
+    }
+
     fun getAllSubjectSync():List<Subject>{
         return repository.getSubjectSync()
     }

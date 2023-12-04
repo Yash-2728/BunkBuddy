@@ -15,5 +15,5 @@ data class Subject(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     var lastUpdated: String,
-    var requirement: Int
+    var requirement: Int,
 ) : Parcelable
