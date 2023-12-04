@@ -3,6 +3,7 @@ package com.example.bunkbuddy.fragments
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.PopUpToBuilder
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bunkbuddy.R
@@ -34,6 +36,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Collections
 import java.util.Locale
 
 class AllSubjectsFragment : Fragment(), subjectItemClickListener {
@@ -110,6 +113,29 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         adapter = SubjectAdapter(requireContext(), listener)
         binding.allSubjectsRcv.adapter = adapter
         binding.allSubjectsRcv.layoutManager=LinearLayoutManager(requireContext())
+        val itemTouchHelper = ItemTouchHelper(
+            object: ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT){
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    source: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val sourcePos = source.adapterPosition
+                    val desPos = target.adapterPosition
+                    adapter.swap(sourcePos, desPos)
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val pos = viewHolder.adapterPosition
+                    val subject = adapter.getAtPostion(pos)
+                    adapter.deleteAt(pos)
+                    viewModel.deleteSubject(subject)
+                }
+
+            }
+        )
+        itemTouchHelper.attachToRecyclerView(binding.allSubjectsRcv)
     }
 
     private fun showAddSubjectPopup() {
@@ -225,14 +251,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
             }
             .setDuration(300)
             .start()
-
-//        binding.searchInput.animate()
-//            .translationY(-binding.searchInput.height.toFloat())
-//            .withEndAction {
-//                binding.searchInput.visibility = View.GONE
-//            }
-//            .setDuration(300)
-//            .start()
     }
 
     private fun showViews() {
@@ -242,13 +260,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                 binding.addSubjectIv.root.visibility = View.VISIBLE
             }
             .start()
-
-//        binding.searchInput.animate()
-//            .translationY(0f)
-//            .withEndAction {
-//                binding.searchInput.visibility = View.VISIBLE
-//            }
-//            .start()
     }
 
     private fun showToast(message: String){

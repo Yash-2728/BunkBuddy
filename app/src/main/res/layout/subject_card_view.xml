@@ -42,29 +42,12 @@
                     android:layout_gravity="start"
                     android:textStyle="bold"/>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:layout_width="32sp"
-                    android:layout_height="32sp"
-                    android:src="@drawable/ic_delete"
-                    android:layout_gravity="end"
-                    android:id="@+id/delete_btn"
-
-                    android:hapticFeedbackEnabled="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:tint="@color/text_secondary"/>
-
             </LinearLayout>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:layout_marginTop="-7sp"
+                android:layout_marginTop="-4sp"
                 android:textColor="@color/text_secondary"
                 android:id="@+id/requirement_tv"
                 android:text="Requirement: 75%"/>

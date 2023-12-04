@@ -21,7 +21,9 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bunkbuddy.R
 import com.example.bunkbuddy.UI.SubjectViewModel
 import com.example.bunkbuddy.activities.MainActivity
@@ -149,6 +151,30 @@ class TimetableFragment : Fragment() {
         initViewModel.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
+
+        val itemTouchHelper = ItemTouchHelper(
+            object: ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT){
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    source: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val sourcePos = source.adapterPosition
+                    val desPos = target.adapterPosition
+                    adapter.swap(sourcePos, desPos)
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val pos = viewHolder.adapterPosition
+                    val lecture = adapter.getAtPos(pos)
+                    viewModel.deleteLecture(lecture)
+                    adapter.remove(viewHolder.adapterPosition)
+                }
+
+            }
+        )
+        itemTouchHelper.attachToRecyclerView(binding.rcv)
     }
 
     private fun selectChip(index: Int){

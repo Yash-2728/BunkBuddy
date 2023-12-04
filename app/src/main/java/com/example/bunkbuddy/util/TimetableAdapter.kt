@@ -13,17 +13,20 @@ import kotlin.math.ceil
 import android.os.Handler
 import android.os.Looper
 import android.view.ViewGroup.LayoutParams
+import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
+import java.util.Collections
 
 class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdapter.TimetableViewHolder>(){
 
-    private var list: List<Lecture> = arrayListOf()
+    private var list: ArrayList<Lecture> = arrayListOf()
     private var isFirstText = true
 
     class TimetableViewHolder(view: View): RecyclerView.ViewHolder(view){
         val subjectNameTv: TextView = view.findViewById(R.id.subject_name_tv)
         val requirementTv: TextView = view.findViewById(R.id.tt_requirement_tv)
         val remarksTv: TextView = view.findViewById(R.id.remarks_tv)
-
+        val rootView: MaterialCardView = view.findViewById(R.id.root)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimetableViewHolder {
@@ -51,6 +54,7 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
 
             if(perc>lecture.subject.requirement) {
                 remarksTv.setTextColor(context.resources.getColor(R.color.primary_blue))
+                rootView.strokeColor = context.resources.getColor(R.color.primary_blue)
                 if(isFirstText){
                     remarksTv.text = "Can Skip"
                 }
@@ -59,6 +63,7 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
                 }
             }
             else{
+                rootView.strokeColor = context.resources.getColor(R.color.red)
                 remarksTv.setTextColor(context.resources.getColor(R.color.red))
                 if(isFirstText){
                     remarksTv.text = "Cannot Skip"
@@ -69,13 +74,25 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
             }
         }
     }
+    fun remove(source: Int){
+        list.removeAt(source)
+        notifyItemChanged(source)
+    }
+    fun swap(source: Int, dest: Int){
+        Collections.swap(list, source, dest)
+        notifyItemChanged(source, dest)
+    }
+
+    fun getAtPos(pos: Int): Lecture{
+        return list[pos]
+    }
 
     fun changeText(type: Int){
         isFirstText = (type==0)
         notifyDataSetChanged()
     }
     fun setData(newList: List<Lecture>){
-        list = newList
+        list = ArrayList(newList)
         notifyDataSetChanged()
     }
 

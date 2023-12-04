@@ -37,6 +37,8 @@ class SubjectViewModel(val app: Application, private val repository: SubjectRepo
         return repository.getSubjectSync()
     }
 
+    fun deleteLecture(lecture: Lecture) = repository.deleteLecture(lecture)
+
     fun deleteSubject(subject: Subject){
         viewModelScope.launch {
             repository.deleteSubject(subject)

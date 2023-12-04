@@ -30,6 +30,9 @@ interface SubjectDao {
     @Transaction
     suspend fun updateSubjectAndLectures(subject: Subject, lectures: List<Lecture>){
         updateSubject(subject)
+        for(lecture in lectures){
+            lecture.subject = subject
+        }
         updateLectures(lectures)
     }
 
@@ -40,7 +43,7 @@ interface SubjectDao {
     }
 
     @Query("select * from lectures where subjectId= :subjectId")
-    suspend fun getLecturesForSubject(subjectId: Int): List<Lecture>
+    fun getLecturesForSubject(subjectId: Int): List<Lecture>
 
     @Query("SELECT * FROM lectures WHERE dayNumber= :day")
     fun getLecturesForDay(day: Int): LiveData<List<Lecture>>

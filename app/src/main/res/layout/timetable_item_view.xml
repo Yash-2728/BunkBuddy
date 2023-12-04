@@ -9,11 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10sp"
+        app:strokeColor="@color/primary_blue"
         app:cardBackgroundColor="@color/card_bg"
         android:layout_marginStart="16sp"
         android:layout_marginEnd="16sp"
         app:cardElevation="32sp"
-        app:strokeWidth="0sp"
+        android:id="@+id/root"
+        app:strokeWidth="1sp"
         android:layout_marginTop="6sp"
         android:elevation="32sp">
 

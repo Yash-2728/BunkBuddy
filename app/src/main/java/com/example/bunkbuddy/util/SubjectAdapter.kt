@@ -13,6 +13,7 @@ import com.example.bunkbuddy.R
 import com.example.bunkbuddy.datamodel.Subject
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.w3c.dom.Text
+import java.util.Collections
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -22,7 +23,7 @@ class SubjectAdapter(
     private val listener: subjectItemClickListener
     ): RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>() {
 
-    private var list: List<Subject> = listOf()
+    private var list: ArrayList<Subject> = arrayListOf()
 
     class SubjectViewHolder(view: View):RecyclerView.ViewHolder(view){
         val nameTv: TextView = view.findViewById(R.id.subjectName)
@@ -40,7 +41,6 @@ class SubjectAdapter(
 
         val attendanceTv: TextView = view.findViewById(R.id.percent_tv)
         val incDecLl: LinearLayout = view.findViewById(R.id.ll_with_btn)
-        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder {
@@ -75,10 +75,6 @@ class SubjectAdapter(
         holder.itemView.setOnClickListener {
             if(holder.incDecLl.visibility == View.GONE) holder.incDecLl.visibility = View.VISIBLE
             else holder.incDecLl.visibility = View.GONE
-        }
-
-        holder.deleteBtn.setOnClickListener {
-            listener.onDeleteBtnClicked(item)
         }
         holder.apply {
             nameTv.text = item.name
@@ -117,8 +113,21 @@ class SubjectAdapter(
         }
     }
 
+    fun deleteAt(pos: Int){
+        list.removeAt(pos)
+        notifyItemChanged(pos)
+    }
+    fun getAtPostion(pos: Int):Subject{
+        return list[pos]
+    }
+
+    fun swap(source: Int, dest: Int){
+        Collections.swap(list, source, dest)
+        notifyItemMoved(source, dest)
+    }
+
     fun setData(newList: List<Subject>){
-        list = newList
+        list = ArrayList(newList)
         notifyDataSetChanged()
     }
 }

@@ -39,7 +39,9 @@ class SubjectRepository(private val db: SubjectDatabase) {
     fun addLecture(lecture: Lecture) {
         dao.addLecture(lecture)
     }
-
+    fun deleteLecture(lecture: Lecture) {
+        dao.deleteLecture(lecture)
+    }
     fun getLecturesForDay(day: Int): LiveData<List<Lecture>> {
         return dao.getLecturesForDay(day)
     }
