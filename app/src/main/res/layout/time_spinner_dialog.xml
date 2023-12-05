@@ -9,12 +9,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="16sp"
-        app:cardBackgroundColor="@color/text_secondary"
+        app:cardBackgroundColor="@color/card_bg"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_height="wrap_content">
         <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:theme="@style/timePickerOrange"
             android:id="@+id/time_picker"
             android:timePickerMode="spinner"/>
     </androidx.cardview.widget.CardView>

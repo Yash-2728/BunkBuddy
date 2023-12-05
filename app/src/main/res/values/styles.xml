@@ -13,4 +13,10 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/bottom_nav_icon_text_color</item>
     </style>
+
+    <style name="timePickerOrange">
+        <item name="android:textColorPrimary">@color/text_primary</item> <!-- color for digits -->
+        <item name="android:textColor">@color/text_primary</item> <!-- color for colon -->
+        <item name="android:colorControlNormal">@color/text_secondary</item> <!-- color for (horizontal) delimeters -->
+    </style>
 </resources>
