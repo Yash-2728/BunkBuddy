@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_all_subjects" />
     <fragment
         android:id="@+id/timetableFragment"
-        android:name="com.example.bunkbuddy.fragments.TimetableFragment"
+        android:name="com.example.bunkbuddy.fragments.TimetablePresenterFragment"
         android:label="fragment_timetable"
         tools:layout="@layout/fragment_timetable" />
 </navigation>

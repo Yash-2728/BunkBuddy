@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.bunkbuddy.R
 import com.example.bunkbuddy.UI.SubjectViewModel
 import com.example.bunkbuddy.activities.MainActivity
@@ -31,28 +32,20 @@ import com.example.bunkbuddy.databinding.FragmentTimetableBinding
 import com.example.bunkbuddy.datamodel.Lecture
 import com.example.bunkbuddy.datamodel.Subject
 import com.example.bunkbuddy.util.TimetableAdapter
+import com.example.bunkbuddy.util.ViewPagerAdapter
 import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class TimetableFragment : Fragment() {
+class TimetablePresenterFragment : Fragment() {
 
     private var _binding: FragmentTimetableBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: SubjectViewModel
     private var popupWindow: PopupWindow? = null
-    private var textType = 0
-    private lateinit var adapter: TimetableAdapter
-
-    private val handler = Handler(Looper.getMainLooper())
-    private val runnable = object: Runnable{
-        override fun run() {
-            adapter.changeText(textType)
-            textType = 1 - textType
-            handler.postDelayed(this, 2000)
-        }
-    }
+    private val selectedDayLive = MutableLiveData(0)
 
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +62,6 @@ class TimetableFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        binding.chipgroup.clearCheck()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,114 +72,43 @@ class TimetableFragment : Fragment() {
 
         val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
         val chipIndex = (today+5)%7
-        selectChip(chipIndex)
-        setUpRecyclerView(chipIndex)
-        startLoop()
-        binding.mondayChip.setOnClickListener{
-            viewModel.monday.observe(viewLifecycleOwner, Observer{
-                adapter.setData(it)
-            })
-        }
-        binding.tuesdayChip.setOnClickListener {
-            viewModel.tuesday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.wednesdayChip.setOnClickListener {
-            viewModel.wednesday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.thursdayChip.setOnClickListener {
-            viewModel.thursday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.fridayChip.setOnClickListener {
-            viewModel.friday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.saturdayChip.setOnClickListener {
-            viewModel.saturday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.sundayChip.setOnClickListener {
-            viewModel.sunday.observe(viewLifecycleOwner, Observer {
-                adapter.setData(it)
-            })
-        }
-        binding.addLectureBtn.root.setOnClickListener {
-            showAddLecturePopup(list, days)
-        }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        stopLoop()
-    }
+        val adapter = ViewPagerAdapter(requireActivity(), viewModel)
 
-    private fun startLoop(){
-        handler.postDelayed(runnable, 2000)
-    }
-    private fun stopLoop(){
-        handler.removeCallbacks(runnable)
-    }
 
-    private fun setUpRecyclerView(initIndex: Int) {
-        adapter = TimetableAdapter(requireContext())
-        binding.rcv.adapter = adapter
-        binding.rcv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val initViewModel = when(initIndex){
-            0->viewModel.monday
-            1->viewModel.tuesday
-            2->viewModel.wednesday
-            3->viewModel.thursday
-            4->viewModel.friday
-            5->viewModel.saturday
-            else->viewModel.sunday
-        }
-        initViewModel.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.setCurrentItem(chipIndex, false)
+        selectedDayLive.postValue(chipIndex)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager){_, _ -> }.attach()
+
+        binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                selectedDayLive.postValue(position)
+            }
         })
 
-        val itemTouchHelper = ItemTouchHelper(
-            object: ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT){
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    source: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    val sourcePos = source.adapterPosition
-                    val desPos = target.adapterPosition
-                    adapter.swap(sourcePos, desPos)
-                    return true
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val pos = viewHolder.adapterPosition
-                    val lecture = adapter.getAtPos(pos)
-                    viewModel.deleteLecture(lecture)
-                    adapter.remove(viewHolder.adapterPosition)
-                }
-
+        selectedDayLive.observe(viewLifecycleOwner, Observer {
+            val day = when(it){
+                0->"Monday"
+                1->"Tuesday"
+                2->"Wednesday"
+                3->"Thursday"
+                4->"Friday"
+                5->"Saturday"
+                else ->"Sunday"
             }
-        )
-        itemTouchHelper.attachToRecyclerView(binding.rcv)
+            binding.selectedDayTv.text = day
+        })
+
+        binding.addLectureBtn.root.setOnClickListener { showAddLecturePopup(list, days) }
+
     }
 
-    private fun selectChip(index: Int){
-        Log.w("bunkbuddyerrorlogs", "$index ${binding.chipgroup.childCount}")
-        if(index<binding.chipgroup.childCount){
-            val chip = binding.chipgroup.getChildAt(index) as Chip
-            Log.w("bunkbuddyerrorlogs", "${chip.text}")
-            chip.isChecked = true
-            Handler().postDelayed({
-                binding.scrollView.smoothScrollTo(chip.left, 0)
-            }, 500)
-        }
-    }
 
     private fun showAddLecturePopup(subjects: List<Subject>, days: List<String>){
         val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.add_lecture_popup, null)

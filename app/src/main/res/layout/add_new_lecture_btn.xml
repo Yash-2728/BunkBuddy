@@ -14,16 +14,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="24sp"
+        app:cardCornerRadius="28sp"
         android:layout_width="wrap_content"
         app:cardBackgroundColor="@color/blue"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_marginStart="12sp"
+            android:layout_marginStart="16sp"
             android:layout_marginEnd="16sp"
-            android:layout_marginTop="12sp"
-            android:layout_marginBottom="12sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
@@ -33,14 +33,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_new_subject"
                 app:tint="@color/white" />
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_marginStart="4sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:text="New Lecture?"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
