@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/addSubjectIv"
-        layout="@layout/add_new_subject_btn"
+        layout="@layout/add_new_lecture_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
