@@ -16,13 +16,13 @@ class ViewPagerAdapter(fa: FragmentActivity, private val viewModel: SubjectViewM
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0 -> TimetableContentFragment(viewModel.monday)
-            1 -> TimetableContentFragment(viewModel.tuesday)
-            2 -> TimetableContentFragment(viewModel.wednesday)
-            3 -> TimetableContentFragment(viewModel.thursday)
-            4 -> TimetableContentFragment(viewModel.friday)
-            5 -> TimetableContentFragment(viewModel.saturday)
-            else -> TimetableContentFragment(viewModel.sunday)
+            0 -> TimetableContentFragment(viewModel.monday, viewModel)
+            1 -> TimetableContentFragment(viewModel.tuesday, viewModel)
+            2 -> TimetableContentFragment(viewModel.wednesday, viewModel)
+            3 -> TimetableContentFragment(viewModel.thursday, viewModel)
+            4 -> TimetableContentFragment(viewModel.friday, viewModel)
+            5 -> TimetableContentFragment(viewModel.saturday, viewModel)
+            else -> TimetableContentFragment(viewModel.sunday, viewModel)
         }
     }
 }

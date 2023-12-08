@@ -74,6 +74,10 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
             }
         }
     }
+    fun addItem(item: Lecture, pos: Int){
+        list.add(pos, item)
+        notifyItemChanged(pos)
+    }
     fun remove(source: Int){
         list.removeAt(source)
         notifyItemChanged(source)

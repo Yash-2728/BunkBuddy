@@ -113,6 +113,11 @@ class SubjectAdapter(
         }
     }
 
+    fun addItem(subject: Subject, pos: Int){
+        list.add(pos, subject)
+        notifyItemChanged(pos)
+    }
+
     fun deleteAt(pos: Int){
         list.removeAt(pos)
         notifyItemChanged(pos)

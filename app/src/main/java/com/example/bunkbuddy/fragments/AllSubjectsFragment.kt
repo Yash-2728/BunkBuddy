@@ -1,6 +1,7 @@
 package com.example.bunkbuddy.fragments
 
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,7 @@ import com.example.bunkbuddy.databinding.FragmentAllSubjectsBinding
 import com.example.bunkbuddy.datamodel.Subject
 import com.example.bunkbuddy.util.SubjectAdapter
 import com.example.bunkbuddy.util.subjectItemClickListener
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -109,6 +111,23 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         binding.currentDateTv.text = date
     }
 
+    private fun showUndoSnackbar(deletedItem: Subject, position: Int) {
+        val snackbar = Snackbar.make(
+            requireView(),
+            "Subject deleted",
+            Snackbar.LENGTH_LONG
+        )
+
+        snackbar.setAction("Undo") {
+            undoDelete(deletedItem, position)
+        }
+
+        snackbar.show()
+    }
+    private fun undoDelete(deletedItem: Subject, position: Int) {
+        viewModel.addSubject(deletedItem)
+        adapter.addItem(deletedItem, position)
+    }
     private fun setUpRecyclerView() {
         adapter = SubjectAdapter(requireContext(), listener)
         binding.allSubjectsRcv.adapter = adapter
@@ -131,6 +150,8 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                     val subject = adapter.getAtPostion(pos)
                     adapter.deleteAt(pos)
                     viewModel.deleteSubject(subject)
+                    showUndoSnackbar(subject, pos)
+
                 }
 
             }
@@ -276,6 +297,10 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
 
     override fun onDeleteBtnClicked(subject: Subject) {
         viewModel.deleteSubject(subject)
+        val dayAndDate = getDayAndDate()
+        editor.putString("last_updated_date", dayAndDate[1])
+        editor.putString("last_updated_time", dayAndDate[0])
+        updateDateAndTime(getDayAndDate())
     }
 
     private fun Int.toPercent(a: Int): String{
