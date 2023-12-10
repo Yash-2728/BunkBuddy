@@ -3,6 +3,7 @@ package com.example.bunkbuddy.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +63,7 @@ class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, pr
         setUpRecyclerView()
         lectures.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
+            binding.sizeTv.text = "Showing ${it.size} results"
         })
     }
 

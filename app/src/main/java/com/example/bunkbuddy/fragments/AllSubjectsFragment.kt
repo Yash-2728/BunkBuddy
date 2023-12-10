@@ -182,12 +182,15 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         val requirement = MutableLiveData(75)
         val addBtnState = MutableLiveData(false)
 
+
         addBtnState.observe(viewLifecycleOwner, Observer {
             addBtn.isEnabled = it
+            if(addBtn.isEnabled) addBtn.setTextColor(resources.getColor(R.color.primary_blue))
+            else addBtn.setTextColor(resources.getColor(R.color.text_secondary))
         })
 
         subjectNameEdtxt.addTextChangedListener {
-            if(it.isNullOrEmpty()){
+            if(it.toString().isEmpty()){
                 addBtnState.postValue(false)
             }
             else addBtnState.postValue(attended.value!!+missed.value!!>0)
@@ -196,11 +199,13 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
 
         attended.observe(viewLifecycleOwner, Observer {
             if(it>0 && !subjectNameEdtxt.text.isNullOrEmpty()) addBtnState.postValue(true)
+            else if(it==0) addBtnState.postValue(missed.value!=0)
             attendedTv.text = it.toString()
         })
 
         missed.observe(viewLifecycleOwner, Observer {
             if(it>0 && !subjectNameEdtxt.text.isNullOrEmpty()) addBtnState.postValue(true)
+            else if(it==0) addBtnState.postValue(attended.value!=0)
             missedClassTv.text = it.toString()
         })
 
@@ -240,6 +245,8 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                 if(req>0) requirement.postValue(req.minus(5))
             }
         }
+
+        addBtnState.postValue(false)
 
         popUpWindow = PopupWindow(
             popUpView,

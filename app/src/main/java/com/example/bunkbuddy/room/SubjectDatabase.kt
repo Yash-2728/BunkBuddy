@@ -19,8 +19,8 @@ abstract class SubjectDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: SubjectDatabase? = null
 
-        fun getDatabase(context: Context): SubjectDatabase{
-            if(INSTANCE!=null) return INSTANCE!!
+        fun getDatabase(context: Context): SubjectDatabase {
+            if(INSTANCE !=null) return INSTANCE!!
 
             val instance = Room.databaseBuilder(
                 context.applicationContext,
