@@ -1,4 +1,4 @@
-# RepoSpect
+# BunkBuddy
 ## Overview
 Native android application built with Kotlin and XML to keep track of attendance.
 ## Features
