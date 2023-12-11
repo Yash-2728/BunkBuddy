@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BunkBuddy"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.tejasdev.bunkbuddy.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.tejasdev.bunkbuddy.activities.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"/>
     </application>

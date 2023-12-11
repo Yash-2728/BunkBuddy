@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.bunkbuddy'
+    namespace 'com.tejasdev.bunkbuddy'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.bunkbuddy"
+        applicationId "com.tejasdev.bunkbuddy"
         minSdk 24
         targetSdk 34
         versionCode 1

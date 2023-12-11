@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/allSubjectsFragment"
-        android:name="com.example.bunkbuddy.fragments.AllSubjectsFragment"
+        android:name="com.tejasdev.bunkbuddy.fragments.AllSubjectsFragment"
         android:label="fragment_all_subjects"
         tools:layout="@layout/fragment_all_subjects" />
     <fragment
         android:id="@+id/timetableFragment"
-        android:name="com.example.bunkbuddy.fragments.TimetablePresenterFragment"
+        android:name="com.tejasdev.bunkbuddy.fragments.TimetablePresenterFragment"
         android:label="fragment_timetable"
         tools:layout="@layout/fragment_timetable" />
 </navigation>
