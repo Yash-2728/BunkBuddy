@@ -76,11 +76,11 @@ class TimetableAdapter(val context: Context): RecyclerView.Adapter<TimetableAdap
     }
     fun addItem(item: Lecture, pos: Int){
         list.add(pos, item)
-        notifyItemChanged(pos)
+        notifyDataSetChanged()
     }
     fun remove(source: Int){
         list.removeAt(source)
-        notifyItemChanged(source)
+        notifyDataSetChanged()
     }
     fun swap(source: Int, dest: Int){
         Collections.swap(list, source, dest)

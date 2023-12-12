@@ -1,5 +1,6 @@
 package com.tejasdev.bunkbuddy.util
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.Fragment
@@ -15,14 +16,10 @@ class ViewPagerAdapter(fa: FragmentActivity, private val viewModel: SubjectViewM
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0 -> TimetableContentFragment(viewModel.monday, viewModel)
-            1 -> TimetableContentFragment(viewModel.tuesday, viewModel)
-            2 -> TimetableContentFragment(viewModel.wednesday, viewModel)
-            3 -> TimetableContentFragment(viewModel.thursday, viewModel)
-            4 -> TimetableContentFragment(viewModel.friday, viewModel)
-            5 -> TimetableContentFragment(viewModel.saturday, viewModel)
-            else -> TimetableContentFragment(viewModel.sunday, viewModel)
-        }
+        val fragment = TimetableContentFragment()
+        val args = Bundle()
+        args.putInt("dayNumber", position)
+        fragment.arguments = args
+        return fragment
     }
 }

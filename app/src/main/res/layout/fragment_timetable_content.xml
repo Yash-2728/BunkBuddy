@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    style="@style/ScreenBackground"
     tools:context="com.tejasdev.bunkbuddy.fragments.TimetableContentFragment">
 
     <com.google.android.material.textview.MaterialTextView
@@ -18,6 +19,7 @@
         android:layout_marginTop="20sp"
         android:layout_width="match_parent"
         android:id="@+id/timetableContentRcv"
+
         tools:listitem="@layout/timetable_item_view"
         android:layout_height="match_parent"/>
 </LinearLayout>

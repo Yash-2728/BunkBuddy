@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,13 +20,17 @@ import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.TimetableAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.tejasdev.bunkbuddy.activities.MainActivity
 
-class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, private val viewModel: SubjectViewModel) : Fragment() {
+class TimetableContentFragment() : Fragment() {
 
     private var _binding: FragmentTimetableContentBinding? = null
     private val binding get()=_binding!!
     private lateinit var adapter: TimetableAdapter
     private var textType = 0
+    private lateinit var viewModel: SubjectViewModel
+    private lateinit var lectures: LiveData<List<Lecture>>
+    private var dayNumber: Int = 0
 
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object: Runnable{
@@ -47,7 +52,9 @@ class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, pr
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {}
+        arguments?.let {
+            dayNumber = it.getInt("dayNumber")
+        }
     }
 
     override fun onCreateView(
@@ -60,11 +67,25 @@ class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, pr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        instantiateViewmodel()
         setUpRecyclerView()
         lectures.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
             binding.sizeTv.text = "Showing ${it.size} results"
         })
+    }
+
+    private fun instantiateViewmodel() {
+        viewModel = (activity as MainActivity).viewModel
+        lectures = when(dayNumber){
+            0-> viewModel.monday
+            1-> viewModel.tuesday
+            2-> viewModel.wednesday
+            3-> viewModel.thursday
+            4-> viewModel.friday
+            5-> viewModel.saturday
+            else -> viewModel.sunday
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -89,7 +110,6 @@ class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, pr
                     val pos = viewHolder.adapterPosition
                     val lecture = adapter.getAtPos(pos)
                     adapter.remove(pos)
-                    viewModel.deleteLecture(lecture)
                     showUndoSnackbar(lecture, pos)
 
                 }
@@ -109,10 +129,17 @@ class TimetableContentFragment(private val lectures: LiveData<List<Lecture>>, pr
             undoDelete(deletedItem, position)
         }
 
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                if (event != DISMISS_EVENT_ACTION) {
+                    viewModel.deleteLecture(deletedItem)
+                }
+            }
+        })
+
         snackbar.show()
     }
     private fun undoDelete(deletedItem: Lecture, position: Int) {
-        viewModel.addLecture(deletedItem)
         adapter.addItem(deletedItem, position)
     }
 }

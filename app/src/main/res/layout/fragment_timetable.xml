@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    style="@style/ScreenBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.tejasdev.bunkbuddy.fragments.TimetablePresenterFragment">
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        style="@style/HeadingText"
         android:layout_marginTop="32sp"
         android:id="@+id/selectedDayTv"
         app:layout_constraintBottom_toTopOf="@id/viewPager"
@@ -39,18 +39,19 @@
         app:layout_constraintTop_toBottomOf="@id/selectedDayTv"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/viewPager"
+        style="@style/ScreenBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tabLayout"
         app:layout_constrainedHeight="true"/>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
-        android:backgroundTint="@color/black"
+        style="@style/TabLayoutStyle"
         app:tabIndicatorHeight="0sp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/viewPager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/tabLayout"/>

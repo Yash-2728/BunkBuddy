@@ -22,17 +22,24 @@
         app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/nav_graph" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5sp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        android:background="@color/text_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/BottomNavStyle"
         android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/white"
         app:menu="@menu/bottom_nav_menu"
         android:id="@+id/bottomNav"
-        android:background="@color/black"
         app:itemActiveIndicatorStyle="@color/primary_blue"
-        app:itemIconSize="24sp"
+        app:itemIconSize="20sp"
         app:itemIconTint="@color/bottom_nav_icon_text_color"
         app:itemTextColor="@color/bottom_nav_icon_text_color"
         android:layout_height="60sp"/>

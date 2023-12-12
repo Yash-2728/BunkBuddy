@@ -3,8 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardBackgroundColor="@color/black"
+        style="@style/PopUpCardView"
         app:cardCornerRadius="16sp"
+        android:elevation="32sp"
         android:layout_marginBottom="-17sp"
         android:layout_height="match_parent">
         <LinearLayout
@@ -16,8 +17,8 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:text="Add Lecture"
+                style="@style/HeadingText"
                 android:textAlignment="center"
-                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_marginTop="16sp"
@@ -33,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/text_primary"
                     android:textStyle="bold"
                     android:text="Select a subject"/>
                 <Space
@@ -45,7 +45,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:boxBackgroundColor="@color/card_bg"
                     app:boxCornerRadiusBottomEnd="8sp"
                     app:boxCornerRadiusBottomStart="8sp"
                     app:boxCornerRadiusTopStart="8sp"
@@ -54,20 +53,20 @@
                     app:boxStrokeWidth="0sp"
                     app:boxStrokeWidthFocused="0dp"
                     android:layout_marginStart="32sp"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    style="@style/TextInput"
+                    app:endIconDrawable="@drawable/ic_drop_down"
+                    app:endIconMode="dropdown_menu"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="wrap_content"
                         android:id="@+id/autoCompleteSubject"
+                        android:drawablePadding="-15sp"
                         android:textColor="@color/primary_blue"
-                        app:dropDownBackgroundTint="@color/card_bg"
                         android:dropDownHeight="wrap_content"
                         android:inputType="none"
+                        android:paddingStart="12sp"
                         android:text="@string/subject"
-                        android:paddingTop="0sp"
-                        android:paddingBottom="0sp"
-                        android:drawablePadding="-20sp"
                         android:layout_weight="1"
                         android:layout_height="35sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -84,7 +83,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/text_primary"
                     android:textStyle="bold"
                     android:text="Select a day"/>
                 <Space
@@ -97,7 +95,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:boxBackgroundColor="@color/card_bg"
                     app:boxCornerRadiusBottomEnd="8sp"
                     app:boxCornerRadiusBottomStart="8sp"
                     app:boxCornerRadiusTopStart="8sp"
@@ -106,17 +103,18 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     android:layout_marginStart="32sp"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    style="@style/TextInput"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:endIconMode="dropdown_menu"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="wrap_content"
                         android:id="@+id/autoCompleteDay"
+                        android:paddingStart="12sp"
                         android:textColor="@color/primary_blue"
                         android:inputType="none"
                         android:text="@string/day"
                         android:paddingTop="0sp"
-                        app:dropDownBackgroundTint="@color/card_bg"
                         android:dropDownHeight="wrap_content"
                         android:paddingBottom="0sp"
                         android:drawablePadding="-20sp"
@@ -135,7 +133,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/text_primary"
                     android:textStyle="bold"
                     android:text="Start time"/>
                 <Space
@@ -148,7 +145,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     app:cardCornerRadius="8sp"
                     android:id="@+id/start_time_card"
-                    app:cardBackgroundColor="@color/card_bg"
+                    style="@style/TimeCardView"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -157,7 +154,7 @@
                         android:layout_marginTop="6sp"
                         android:layout_marginBottom="6sp"
                         android:text="PlaceHolder"
-                        android:textColor="@color/white"
+                        style="@style/HeadingText"
                         android:textAlignment="center"
                         android:layout_marginEnd="12sp"
                         android:id="@+id/start_time_tv"/>
@@ -173,7 +170,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/text_primary"
                     android:textStyle="bold"
                     android:text="End time"/>
                 <Space
@@ -185,7 +181,7 @@
                     android:layout_width="wrap_content"
                     app:cardCornerRadius="8sp"
                     android:background="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/card_bg"
+                    style="@style/TimeCardView"
                     android:id="@+id/end_time_card"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textview.MaterialTextView
@@ -197,7 +193,7 @@
                         android:id="@+id/end_time_tv"
                         android:text="PlaceHolder"
                         android:layout_marginEnd="12sp"
-                        android:textColor="@color/white"
+                        style="@style/HeadingText"
                         android:textAlignment="center" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -216,7 +212,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginEnd="20sp"
-                    android:backgroundTint="@color/card_bg"
+                    style="@style/Button"
                     app:cornerRadius="10sp"
                     />
 
@@ -229,7 +225,7 @@
                     android:textColor="@color/primary_blue"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:backgroundTint="@color/card_bg"
+                    style="@style/Button"
                     app:cornerRadius="10sp"
                     />
             </LinearLayout>

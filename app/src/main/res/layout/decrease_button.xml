@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="16sp"
-    app:cardBackgroundColor="@color/gray"
+    style="@style/IncDecButtonStyle"
     app:cardCornerRadius="18sp">
 
     <LinearLayout

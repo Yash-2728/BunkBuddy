@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#DA2C43</color>
+<!--    red and blue color remain constant throughout -->
     <color name="blue">#1560BD</color>
-<!--    <color name="card_color">#1b263b</color>-->
-    <color name="bg_color">#212529</color>
-    <color name="card_color">#343a40</color>
+    <color name="red">#DA2C43</color>
 
-<!--    Dark Mode-->
-    <color name="gray">#383838</color>
+<!--    item view card color in dark and light mode -->
+    <color name="card_bg_light">#EDEDED</color>
     <color name="card_bg">#242222</color>
+
+<!--    Background colors -->
+    <color name="background_color_light">#FFFFFF</color>
+    <color name="background_color">#000000</color>
+
+    <color name="gray">#383838</color>
+
     <color name="primary_blue">#007aff</color>
     <color name="text_primary">#717171</color>
     <color name="text_secondary">#8d8d8d</color>
