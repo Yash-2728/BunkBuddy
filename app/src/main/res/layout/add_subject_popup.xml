@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     app:cardCornerRadius="30sp"
     android:elevation="32dp"
-    app:cardBackgroundColor="@color/black"
+    style="@style/PopUpCardView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
@@ -21,7 +21,7 @@
         android:id="@+id/subjectNameTv"
         android:textStyle="bold"
         android:layout_marginTop="32sp"
-        android:textColor="@color/white"
+        style="@style/HeadingText"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
@@ -202,7 +202,7 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginEnd="20sp"
-            android:backgroundTint="@color/card_bg"
+            style="@style/Button"
             app:cornerRadius="10sp"
             />
         <com.google.android.material.button.MaterialButton
@@ -214,7 +214,7 @@
             android:textColor="@color/primary_blue"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:backgroundTint="@color/card_bg"
+            style="@style/Button"
             app:cornerRadius="10sp"
             />
 

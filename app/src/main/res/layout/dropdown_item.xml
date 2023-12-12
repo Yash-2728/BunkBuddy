@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10sp"
-    android:background="@color/card_bg"
+    style="@style/DropdownItem"
     android:text="PlaceHolder"
     android:id="@+id/textView"
     android:textSize="14sp"

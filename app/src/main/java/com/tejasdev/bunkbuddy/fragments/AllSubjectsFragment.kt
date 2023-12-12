@@ -51,6 +51,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     private lateinit var adapter: SubjectAdapter
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private var isDarkTheme: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +84,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
             binding.lastUpdatedTv.text = "Last updated on $lastUpdatedDate at $lastUpdatedTime"
         }
 
+
         setUpRecyclerView()
         val dayAndDate = getDayAndDate()
         setCurrentDate(dayAndDate[1])
@@ -94,6 +96,9 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
 
         binding.addSubjectIv.root.setOnClickListener {
             showAddSubjectPopup()
+        }
+        binding.changeTheme.setOnClickListener {
+            (activity as MainActivity).changeTheme()
         }
 
         binding.allSubjectsRcv.addOnScrollListener(object: RecyclerView.OnScrollListener() {

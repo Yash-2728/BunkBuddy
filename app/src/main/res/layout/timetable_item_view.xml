@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10sp"
-        app:strokeColor="@color/primary_blue"
-        app:cardBackgroundColor="@color/card_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16sp"
-        android:layout_marginEnd="16sp"
-        app:cardElevation="32sp"
         android:id="@+id/root"
-        app:strokeWidth="1sp"
+        style="@style/TimeCardView"
+        android:layout_marginEnd="16sp"
         android:layout_marginTop="6sp"
-        android:elevation="32sp">
+        android:layout_marginBottom="6sp"
+        android:elevation="30sp"
+        android:layout_height="wrap_content"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="hello"
-                android:textColor="@color/white"
+                style="@style/HeadingText"
                 android:textSize="20sp"
                 android:maxLines="1"
                 android:textStyle="bold"
@@ -61,7 +66,7 @@
                 android:id="@+id/tt_requirement_tv"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!--<androidx.constraintlayout.widget.ConstraintLayout-->

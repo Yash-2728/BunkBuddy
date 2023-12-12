@@ -1,8 +1,41 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.BunkBuddy" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.BunkBuddy" parent="Base.Theme.BunkBuddy" />
+    <style name="ScreenBackground">
+        <item name="android:background">@color/background_color_light</item>
+    </style>
+    <style name="CardBackGroundColor">
+        <item name="cardBackgroundColor">@color/background_color_light</item>
+    </style>
+    <style name="HeadingText">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TabLayoutStyle">
+        <item name="android:backgroundTint">@color/background_color_light</item>
+    </style>
+    <style name="IncDecButtonStyle">
+        <item name="cardBackgroundColor">@color/card_bg_light</item>
+    </style>
+    <style name="BottomNavStyle">
+        <item name="backgroundTint">@color/background_color_light</item>
+    </style>
+    <style name="TextInput">
+        <item name="boxBackgroundColor">@color/card_bg_light</item>
+    </style>
+    <style name="PopUpCardView">
+        <item name="cardBackgroundColor">@color/background_color_light</item>
+    </style>
+    <style name="Button">
+        <item name="backgroundTint">@color/card_bg_light</item>
+    </style>
+    <style name="DropdownItem">
+        <item name="background">@color/card_bg_light</item>
+    </style>
+    <style name="TimeCardView">
+        <item name="cardBackgroundColor">@color/card_bg_light</item>
+    </style>
 </resources>
