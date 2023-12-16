@@ -36,5 +36,13 @@
     <style name="DropdownItem">
         <item name="background">@color/card_bg</item>
     </style>
+    <style name="ToolbarIcon">
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="switchStyle" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="track">@color/text_primary</item>
+        <item name="android:thumb">@drawable/switch_thumb_dark</item>
+    </style>
+
 
 </resources>
