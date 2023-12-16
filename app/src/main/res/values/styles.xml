@@ -18,4 +18,13 @@
         <item name="android:textColor">@color/text_primary</item> <!-- color for colon -->
         <item name="android:colorControlNormal">@color/text_secondary</item> <!-- color for (horizontal) delimeters -->
     </style>
+
+    <style name="cardShapeOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">32sp</item>
+        <item name="cornerSizeTopRight">32sp</item>
+    </style>
+    <style name="circularImageView">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

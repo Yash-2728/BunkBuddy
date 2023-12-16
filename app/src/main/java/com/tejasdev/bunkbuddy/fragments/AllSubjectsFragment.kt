@@ -1,28 +1,22 @@
 package com.tejasdev.bunkbuddy.fragments
 
 import android.content.SharedPreferences
-import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.PopUpToBuilder
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,10 +29,7 @@ import com.tejasdev.bunkbuddy.util.SubjectAdapter
 import com.tejasdev.bunkbuddy.util.subjectItemClickListener
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
-import java.util.Collections
 import java.util.Locale
 
 class AllSubjectsFragment : Fragment(), subjectItemClickListener {
@@ -96,9 +87,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
 
         binding.addSubjectIv.root.setOnClickListener {
             showAddSubjectPopup()
-        }
-        binding.changeTheme.setOnClickListener {
-            (activity as MainActivity).changeTheme()
         }
 
         binding.allSubjectsRcv.addOnScrollListener(object: RecyclerView.OnScrollListener() {

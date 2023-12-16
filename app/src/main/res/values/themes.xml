@@ -38,4 +38,11 @@
     <style name="TimeCardView">
         <item name="cardBackgroundColor">@color/card_bg_light</item>
     </style>
+    <style name="ToolbarIcon">
+        <item name="tint">@color/black</item>
+    </style>
+    <style name="switchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="track">@color/white</item>
+        <item name="android:thumb">@drawable/switch_thumb_light</item>
+    </style>
 </resources>

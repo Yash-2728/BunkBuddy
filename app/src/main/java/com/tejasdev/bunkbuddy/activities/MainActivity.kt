@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: SubjectViewModel
     private lateinit var navController: NavController
     private var isDarkTheme = true
+    private lateinit var gestureDetector:GestureDetector
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,13 +38,65 @@ class MainActivity : AppCompatActivity() {
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         isDarkTheme = sharedPreferences.getBoolean("dark_mode", true)
+        binding.themeSwitch.isChecked = isDarkTheme
         applyTheme()
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
+
+        gestureDetector = GestureDetector(this, object: GestureDetector.SimpleOnGestureListener(){
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if((e1?.x ?: 0f) < (e2.x ?: 0f)){
+                    binding.drawerLayout.openDrawer(GravityCompat.START)
+                    return true
+                }
+                else if((e1?.x?:0f) > (e2.x ?:0f)){
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    return true
+                }
+                return super.onFling(e1, e2, velocityX, velocityY)
+            }
+        })
+        binding.llForLogout.setOnClickListener {
+            logOut()
+        }
+        binding.llForAccount.setOnClickListener {
+            navigateToAccountActivity()
+        }
+        binding.llForAbout.setOnClickListener {
+            showAbout()
+        }
+        binding.llForPrivacy.setOnClickListener {
+            showPrivacyPolicy()
+        }
+        binding.themeSwitch.setOnCheckedChangeListener { _, _ ->
+            changeTheme()
+        }
     }
+
+    private fun showAbout() {
+        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+    }
+    private fun showPrivacyPolicy(){
+        Toast.makeText(this, "Privacy Policy", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToAccountActivity() {
+        Toast.makeText(this, "Account and Backup", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun logOut() {
+        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+    }
+
+
     private fun applyTheme(){
         if(isDarkTheme){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -51,7 +107,6 @@ class MainActivity : AppCompatActivity() {
     }
     fun changeTheme(){
         isDarkTheme = !isDarkTheme
-        Toast.makeText(this@MainActivity, "$isDarkTheme", Toast.LENGTH_SHORT).show()
         val editor = sharedPreferences.edit()
         editor.putBoolean("dark_mode", isDarkTheme)
         editor.apply()
