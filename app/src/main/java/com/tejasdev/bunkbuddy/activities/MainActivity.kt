@@ -1,7 +1,9 @@
 package com.tejasdev.bunkbuddy.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
@@ -9,14 +11,12 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
-import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
 
@@ -74,11 +74,17 @@ class MainActivity : AppCompatActivity() {
             showAbout()
         }
         binding.llForPrivacy.setOnClickListener {
-            showPrivacyPolicy()
+            openPrivacyPage()
         }
         binding.themeSwitch.setOnCheckedChangeListener { _, _ ->
             changeTheme()
         }
+    }
+
+    private fun openPrivacyPage() {
+        val uri = Uri.parse(PRIVACY_POLICY_LINK)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
     private fun showAbout() {
@@ -111,5 +117,8 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean("dark_mode", isDarkTheme)
         editor.apply()
         applyTheme()
+    }
+    companion object{
+        val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
     }
 }

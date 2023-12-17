@@ -65,31 +65,37 @@
                 app:trackThickness="20sp"
                 android:id="@+id/subjectProgress"/>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:textStyle="bold"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8sp"
-                android:textColor="@color/text_primary"
-                android:id="@+id/attended_tv"
-                android:text="Attended: 32"/>
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="2sp"
-                android:textColor="@color/text_primary"
-                android:id="@+id/missed_tv"
-                android:text="Missed: 32"/>
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginTop="2sp"
-                android:id="@+id/total_tv"
-                android:text="Total: 64"/>
-
+                android:orientation="vertical"
+                android:id="@+id/ll_extra"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textview.MaterialTextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8sp"
+                    android:textColor="@color/text_primary"
+                    android:id="@+id/attended_tv"
+                    android:text="Attended: 32"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2sp"
+                    android:textColor="@color/text_primary"
+                    android:id="@+id/missed_tv"
+                    android:text="Missed: 32"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="2sp"
+                    android:id="@+id/total_tv"
+                    android:text="Total: 64"/>
+            </LinearLayout>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

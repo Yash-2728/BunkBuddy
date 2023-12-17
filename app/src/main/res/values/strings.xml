@@ -28,6 +28,19 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="about">About</string>
     <string name="logout">Logout</string>
+    <string name="password">Password</string>
+    <string name="email_hint">abc@xyz.com</string>
+    <string name="dot_dot_dot_dot">•••••••••</string>
+    <string name="enter">Enter</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register_now">Register Now</string>
+    <string name="log_in">Log In</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_username">Create Username</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="already_registered">Already Registered?</string>
     <string-array name="days">
         <item>Monday</item>
         <item>Tuesday</item>
