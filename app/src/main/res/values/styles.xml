@@ -27,4 +27,9 @@
     <style name="circularImageView">
         <item name="cornerSize">50%</item>
     </style>
+    <style name="buttonStyle">
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerSizeTopRight">25%</item>
+        <item name="cornerSizeBottomLeft">25%</item>
+    </style>
 </resources>

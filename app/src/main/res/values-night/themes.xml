@@ -1,5 +1,5 @@
 <resources>
-    <style name="Base.Theme.BunkBuddy" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.BunkBuddy" parent="Theme.Material3.DayNight">
         <item name="android:statusBarColor">@color/black</item>
     </style>
 

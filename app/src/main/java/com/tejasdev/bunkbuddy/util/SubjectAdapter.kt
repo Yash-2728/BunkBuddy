@@ -80,7 +80,9 @@ class SubjectAdapter(
             nameTv.text = item.name
             missedClasTv.text = "Missed ${item.missed}"
             attendedClassTv.text ="Attended ${item.attended}"
-            requirementTv.text = "Requirement: ${item.requirement.toString()}%"
+            requirementTv.text = "Requirement: ${item.requirement}%"
+            attendedClassTv.visibility = View.VISIBLE
+            totalTv.visibility = View.VISIBLE
 
             val missed = item.missed.toDouble()
             val attended = item.attended.toDouble()

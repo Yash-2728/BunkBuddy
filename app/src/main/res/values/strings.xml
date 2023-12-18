@@ -41,6 +41,7 @@
     <string name="create_username">Create Username</string>
     <string name="verify_password">Verify Password</string>
     <string name="already_registered">Already Registered?</string>
+    <string name="eg_sebastian_stan">eg: Sebastian Stan</string>
     <string-array name="days">
         <item>Monday</item>
         <item>Tuesday</item>

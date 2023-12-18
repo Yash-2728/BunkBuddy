@@ -332,6 +332,10 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         updateSubject(subject)
     }
     override fun onDecreaseAttendenceBtnClicked(subject: Subject) {
+        if(subject.attended==0) {
+            showSnackbar("Attendance classes cannot be less than 0")
+            return
+        }
         val dayAndDate = getDayAndDate()
         editor.putString("last_updated_date", dayAndDate[1])
         editor.putString("last_updated_time", dayAndDate[0])
@@ -352,7 +356,14 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         updateSubject(subject)
         editor
     }
+    private fun showSnackbar(message: String){
+        Snackbar.make(requireView(), message, 200).show()
+    }
     override fun onDecreaseMissedBtnClicked(subject: Subject) {
+        if(subject.missed==0) {
+            showSnackbar("Missed classes cannot be less than 0")
+            return
+        }
         val dayAndDate = getDayAndDate()
         editor.putString("last_updated_date", dayAndDate[1])
         editor.putString("last_updated_time", dayAndDate[0])

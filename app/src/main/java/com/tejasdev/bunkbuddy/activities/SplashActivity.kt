@@ -7,15 +7,15 @@ import android.os.Handler
 import android.widget.TextView
 import com.tejasdev.bunkbuddy.R
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        supportActionBar?.hide()
+
         val tv = findViewById<TextView>(R.id.textView)
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            nextActivity()
         }, 3000)
 
         val slogan = "Attendance tracking made easy!"
@@ -31,5 +31,10 @@ class SplashActivity : AppCompatActivity() {
             }
         }.start()
 
+    }
+    private fun nextActivity(){
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

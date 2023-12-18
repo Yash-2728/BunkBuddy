@@ -51,7 +51,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="300sp"
         android:layout_height="match_parent"
         android:id="@+id/drawer"
         style="@style/ScreenBackground"
@@ -89,8 +89,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/emailTv"
                 android:layout_marginStart="24sp"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="15sp"
                 android:textColor="@color/white"
                 android:layout_marginBottom="16sp"/>
         </LinearLayout>
@@ -112,8 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:text="@string/account"/>
         </LinearLayout>
         <View
@@ -136,10 +134,9 @@
                 android:layout_height="32sp"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:text="@string/privacy_policy"/>
         </LinearLayout>
         <View
@@ -163,9 +160,8 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_marginStart="8sp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:text="@string/about"/>
         </LinearLayout>
         <View
@@ -183,14 +179,14 @@
             android:layout_height="wrap_content">
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="32sp"
+                android:layout_marginStart="4sp"
                 android:src="@drawable/ic_logout"
                 android:layout_height="32sp"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_marginStart="8sp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:text="@string/logout"/>
         </LinearLayout>
         <View
@@ -205,7 +201,7 @@
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:layout_width="wrap_content"
-            android:layout_marginStart="12sp"
+            android:layout_marginStart="20sp"
             android:text="@string/dark_theme"
             android:textStyle="bold"
             android:id="@+id/theme_switch"

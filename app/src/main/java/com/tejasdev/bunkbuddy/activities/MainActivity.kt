@@ -8,13 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.R
+import com.tejasdev.bunkbuddy.UI.AuthViewmodel
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private var isDarkTheme = true
     private lateinit var gestureDetector:GestureDetector
+    private lateinit var authViewModel: AuthViewmodel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,11 +46,13 @@ class MainActivity : AppCompatActivity() {
         binding.themeSwitch.isChecked = isDarkTheme
         applyTheme()
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
 
+        authViewModel = AuthViewmodel(application, this)
         gestureDetector = GestureDetector(this, object: GestureDetector.SimpleOnGestureListener(){
             override fun onFling(
                 e1: MotionEvent?,
@@ -64,8 +71,9 @@ class MainActivity : AppCompatActivity() {
                 return super.onFling(e1, e2, velocityX, velocityY)
             }
         })
+        setUpDrawerLayout()
         binding.llForLogout.setOnClickListener {
-            logOut()
+            logOut(it)
         }
         binding.llForAccount.setOnClickListener {
             navigateToAccountActivity()
@@ -81,6 +89,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUpDrawerLayout(){
+        if(authViewModel.isLogin()){
+            binding.usernameTv.text = authViewModel.getUserName()
+            binding.emailTv.text = authViewModel.getEmail()
+        }
+    }
     private fun openPrivacyPage() {
         val uri = Uri.parse(PRIVACY_POLICY_LINK)
         val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -98,10 +112,20 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Account and Backup", Toast.LENGTH_SHORT).show()
     }
 
-    private fun logOut() {
-        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+    private fun logOut(view: View) {
+        if(authViewModel.isLogin()){
+            authViewModel.signOut()
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+        }
+        else{
+            showSnackbar("Could't find logged in user", view)
+        }
     }
 
+    private fun showSnackbar(message: String, view: View){
+        Snackbar.make(view, message, 200).show()
+    }
 
     private fun applyTheme(){
         if(isDarkTheme){
