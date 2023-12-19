@@ -61,12 +61,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:paddingBottom="16sp"
             android:background="@drawable/drawer_head_bg"
             android:layout_height="wrap_content">
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="120sp"
                 android:src="@drawable/noprofile"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:layout_marginStart="12sp"
                 android:id="@+id/userImageIv"
                 android:layout_marginTop="20sp"
@@ -91,7 +92,7 @@
                 android:layout_marginStart="24sp"
                 android:textSize="15sp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="16sp"/>
+                android:layout_marginTop="2sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -179,14 +180,15 @@
             android:layout_height="wrap_content">
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="32sp"
-                android:layout_marginStart="4sp"
                 android:src="@drawable/ic_logout"
+                android:id="@+id/auth_icon"
                 android:layout_height="32sp"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
                 android:textSize="14sp"
+                android:id="@+id/auth_tv"
                 android:text="@string/logout"/>
         </LinearLayout>
         <View

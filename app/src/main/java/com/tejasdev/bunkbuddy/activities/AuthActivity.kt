@@ -23,7 +23,7 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = AuthViewmodel(application, this)
-        if(viewModel.isLogin()){
+        if(viewModel.isLogin() || viewModel.isSkipped()){
             moveToMainActivity()
         }
         _binding = ActivityAuthBinding.inflate(layoutInflater)

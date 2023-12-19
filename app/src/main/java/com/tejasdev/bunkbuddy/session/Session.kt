@@ -2,6 +2,7 @@ package com.tejasdev.bunkbuddy.session
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import com.tejasdev.bunkbuddy.activities.AuthActivity
 
 class Session private constructor(context: Context){
@@ -16,13 +17,26 @@ class Session private constructor(context: Context){
         return sharedPref.getBoolean(IS_LOGIN, false)
     }
 
+    fun loginSkipped(){
+        editor.putBoolean(LOGIN_SKIPPED, true);
+        editor.apply()
+    }
+    fun loginNotSkipped(){
+        editor.putBoolean(LOGIN_SKIPPED, false)
+        editor.apply()
+    }
+    fun isSkipped(): Boolean{
+        return sharedPref.getBoolean(LOGIN_SKIPPED, false)
+    }
+
     fun getUserId(): String{
         return sharedPref.getString(USER_ID, "")?: ""
     }
 
-    fun createSession(username: String, email: String, userId: String){
+    fun createSession(username: String, email: String, userId: String, image: String){
         editor.putString(USERNAME, username)
         editor.putString(EMAIL, email)
+        editor.putString(IMAGE, image)
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(USER_ID, userId)
         editor.apply()
@@ -40,6 +54,7 @@ class Session private constructor(context: Context){
 
 
     fun getUserImage(): Uri {
+        Log.w("image-upload", sharedPref.getString(IMAGE, "")!!)
         return Uri.parse(sharedPref.getString(IMAGE, ""))
     }
 
@@ -65,7 +80,7 @@ class Session private constructor(context: Context){
         const val USER_ID = "userid"
         const val USERNAME = "username"
         const val EMAIL = "useremail"
-        const val PASSWORD = "password"
         const val IMAGE = "image"
+        const val LOGIN_SKIPPED = "login_skipped"
     }
 }

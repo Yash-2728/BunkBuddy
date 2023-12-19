@@ -17,7 +17,8 @@ interface AuthAPI {
     fun signupUser(
         @Query("name") name: String,
         @Query("email") email: String,
-        @Query("password") password: String
+        @Query("password") password: String,
+        @Query("image") image: String
     ): Call<User>
 
     @POST("/update-profile-picture")

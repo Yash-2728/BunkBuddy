@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.UI.AuthViewmodel
@@ -71,6 +73,16 @@ class MainActivity : AppCompatActivity() {
                 return super.onFling(e1, e2, velocityX, velocityY)
             }
         })
+        if(authViewModel.isLogin()) {
+            binding.authTv.text = "Logout"
+            binding.authIcon.setImageDrawable(resources.getDrawable(R.drawable.ic_logout))
+        }
+        else if(authViewModel.isSkipped()) {
+            binding.authTv.text = "Login"
+            binding.authIcon.setImageDrawable(resources.getDrawable(R.drawable.ic_login))
+        }
+
+
         setUpDrawerLayout()
         binding.llForLogout.setOnClickListener {
             logOut(it)
@@ -91,8 +103,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpDrawerLayout(){
         if(authViewModel.isLogin()){
+            Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
+            Log.w("image-upload", authViewModel.getUserImage().toString())
             binding.usernameTv.text = authViewModel.getUserName()
             binding.emailTv.text = authViewModel.getEmail()
+        }
+        else {
+            binding.userImageIv.setImageDrawable(resources.getDrawable(R.drawable.default_profile))
+            binding.usernameTv.text = "Guest"
+            binding.emailTv.visibility = View.GONE
         }
     }
     private fun openPrivacyPage() {
@@ -115,6 +134,11 @@ class MainActivity : AppCompatActivity() {
     private fun logOut(view: View) {
         if(authViewModel.isLogin()){
             authViewModel.signOut()
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+        }
+        else if(authViewModel.isSkipped()) {
+            authViewModel.markLoginNotSkipped()
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
@@ -143,6 +167,6 @@ class MainActivity : AppCompatActivity() {
         applyTheme()
     }
     companion object{
-        val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
+        const val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
     }
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.R
@@ -26,6 +27,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewmodel
     private lateinit var sharedPref: SharedPreferences
+    private var enterBtnState: MutableLiveData<Boolean> = MutableLiveData(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,22 +51,41 @@ class LoginFragment : Fragment() {
         sharedPref = requireActivity().getSharedPreferences(AuthActivity.SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
         binding.skipBtn.root.setOnClickListener {
-            moveToMainActivity()
+            viewModel.markLoginSkipped()
+            nextActivity()
         }
 
         binding.enterBtn.setOnClickListener {
-            val email = binding.emailTextEdit.text.toString()
-            val password = binding.passwordTextEdit.text.toString()
-            if(checkCredentials(email, password)){
-                   viewModel.loginUser(email, password){ user, message ->
-                       if(user==null) showSnackbar(message?:"Unknown error")
-                       else {
-                           createSesssion(user)
-                           nextActivity()
-                       }
-                   }
+            if(enterBtnState.value!!){
+                val email = binding.emailTextEdit.text.toString()
+                val password = binding.passwordTextEdit.text.toString()
+                if(checkCredentials(email, password)){
+                    showProgressBar()
+                    viewModel.loginUser(email, password){ user, message ->
+                        if(user==null) {
+                            hideProgressBar()
+                            showSnackbar(message ?: "Unknown error")
+                        }
+                        else {
+                            createSesssion(user)
+                            viewModel.markLoginNotSkipped()
+                            nextActivity()
+                        }
+                    }
+                }
             }
         }
+
+    }
+    private fun showProgressBar(){
+        enterBtnState.postValue(false)
+        binding.progressBar.visibility = View.VISIBLE
+        binding.btnText.text = ""
+    }
+    private fun hideProgressBar(){
+        enterBtnState.postValue(true)
+        binding.progressBar.visibility = View.GONE
+        binding.btnText.text = "Enter"
     }
     private fun nextActivity(){
         val isFirstTime = sharedPref.getBoolean("isFirstTime", true)

@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
+import android.util.Log
 
 import androidx.lifecycle.AndroidViewModel
 import com.tejasdev.bunkbuddy.datamodel.User
@@ -24,6 +25,16 @@ class AuthViewmodel(
     fun updateImage(image: String){
         session.updateUserImage(image)
     }
+
+    fun markLoginSkipped(){
+        session.loginSkipped()
+    }
+
+    fun isSkipped(): Boolean = session.isSkipped()
+
+    fun markLoginNotSkipped(){
+        session.loginNotSkipped()
+    }
     fun updateUserName(username: String) {
         session.updateUserName(username)
     }
@@ -31,8 +42,9 @@ class AuthViewmodel(
     fun isLogin():Boolean = session.isLogin()
 
     fun createSession(user: User){
+        Log.w("image-upload", "session create : ${user.image}")
         user.apply {
-            session.createSession(name, email, id)
+            session.createSession(name, email, id, image)
         }
     }
 
@@ -50,8 +62,8 @@ class AuthViewmodel(
        session.signOut()
    }
 
-    fun signupUser(email: String, name: String, password: String, callback: (User?, String?)->Unit){
-        repo.signup(name, email, password){user, message ->
+    fun signupUser(email: String, name: String, password: String, image: String, callback: (User?, String?)->Unit){
+        repo.signup(name, email, password, image){user, message ->
             callback(user, message)
         }
     }

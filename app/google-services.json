@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994364080223",
+    "project_id": "bunkbuddy-d8b96",
+    "storage_bucket": "bunkbuddy-d8b96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994364080223:android:87f0380881b2ed63269bea",
+        "android_client_info": {
+          "package_name": "com.tejasdev.bunkbuddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbwXFMIrAGfXxqVEsNM9PGqJU4xys0Rkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

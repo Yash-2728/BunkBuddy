@@ -108,8 +108,8 @@ class AuthRepository(private val context: Context){
         })
     }
 
-    fun signup(name: String, email: String, password: String, callback: (User?, String?)-> Unit){
-        val call = retrofit.api.signupUser(name, email, password)
+    fun signup(name: String, email: String, password: String, image: String, callback: (User?, String?)-> Unit){
+        val call = retrofit.api.signupUser(name, email, password, image)
 
         call.enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

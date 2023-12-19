@@ -14,14 +14,29 @@
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_height="wrap_content">
+            <ProgressBar
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:visibility="gone"
+                android:elevation="12sp"
+                android:id="@+id/progress_bar"
+                android:progressTint="@color/white"
+                app:layout_constraintTop_toTopOf="@id/enter_btn"
+                app:layout_constraintBottom_toBottomOf="@id/enter_btn"
+                app:layout_constraintStart_toStartOf="@id/enter_btn"
+                app:layout_constraintEnd_toEndOf="@id/enter_btn"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:gravity="end"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/ll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content">
                 <include layout="@layout/skip_button"
                     android:id="@+id/skip_btn"
@@ -33,29 +48,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/log_in"
+                android:id="@+id/heading"
+                app:layout_constraintTop_toBottomOf="@id/ll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 app:fontFamily="sans-serif-black"
-                android:textSize="40sp"/>
+                android:textSize="32sp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/heading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/white"
+                android:id="@+id/email_static"
                 android:textStyle="bold"
                 android:layout_marginStart="4sp"
                 android:layout_marginTop="24sp"
                 android:text="@string/email"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8sp"
+                android:layout_marginTop="4sp"
                 android:layout_width="match_parent"
                 android:textColorHint="@color/white"
                 app:boxStrokeWidth="1dp"
                 app:boxCornerRadiusTopEnd="12sp"
+                app:boxStrokeWidthFocused="2sp"
                 app:boxCornerRadiusTopStart="12sp"
+                app:layout_constraintTop_toBottomOf="@id/email_static"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:boxCornerRadiusBottomStart="12sp"
+                app:hintEnabled="false"
+                app:boxStrokeColor="@color/primary_blue"
                 app:boxCornerRadiusBottomEnd="12sp"
                 android:elevation="32dp"
                 android:id="@+id/email_text_input"
@@ -67,8 +96,9 @@
                     app:boxCornerRadiusTopStart="12dp"
                     android:id="@+id/email_text_edit"
                     android:textColor="@color/white"
-                    android:hint="@string/email_hint"
-                    android:inputType="text"
+                    android:hint="@string/abc_xyz_com"
+                    android:textColorHint="@color/text_primary"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -79,23 +109,35 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/email_text_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/password_static"
                 android:textStyle="bold"
                 android:layout_marginStart="4sp"
-                android:layout_marginTop="24sp"
+                android:layout_marginTop="16sp"
                 android:text="@string/password"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8sp"
+                android:layout_marginTop="4sp"
                 android:layout_width="match_parent"
                 android:textColorHint="@color/white"
                 app:boxStrokeWidth="1dp"
                 app:boxCornerRadiusTopEnd="12sp"
+                app:layout_constraintTop_toBottomOf="@id/password_static"
+                app:boxStrokeWidthFocused="2sp"
                 app:boxCornerRadiusTopStart="12sp"
                 app:boxCornerRadiusBottomStart="12sp"
+                app:hintEnabled="false"
+                app:boxStrokeColor="@color/primary_blue"
                 app:boxCornerRadiusBottomEnd="12sp"
                 android:elevation="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:passwordToggleTint="@color/text_primary"
+                app:passwordToggleEnabled="true"
                 android:id="@+id/password_text_input"
                 app:boxBackgroundColor="@color/card_bg"
                 android:layout_height="wrap_content">
@@ -105,8 +147,9 @@
                     app:boxCornerRadiusTopStart="12dp"
                     android:id="@+id/password_text_edit"
                     android:textColor="@color/white"
-                    android:hint="@string/dot_dot_dot_dot"
-                    android:inputType="text"
+                    android:hint="@string/abc_xyz_com"
+                    android:textColorHint="@color/text_primary"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
                     app:boxCornerRadiusBottomStart="12dp"
@@ -118,6 +161,9 @@
                 android:layout_width="match_parent"
                 app:strokeWidth="0dp"
                 android:id="@+id/enter_btn"
+                app:layout_constraintTop_toBottomOf="@id/password_text_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="32sp"
                 app:cardCornerRadius="12sp"
                 android:layout_height="50sp">
@@ -132,6 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enter"
+                        android:id="@+id/btn_text"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/white"/>
@@ -143,8 +190,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="20sp"
+                app:layout_constraintTop_toBottomOf="@id/enter_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textAlignment="center"
                 android:textSize="16sp"
+                android:id="@+id/footer_tv1"
                 android:text="@string/don_t_have_an_account"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -153,11 +204,14 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@id/footer_tv1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:focusable="true"
                 android:id="@+id/sign_up_tv"
                 android:textSize="16sp"
                 android:text="@string/register_now"/>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 
