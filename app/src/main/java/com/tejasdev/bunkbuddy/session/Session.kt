@@ -29,16 +29,23 @@ class Session private constructor(context: Context){
         return sharedPref.getBoolean(LOGIN_SKIPPED, false)
     }
 
+    fun getPassword(): String = sharedPref.getString(PASSWORD, "")!!
     fun getUserId(): String{
         return sharedPref.getString(USER_ID, "")?: ""
     }
 
-    fun createSession(username: String, email: String, userId: String, image: String){
+    fun createSession(username: String, email: String, userId: String, image: String, password: String){
         editor.putString(USERNAME, username)
         editor.putString(EMAIL, email)
         editor.putString(IMAGE, image)
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(USER_ID, userId)
+        editor.putString(PASSWORD, password)
+        editor.apply()
+    }
+
+    fun updatePassword(newPassword: String){
+        editor.putString(PASSWORD, newPassword)
         editor.apply()
     }
 
@@ -82,5 +89,6 @@ class Session private constructor(context: Context){
         const val EMAIL = "useremail"
         const val IMAGE = "image"
         const val LOGIN_SKIPPED = "login_skipped"
+        const val PASSWORD = "password"
     }
 }

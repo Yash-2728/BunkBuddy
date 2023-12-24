@@ -80,8 +80,9 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         val dayAndDate = getDayAndDate()
         setCurrentDate(dayAndDate[1])
         viewModel.savedSubjects.observe(viewLifecycleOwner, Observer {
-            it?.let{list->
+            it?.let{ list->
                 adapter.setData(list)
+                binding.subjectCountTv.text = "${list.size} subject"
             }
         })
 
@@ -115,10 +116,25 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
             undoDelete(deletedItem, position)
         }
 
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT ||
+                    event == Snackbar.Callback.DISMISS_EVENT_SWIPE ||
+                    event == Snackbar.Callback.DISMISS_EVENT_MANUAL
+                ) {
+                    viewModel.deleteSubject(deletedItem)
+                }
+            }
+
+            override fun onShown(sb: Snackbar?){
+                super.onShown(sb)
+            }
+        })
+
         snackbar.show()
     }
     private fun undoDelete(deletedItem: Subject, position: Int) {
-        viewModel.addSubject(deletedItem)
         adapter.addItem(deletedItem, position)
     }
     private fun setUpRecyclerView() {
@@ -142,7 +158,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                     val pos = viewHolder.adapterPosition
                     val subject = adapter.getAtPostion(pos)
                     adapter.deleteAt(pos)
-                    viewModel.deleteSubject(subject)
                     showUndoSnackbar(subject, pos)
 
                 }
@@ -265,6 +280,14 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     }
 
     private fun hideViews() {
+        binding.subjectCountCard.animate()
+            .translationY(binding.subjectCountCard.height.toFloat())
+            .withEndAction{
+                binding.subjectCountCard.visibility = View.GONE
+            }
+            .setDuration(300)
+            .start()
+
         binding.addSubjectIv.root.animate()
             .translationY(binding.addSubjectIv.root.height.toFloat())
             .withEndAction {
@@ -275,6 +298,13 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     }
 
     private fun showViews() {
+        binding.subjectCountCard.animate()
+            .translationY(0f)
+            .withEndAction {
+                binding.subjectCountCard.visibility = View.VISIBLE
+            }
+            .start()
+
         binding.addSubjectIv.root.animate()
             .translationY(0f)
             .withEndAction {

@@ -1,6 +1,7 @@
 package com.tejasdev.bunkbuddy.util
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,26 +112,24 @@ class SubjectAdapter(
                 else "Must attend $shouldAttend class"
                 remarks.text = remarksText
             }
-
         }
     }
 
     fun addItem(subject: Subject, pos: Int){
         list.add(pos, subject)
-        notifyItemChanged(pos)
+        notifyDataSetChanged()
     }
-
     fun deleteAt(pos: Int){
+        Log.w("delete-issue", "list: ${list.size} pos: $pos")
         list.removeAt(pos)
-        notifyItemChanged(pos)
+        notifyDataSetChanged()
     }
     fun getAtPostion(pos: Int): Subject {
         return list[pos]
     }
-
     fun swap(source: Int, dest: Int){
         Collections.swap(list, source, dest)
-        notifyItemMoved(source, dest)
+        notifyDataSetChanged()
     }
 
     fun setData(newList: List<Subject>){

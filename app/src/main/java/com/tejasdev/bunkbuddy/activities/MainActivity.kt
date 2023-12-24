@@ -3,6 +3,7 @@ package com.tejasdev.bunkbuddy.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -87,9 +88,6 @@ class MainActivity : AppCompatActivity() {
         binding.llForLogout.setOnClickListener {
             logOut(it)
         }
-        binding.llForAccount.setOnClickListener {
-            navigateToAccountActivity()
-        }
         binding.llForAbout.setOnClickListener {
             showAbout()
         }
@@ -103,8 +101,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpDrawerLayout(){
         if(authViewModel.isLogin()){
-            Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
-            Log.w("image-upload", authViewModel.getUserImage().toString())
+            if(authViewModel.hasInternetConnection()){
+                Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
+            }
+            else showSnackbar(binding.userImageIv,"Couldn't load image")
+
             binding.usernameTv.text = authViewModel.getUserName()
             binding.emailTv.text = authViewModel.getEmail()
         }
@@ -121,7 +122,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAbout() {
-        Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+        val version = getAppVersion(applicationContext)
+        Toast.makeText(this, "Bunkbuddy $version", Toast.LENGTH_SHORT).show()
+    }
+    private fun getAppVersion(context: Context): String {
+        try {
+            val packageManager: PackageManager = context.packageManager
+            val packageName: String = context.packageName
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            return packageInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return "Unknown"
     }
     private fun showPrivacyPolicy(){
         Toast.makeText(this, "Privacy Policy", Toast.LENGTH_SHORT).show()
@@ -143,12 +156,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         else{
-            showSnackbar("Could't find logged in user", view)
+            showSnackbar(view,"Could't find logged in user")
         }
     }
 
-    private fun showSnackbar(message: String, view: View){
-        Snackbar.make(view, message, 200).show()
+    private fun showSnackbar(view: View, message: String){
+        Snackbar.make(view, message, 1000).show()
     }
 
     private fun applyTheme(){

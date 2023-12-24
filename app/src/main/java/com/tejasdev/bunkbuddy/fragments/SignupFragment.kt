@@ -66,18 +66,23 @@ class SignupFragment : Fragment() {
             nextActivity()
         }
         binding.enterBtn.setOnClickListener {
-            if(enterBtnState.value!!) {
-                val name = binding.usernameTextEdit.text.toString()
-                val email = binding.emailTextEdit.text.toString()
-                val password = binding.passwordTextEdit.text.toString()
-                val vpassword = binding.vPasswordTextEdit.text.toString()
-                if(checkCredentials(name, email, password, vpassword)){
-                    showProgressBar()
-                    uploadImage {
-                        SignupUser(name, email, password, it.toString())
-                    }
+            if(viewModel.hasInternetConnection()){
+                if(enterBtnState.value!!) {
+                    val name = binding.usernameTextEdit.text.toString()
+                    val email = binding.emailTextEdit.text.toString()
+                    val password = binding.passwordTextEdit.text.toString()
+                    val vpassword = binding.vPasswordTextEdit.text.toString()
+                    if(checkCredentials(name, email, password, vpassword)){
+                        showProgressBar()
+                        uploadImage {
+                            SignupUser(name, email, password, it.toString())
+                        }
 
+                    }
                 }
+            }
+            else{
+                showSnackbar("Internet unavailable")
             }
         }
         binding.editImageIv.setOnClickListener {

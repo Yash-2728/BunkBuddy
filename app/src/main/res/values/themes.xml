@@ -45,4 +45,7 @@
         <item name="track">@color/white</item>
         <item name="android:thumb">@drawable/switch_thumb_light</item>
     </style>
+    <style name="subjectCountStyle">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
 </resources>

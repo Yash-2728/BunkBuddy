@@ -26,6 +26,9 @@ class AuthViewmodel(
         session.updateUserImage(image)
     }
 
+    fun updatePassword(newPass: String) = session.updatePassword(newPass)
+    fun getPassword(): String = session.getPassword()
+
     fun markLoginSkipped(){
         session.loginSkipped()
     }
@@ -44,7 +47,7 @@ class AuthViewmodel(
     fun createSession(user: User){
         Log.w("image-upload", "session create : ${user.image}")
         user.apply {
-            session.createSession(name, email, id, image)
+            session.createSession(name, email, id, image, password)
         }
     }
 

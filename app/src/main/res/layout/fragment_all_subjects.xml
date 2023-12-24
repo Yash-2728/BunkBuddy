@@ -57,6 +57,33 @@
             android:layout_marginStart="1sp"
             android:textColor="@color/text_secondary"/>
     </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        style="@style/subjectCountStyle"
+        app:cardCornerRadius="12sp"
+        app:cardElevation="64sp"
+        android:id="@+id/subject_count_card"
+        android:layout_height="wrap_content"
+        app:strokeWidth="0.5sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12sp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/subject_count_root"
+            android:paddingStart="12sp"
+            android:paddingEnd="12sp"
+            android:paddingTop="6sp"
+            android:paddingBottom="6sp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/subject_count_tv"
+                android:text="0 subjects" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 <!--    <com.google.android.material.textfield.TextInputLayout-->
 <!--        android:layout_width="match_parent"-->

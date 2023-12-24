@@ -194,8 +194,8 @@
 <!--            android:backgroundTint="@color/blue"-->
 <!--            app:cornerRadius="12sp"/>-->
         <com.google.android.material.button.MaterialButton
-            android:layout_width="100sp"
-            android:layout_height="47sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/cancelBtn"
             android:textColor="@color/red"
@@ -206,8 +206,8 @@
             app:cornerRadius="10sp"
             />
         <com.google.android.material.button.MaterialButton
-            android:layout_width="100sp"
-            android:layout_height="47sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
             android:text="Add"
             android:id="@+id/addSubjectBtn"

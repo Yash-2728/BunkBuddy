@@ -44,5 +44,9 @@
         <item name="android:thumb">@drawable/switch_thumb_dark</item>
     </style>
 
+    <style name="subjectCountStyle">
+        <item name="cardBackgroundColor">@color/black</item>
+    </style>
+
 
 </resources>

@@ -56,24 +56,27 @@ class LoginFragment : Fragment() {
         }
 
         binding.enterBtn.setOnClickListener {
-            if(enterBtnState.value!!){
-                val email = binding.emailTextEdit.text.toString()
-                val password = binding.passwordTextEdit.text.toString()
-                if(checkCredentials(email, password)){
-                    showProgressBar()
-                    viewModel.loginUser(email, password){ user, message ->
-                        if(user==null) {
-                            hideProgressBar()
-                            showSnackbar(message ?: "Unknown error")
-                        }
-                        else {
-                            createSesssion(user)
-                            viewModel.markLoginNotSkipped()
-                            nextActivity()
+            if(viewModel.hasInternetConnection()){
+                if(enterBtnState.value!!){
+                    val email = binding.emailTextEdit.text.toString()
+                    val password = binding.passwordTextEdit.text.toString()
+                    if(checkCredentials(email, password)){
+                        showProgressBar()
+                        viewModel.loginUser(email, password){ user, message ->
+                            if(user==null) {
+                                hideProgressBar()
+                                showSnackbar(message ?: "Unknown error")
+                            }
+                            else {
+                                createSesssion(user)
+                                viewModel.markLoginNotSkipped()
+                                nextActivity()
+                            }
                         }
                     }
                 }
             }
+            else showSnackbar("Internet not available")
         }
 
     }
