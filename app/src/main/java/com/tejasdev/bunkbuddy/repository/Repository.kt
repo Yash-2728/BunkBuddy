@@ -32,12 +32,15 @@ class SubjectRepository(private val db: SubjectDatabase) {
         dao.deleteSubject(subject)
     }
 
+    fun getAllLectures(): List<Lecture>{
+        return dao.getAllLectures()
+    }
     fun updateSubject(subject: Subject){
         dao.updateSubject(subject)
     }
 
-    fun addLecture(lecture: Lecture) {
-        dao.addLecture(lecture)
+    fun addLecture(lecture: Lecture):Int {
+        return dao.addLecture(lecture).toInt()
     }
     fun deleteLecture(lecture: Lecture) {
         dao.deleteLecture(lecture)

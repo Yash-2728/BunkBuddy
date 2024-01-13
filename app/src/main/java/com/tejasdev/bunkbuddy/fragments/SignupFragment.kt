@@ -74,10 +74,14 @@ class SignupFragment : Fragment() {
                     val vpassword = binding.vPasswordTextEdit.text.toString()
                     if(checkCredentials(name, email, password, vpassword)){
                         showProgressBar()
-                        uploadImage {
-                            SignupUser(name, email, password, it.toString())
+                        if(userImageUri == Uri.parse("")){
+                            SignupUser(name, email, password, "")
                         }
-
+                        else{
+                            uploadImage {
+                                SignupUser(name, email, password, it.toString())
+                            }
+                        }
                     }
                 }
             }

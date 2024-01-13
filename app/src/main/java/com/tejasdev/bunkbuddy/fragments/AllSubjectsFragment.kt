@@ -28,6 +28,7 @@ import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.SubjectAdapter
 import com.tejasdev.bunkbuddy.util.subjectItemClickListener
 import com.google.android.material.snackbar.Snackbar
+import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -42,7 +43,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     private lateinit var adapter: SubjectAdapter
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    private var isDarkTheme: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         this.also { listener = it }
         viewModel = (activity as MainActivity).viewModel
-
         sharedPreference = (activity as MainActivity).sharedPreferences
         editor = sharedPreference.edit()
         val lastUpdatedDate = sharedPreference.getString("last_updated_date", "")
