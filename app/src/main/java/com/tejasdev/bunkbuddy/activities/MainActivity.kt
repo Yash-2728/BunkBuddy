@@ -1,61 +1,221 @@
 package com.tejasdev.bunkbuddy.activities
 
+import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.tejasdev.bunkbuddy.AlarmReceiver
 import com.tejasdev.bunkbuddy.R
+import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import com.tejasdev.bunkbuddy.UI.AuthViewmodel
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
+import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
 
 class MainActivity : AppCompatActivity() {
+    private val     NOTIFICATION_PERMISSION_REQUEST_CODE = 123
     private var _binding: ActivityMainBinding? = null
     private val binding get()=_binding!!
     lateinit var sharedPreferences: SharedPreferences
     lateinit var viewModel: SubjectViewModel
     private lateinit var navController: NavController
-    private var isDarkTheme = true
+    var isDarkTheme = true
+    var isNotificationEnabled = false
     private lateinit var gestureDetector:GestureDetector
     private lateinit var authViewModel: AuthViewmodel
+    private lateinit var editor: SharedPreferences.Editor
+    lateinit var alarmViewModel: AlarmViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val db = SubjectDatabase.getDatabase(this)
-        val repository = SubjectRepository(db)
-        viewModel = SubjectViewModel(application, repository)
-        sharedPreferences = this.getSharedPreferences("BunkBuddySharedPref", Context.MODE_PRIVATE)
-
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        isDarkTheme = sharedPreferences.getBoolean("dark_mode", true)
-        binding.themeSwitch.isChecked = isDarkTheme
-        applyTheme()
         setContentView(binding.root)
         supportActionBar?.hide()
-
+        setUpAlarmViewModel()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
+        setUpSubjectViewModel()
+        setUpSharedPref()
+        setUpSwitchWithFeatureFlags()
+        checkNotificationSettings()
+        applyTheme()
+        setUpAuthViewModel()
+        setUpDrawerLayout()
+        binding.llForLogout.setOnClickListener {
+            logOut(it)
+        }
+        binding.llForAbout.setOnClickListener {
+            showAbout()
+        }
+        binding.llForPrivacy.setOnClickListener {
+            openPrivacyPage()
+        }
+        binding.themeSwitch.setOnCheckedChangeListener { _, _ ->
+            changeTheme()
+        }
 
+        binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) scheduleAlarms()
+            else removeScheduledAlarms()
+        }
+    }
+
+    private fun setUpAuthViewModel() {
         authViewModel = AuthViewmodel(application, this)
+
+        if(authViewModel.isLogin()) {
+            binding.authTv.text = getString(R.string.logout)
+            binding.authIcon.setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.ic_logout
+                )
+            )
+        }
+        else if(authViewModel.isSkipped()) {
+            binding.authTv.text = getString(R.string.log_in)
+            binding.authIcon.setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.ic_login
+                )
+            )
+        }
+    }
+
+    private fun setUpAlarmViewModel() {
+        alarmViewModel = AlarmViewModel(application)
+    }
+
+    private fun setUpSwitchWithFeatureFlags() {
+        isDarkTheme = sharedPreferences.getBoolean(DARK_MODE_ENABLED, true)
+        isNotificationEnabled = sharedPreferences.getBoolean(NOTIFICATION_ENABLED, false)
+        binding.themeSwitch.isChecked = isDarkTheme
+        binding.notificationSwitch.isChecked = isNotificationEnabled
+    }
+
+    private fun setUpSharedPref() {
+        sharedPreferences = this.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+    }
+
+    private fun setUpSubjectViewModel() {
+        val db = SubjectDatabase.getDatabase(this)
+        val repository = SubjectRepository(db)
+        viewModel = SubjectViewModel(application, repository)
+    }
+
+    private fun removeScheduledAlarms() {
+        val lectures = viewModel.getAllLecturesSync()
+        changeNotificationSwitchState()
+        for(lecture in lectures){
+            alarmViewModel.cancelAlarm(lecture)
+        }
+    }
+
+    private fun changeNotificationSwitchState() {
+        isNotificationEnabled = !isNotificationEnabled
+        editor.putBoolean(NOTIFICATION_ENABLED, isNotificationEnabled)
+        binding.notificationSwitch.isChecked = isNotificationEnabled
+        editor.apply()
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            val channel = NotificationChannel(
+                AlarmReceiver.NOTIFICATION_CHANNEL_ID,
+                AlarmReceiver.NOTIFICATION_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+
+            channel.enableVibration(true)
+            val manager = this.getSystemService(
+                NotificationManager::class.java
+            )
+            manager.createNotificationChannel(channel)
+        }
+    }
+    private fun scheduleAlarms() {
+        val lectures = viewModel.getAllLecturesSync()
+        changeNotificationSwitchState()
+        createNotificationChannel()
+        for(lecture in lectures){
+            val perc = getAttendancePerc(lecture)
+            if(perc<lecture.subject.requirement){
+                alarmViewModel.setAlarm(lecture)
+            }
+        }
+    }
+
+    private fun getAttendancePerc(lecture: Lecture): Double {
+        return ((lecture.subject.attended.toDouble()).div(lecture.subject.attended.toDouble() + lecture.subject.missed.toDouble()))*100
+    }
+
+    private fun checkNotificationSettings(){
+        if(!isNotificationPermissionGranted(this)){
+            requestNotificationPermission(this)
+        }
+    }
+
+    private fun requestNotificationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
+            activity.startActivityForResult(intent, NOTIFICATION_PERMISSION_REQUEST_CODE)
+        } else {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", activity.packageName, null)
+            intent.data = uri
+            activity.startActivityForResult(intent, NOTIFICATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            binding.notificationSwitch.isClickable = isNotificationPermissionGranted(this)
+        }
+    }
+    private fun isNotificationPermissionGranted(context: Context): Boolean {
+        val notificationManager = NotificationManagerCompat.from(context)
+        return notificationManager.areNotificationsEnabled()
+    }
+
+    private fun setUpDrawerLayout(){
+        if(authViewModel.isLogin()){
+            if(authViewModel.hasInternetConnection()){
+                Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
+            }
+            else showSnackbar(binding.userImageIv,"Couldn't load image")
+
+            binding.usernameTv.text = authViewModel.getUserName()
+            binding.emailTv.text = authViewModel.getEmail()
+        }
+        else {
+            binding.userImageIv.setImageDrawable(resources.getDrawable(R.drawable.default_profile))
+            binding.usernameTv.text = "Guest"
+            binding.emailTv.visibility = View.GONE
+        }
+
         gestureDetector = GestureDetector(this, object: GestureDetector.SimpleOnGestureListener(){
             override fun onFling(
                 e1: MotionEvent?,
@@ -74,46 +234,6 @@ class MainActivity : AppCompatActivity() {
                 return super.onFling(e1, e2, velocityX, velocityY)
             }
         })
-        if(authViewModel.isLogin()) {
-            binding.authTv.text = "Logout"
-            binding.authIcon.setImageDrawable(resources.getDrawable(R.drawable.ic_logout))
-        }
-        else if(authViewModel.isSkipped()) {
-            binding.authTv.text = "Login"
-            binding.authIcon.setImageDrawable(resources.getDrawable(R.drawable.ic_login))
-        }
-
-
-        setUpDrawerLayout()
-        binding.llForLogout.setOnClickListener {
-            logOut(it)
-        }
-        binding.llForAbout.setOnClickListener {
-            showAbout()
-        }
-        binding.llForPrivacy.setOnClickListener {
-            openPrivacyPage()
-        }
-        binding.themeSwitch.setOnCheckedChangeListener { _, _ ->
-            changeTheme()
-        }
-    }
-
-    private fun setUpDrawerLayout(){
-        if(authViewModel.isLogin()){
-            if(authViewModel.hasInternetConnection()){
-                Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
-            }
-            else showSnackbar(binding.userImageIv,"Couldn't load image")
-
-            binding.usernameTv.text = authViewModel.getUserName()
-            binding.emailTv.text = authViewModel.getEmail()
-        }
-        else {
-            binding.userImageIv.setImageDrawable(resources.getDrawable(R.drawable.default_profile))
-            binding.usernameTv.text = "Guest"
-            binding.emailTv.visibility = View.GONE
-        }
     }
     private fun openPrivacyPage() {
         val uri = Uri.parse(PRIVACY_POLICY_LINK)
@@ -135,13 +255,6 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return "Unknown"
-    }
-    private fun showPrivacyPolicy(){
-        Toast.makeText(this, "Privacy Policy", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun navigateToAccountActivity() {
-        Toast.makeText(this, "Account and Backup", Toast.LENGTH_SHORT).show()
     }
 
     private fun logOut(view: View) {
@@ -172,14 +285,17 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
-    fun changeTheme(){
+    private fun changeTheme(){
         isDarkTheme = !isDarkTheme
         val editor = sharedPreferences.edit()
-        editor.putBoolean("dark_mode", isDarkTheme)
+        editor.putBoolean(DARK_MODE_ENABLED, isDarkTheme)
         editor.apply()
         applyTheme()
     }
     companion object{
         const val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
+        const val SHARED_PREF = "BunkBuddySharedPref"
+        const val DARK_MODE_ENABLED = "dark_mode"
+        const val NOTIFICATION_ENABLED = "notification_enabled"
     }
 }

@@ -35,6 +35,7 @@ import com.tejasdev.bunkbuddy.util.TimetableAdapter
 import com.tejasdev.bunkbuddy.util.ViewPagerAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayoutMediator
+import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -46,6 +47,7 @@ class TimetablePresenterFragment : Fragment() {
     private lateinit var viewModel: SubjectViewModel
     private var popupWindow: PopupWindow? = null
     private val selectedDayLive = MutableLiveData(0)
+    private lateinit var alarmViewModel: AlarmViewModel
 
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +69,7 @@ class TimetablePresenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
+        alarmViewModel = (activity as MainActivity).alarmViewModel
         val list = viewModel.getAllSubjectSync()
         val days = resources.getStringArray(R.array.days).toList()
 
@@ -235,16 +238,18 @@ class TimetablePresenterFragment : Fragment() {
             SimpleDateFormat("d MMM yyyy", Locale.US).format(currentDate)
         )
     }
-
     private fun addLecture(
         dayNumber:Int,
         subject: Subject,
         start: String,
-        end: String){
-
+        end: String
+    ){
         val lecture = Lecture(dayNumber, subject, start, end, 0, subject.id)
-        viewModel.addLecture(lecture)
-
+        val id = viewModel.addLecture(lecture)
+        lecture.pid = id
+        val notificationEnabled = (activity as MainActivity).isNotificationEnabled
+        if(notificationEnabled){
+            alarmViewModel.setAlarm(lecture)
+        }
     }
-
 }

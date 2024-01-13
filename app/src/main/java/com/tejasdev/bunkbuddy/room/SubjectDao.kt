@@ -48,9 +48,9 @@ interface SubjectDao {
     @Query("SELECT * FROM lectures WHERE dayNumber= :day")
     fun getLecturesForDay(day: Int): LiveData<List<Lecture>>
     @Query("SELECT * FROM lectures")
-    fun getAllLectures(): LiveData<List<Lecture>>
+    fun getAllLectures(): List<Lecture>
     @Insert
-    fun addLecture(lecture: Lecture)
+    fun addLecture(lecture: Lecture): Long
     @Update
     fun updateLectures(lectures: List<Lecture>)
     @Delete

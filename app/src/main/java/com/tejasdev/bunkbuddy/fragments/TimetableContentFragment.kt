@@ -20,6 +20,7 @@ import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.TimetableAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import com.tejasdev.bunkbuddy.activities.MainActivity
 
 class TimetableContentFragment() : Fragment() {
@@ -31,6 +32,7 @@ class TimetableContentFragment() : Fragment() {
     private lateinit var viewModel: SubjectViewModel
     private lateinit var lectures: LiveData<List<Lecture>>
     private var dayNumber: Int = 0
+    private lateinit var alarmViewModel: AlarmViewModel
 
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object: Runnable{
@@ -67,6 +69,7 @@ class TimetableContentFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        alarmViewModel = (activity as MainActivity).alarmViewModel
         instantiateViewmodel()
         setUpRecyclerView()
         lectures.observe(viewLifecycleOwner, Observer {
@@ -133,6 +136,7 @@ class TimetableContentFragment() : Fragment() {
             override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                 if (event != DISMISS_EVENT_ACTION) {
                     viewModel.deleteLecture(deletedItem)
+                    alarmViewModel.cancelAlarm(deletedItem)
                 }
             }
         })

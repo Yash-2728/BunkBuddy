@@ -46,6 +46,9 @@
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="change_password">Change password</string>
     <string name="cancel2">Cancel</string>
+    <string name="notifications">Notifications</string>
+    <string name="alerts">Alerts</string>
+    <string name="history">History</string>
     <string-array name="days">
         <item>Monday</item>
         <item>Tuesday</item>

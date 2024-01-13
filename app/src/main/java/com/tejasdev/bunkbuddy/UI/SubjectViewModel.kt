@@ -45,13 +45,17 @@ class SubjectViewModel(val app: Application, private val repository: SubjectRepo
         }
     }
 
+    fun getAllLecturesSync(): List<Lecture>{
+        return repository.getAllLectures()
+    }
+
     fun updateSubject(subject: Subject){
         viewModelScope.launch {
             repository.updateSubject(subject)
         }
     }
-    fun addLecture(lecture: Lecture){
-        repository.addLecture(lecture)
+    fun addLecture(lecture: Lecture): Int{
+        return repository.addLecture(lecture)
     }
 
 }
