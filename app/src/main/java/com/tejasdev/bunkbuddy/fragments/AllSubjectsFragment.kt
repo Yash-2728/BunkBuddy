@@ -28,7 +28,13 @@ import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.SubjectAdapter
 import com.tejasdev.bunkbuddy.util.subjectItemClickListener
 import com.google.android.material.snackbar.Snackbar
-import com.tejasdev.bunkbuddy.UI.AlarmViewModel
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
+import com.tejasdev.bunkbuddy.util.CLASS_ATTENDED_DEC
+import com.tejasdev.bunkbuddy.util.CLASS_ATTENDED_INC
+import com.tejasdev.bunkbuddy.util.CLASS_MISSED_DEC
+import com.tejasdev.bunkbuddy.util.CLASS_MISSED_INC
+import com.tejasdev.bunkbuddy.util.SUBJECT_ADDED
+import com.tejasdev.bunkbuddy.util.SUBJECT_DELETED
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -63,6 +69,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.also { listener = it }
+        (activity as MainActivity).showBottomNav()
         viewModel = (activity as MainActivity).viewModel
         sharedPreference = (activity as MainActivity).sharedPreferences
         editor = sharedPreference.edit()
@@ -123,6 +130,20 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                     event == Snackbar.Callback.DISMISS_EVENT_MANUAL
                 ) {
                     viewModel.deleteSubject(deletedItem)
+                    val dayAndDate = getDayAndDate()
+                    val historyItem = HistoryItem(
+                        SUBJECT_DELETED,
+                        String.format(
+                            requireContext().getString(R.string.deleted_subject),
+                            deletedItem.name,
+                            deletedItem.attended,
+                            deletedItem.missed,
+                            deletedItem.requirement
+                        ),
+                        time = dayAndDate[0],
+                        date = dayAndDate[1]
+                    )
+                    viewModel.addHistory(historyItem)
                 }
             }
 
@@ -157,7 +178,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                     val subject = adapter.getAtPostion(pos)
                     adapter.deleteAt(pos)
                     showUndoSnackbar(subject, pos)
-
                 }
 
             }
@@ -320,6 +340,19 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         editor.putString("last_updated_date", dayAndDate[1])
         editor.putString("last_updated_time", dayAndDate[0])
         editor.apply()
+        val historyItem = HistoryItem(
+            SUBJECT_ADDED,
+            message = String.format(
+                requireContext().getString(R.string.added_subject),
+                subject.name,
+                subject.attended,
+                subject.missed,
+                subject.requirement
+            ),
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
         updateDateAndTime(dayAndDate)
     }
 
@@ -358,8 +391,19 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         subject.lastUpdated = getDayAndDate()[1]
         subject.attended = subject.attended.inc()
         updateSubject(subject)
+
+        val historyItem = HistoryItem(
+            CLASS_ATTENDED_INC,
+            String.format(
+                requireContext().getString(R.string.attended_class),
+                subject.name
+            ),
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
     }
-    override fun onDecreaseAttendenceBtnClicked(subject: Subject) {
+    override fun onDecreaseAttendenceBtnClicked(subject: Subject){
         if(subject.attended==0) {
             showSnackbar("Attendance classes cannot be less than 0")
             return
@@ -372,6 +416,15 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         subject.attended = subject.attended.dec()
         subject.lastUpdated = getDayAndDate()[1]
         updateSubject(subject)
+
+        val historyItem = HistoryItem(
+            CLASS_ATTENDED_DEC,
+            "Attended classes of ${subject.name} decreased by 1",
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
+
     }
     override fun onIncreaseMissedBtnClicked(subject: Subject) {
         val dayAndDate = getDayAndDate()
@@ -382,7 +435,16 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         subject.lastUpdated = dayAndDate[1]
         subject.missed = subject.missed.inc()
         updateSubject(subject)
-        editor
+        val historyItem = HistoryItem(
+            CLASS_MISSED_INC,
+            String.format(
+                requireContext().getString(R.string.missed_class),
+                subject.name
+            ),
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
     }
     private fun showSnackbar(message: String){
         Snackbar.make(requireView(), message, 200).show()
@@ -400,5 +462,12 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         subject.lastUpdated = getDayAndDate()[1]
         subject.missed = subject.missed.dec()
         updateSubject(subject)
+        val historyItem = HistoryItem(
+            CLASS_MISSED_DEC,
+            "Missed classes of ${subject.name} decreased by 1",
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
     }
 }

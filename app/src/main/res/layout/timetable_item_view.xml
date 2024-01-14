@@ -14,23 +14,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16sp"
+        android:layout_marginStart="16dp"
         android:id="@+id/root"
         style="@style/TimeCardView"
-        android:layout_marginEnd="16sp"
-        android:layout_marginTop="6sp"
-        android:layout_marginBottom="6sp"
-        android:elevation="30sp"
-        android:layout_height="wrap_content"
-        >
-
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:elevation="30dp"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_marginStart="12sp"
-            android:layout_marginEnd="12sp"
-            android:layout_marginTop="4sp"
-            android:layout_marginBottom="8sp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content">
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:layout_width="match_parent"
@@ -40,7 +38,6 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="hello"
                 style="@style/HeadingText"
                 android:textSize="20sp"
                 android:maxLines="1"
@@ -53,150 +50,15 @@
                 android:id="@+id/remarks_tv"
                 android:layout_marginEnd="8sp"
                 android:textAlignment="textEnd"
-                android:text="hellO"
                 android:layout_height="wrap_content"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:layout_marginTop="-8sp"
+                android:layout_marginTop="-8dp"
                 android:textSize="14sp"
-                android:text="hello"
                 android:textColor="@color/text_primary"
                 android:id="@+id/tt_requirement_tv"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_marginBottom="6sp"-->
-<!--    android:layout_marginTop="6sp"-->
-<!--    android:layout_height="wrap_content">-->
-
-<!--    <androidx.cardview.widget.CardView-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:cardCornerRadius="20dp"-->
-<!--        app:cardBackgroundColor="@color/card_bg"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        android:layout_marginTop="6sp"-->
-<!--        android:elevation="32sp"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_margin="12sp"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="hello"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:id="@+id/subject_name_tv"/>-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="hello"-->
-<!--                    android:textColor="@color/text_primary"-->
-<!--                    android:id="@+id/tt_requirement_tv"/>-->
-<!--            </LinearLayout>-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textStyle="bold"-->
-<!--                android:id="@+id/remarks_tv"-->
-<!--                android:textAlignment="viewEnd"-->
-<!--                android:text="hellO"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--        </LinearLayout>-->
-<!--    </androidx.cardview.widget.CardView>-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_marginBottom="6sp"-->
-<!--    android:layout_marginTop="6sp"-->
-<!--    android:layout_height="wrap_content">-->
-<!--    <androidx.cardview.widget.CardView-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:cardCornerRadius="20dp"-->
-<!--        app:cardBackgroundColor="@color/card_bg"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        android:layout_marginTop="6sp"-->
-<!--        android:elevation="32sp"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginStart="12sp"-->
-<!--            android:layout_marginEnd="12sp"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginBottom="12sp"-->
-<!--            android:layout_marginTop="12sp"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="fuck"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:id="@+id/subject_name_tv"/>-->
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="fuck"-->
-<!--                    android:textColor="@color/text_primary"-->
-<!--                    android:id="@+id/tt_requirement_tv"/>-->
-<!--            </LinearLayout>-->
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:textStyle="bold"-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/remarks_tv"-->
-<!--                android:textAlignment="viewEnd"-->
-<!--                android:text="hellO"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--        </LinearLayout>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

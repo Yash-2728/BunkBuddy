@@ -1,6 +1,7 @@
 package com.tejasdev.bunkbuddy.repository
 
 import androidx.lifecycle.LiveData
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
@@ -8,6 +9,7 @@ import com.tejasdev.bunkbuddy.room.SubjectDatabase
 class SubjectRepository(private val db: SubjectDatabase) {
 
     private val dao = db.getDao()
+    private val historyDao = db.getHistoryDao()
 
     val savedSubjects = dao.getAllSubjects()
     val monday = dao.getLecturesForDay(0)
@@ -48,4 +50,7 @@ class SubjectRepository(private val db: SubjectDatabase) {
     fun getLecturesForDay(day: Int): LiveData<List<Lecture>> {
         return dao.getLecturesForDay(day)
     }
+
+    fun getHistory(): LiveData<List<HistoryItem>> = historyDao.getHistory()
+    suspend fun addHistoryItem(history: HistoryItem) = historyDao.addHistory(history = history)
 }

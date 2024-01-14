@@ -58,4 +58,17 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
+
+    <string name="timeStamp"> %1\$s | %2\$s</string>
+    <string name="missed_class">Missed %1\$s </string>
+    <string name="attended_class">Attended %1\$s </string>
+    <string name="deleted_subject">Deleted subject %1\$s. Attended: %2\$s, Missed: %3\$s, Requirement: %4\$s</string>
+    <string name="added_subject">Created subject %1\$s. Attended: %2\$s, Missed: %3\$s, Requirement: %4\$s</string>
+    <string name="added_lecture">Created lecture %1\$s (%2\$s, %3\$s to %3\$s)</string>
+    <string name="deleted_lecture"> Deleted lecture %1\$s (%2\$s, %3\$s to %3\$s) </string>
+    <string name="alerts_on">Alerts turned ON </string>
+    <string name="alerts_off">Alerts turned OFF </string>
+    <string name="back">Back</string>
+    <string name="hold_any_subject_lecture_and_drag_to_change_its_position_in_the_list">Hold any subject/lecture and drag to change its position in the list</string>
+    <string name="hold_and_drag">Hold and Drag</string>
 </resources>

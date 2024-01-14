@@ -8,6 +8,9 @@
     <style name="ScreenBackground">
         <item name="android:background">@color/background_color_light</item>
     </style>
+    <style name="HistoryCardColor">
+        <item name="cardBackgroundColor">@color/background_color_light</item>
+    </style>
     <style name="CardBackGroundColor">
         <item name="cardBackgroundColor">@color/background_color_light</item>
     </style>

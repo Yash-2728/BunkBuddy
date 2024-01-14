@@ -26,9 +26,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         android:id="@+id/topLinearLayout"
-        android:layout_marginStart="18sp"
-        android:layout_marginEnd="18sp"
-        android:layout_marginTop="24sp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content">
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Attendance"
-            android:layout_marginTop="-9sp"
+            android:layout_marginTop="-9dp"
             style="@style/HeadingText"
             android:textSize="30sp"
             android:textStyle="bold"/>
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Updated on "
-            android:layout_marginTop="-2sp"
+            android:layout_marginTop="-2dp"
             android:id="@+id/lastUpdatedTv"
             android:layout_marginStart="1sp"
             android:textColor="@color/text_secondary"/>
@@ -60,22 +60,22 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         style="@style/subjectCountStyle"
-        app:cardCornerRadius="12sp"
-        app:cardElevation="64sp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="64dp"
         android:id="@+id/subject_count_card"
         android:layout_height="wrap_content"
         app:strokeWidth="0.5sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12sp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="wrap_content"
             android:id="@+id/subject_count_root"
-            android:paddingStart="12sp"
-            android:paddingEnd="12sp"
-            android:paddingTop="6sp"
-            android:paddingBottom="6sp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:layout_height="wrap_content">
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -85,32 +85,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:id="@+id/searchInput"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:startIconDrawable="@drawable/ic_search"-->
-<!--        android:layout_marginTop="8sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/topLinearLayout"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:boxCornerRadiusTopEnd="10sp"-->
-<!--        app:boxCornerRadiusTopStart="10sp"-->
-<!--        app:boxCornerRadiusBottomStart="10sp"-->
-<!--        app:boxCornerRadiusBottomEnd="10sp"-->
-<!--        app:boxStrokeWidth="0sp"-->
-<!--        app:boxBackgroundColor="@color/card_bg"-->
-<!--        app:boxStrokeWidthFocused="0sp">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:hint="@string/search_for_subjects"-->
-<!--            android:textStyle="bold"-->
-<!--            android:id="@+id/searchEdit"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_height="44sp" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allSubjectsRcv"
         android:layout_width="match_parent"
@@ -120,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="12sp"
+        android:layout_marginTop="12dp"
         style="@style/ScreenBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topLinearLayout"

@@ -12,14 +12,12 @@
         android:textAlignment="center"
         android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:text="12sp"
         android:id="@+id/sizeTv"
         android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:id="@+id/timetableContentRcv"
-
         tools:listitem="@layout/timetable_item_view"
         android:layout_height="match_parent"/>
 </LinearLayout>

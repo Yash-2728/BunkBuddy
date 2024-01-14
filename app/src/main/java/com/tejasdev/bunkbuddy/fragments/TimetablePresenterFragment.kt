@@ -36,6 +36,8 @@ import com.tejasdev.bunkbuddy.util.ViewPagerAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tejasdev.bunkbuddy.UI.AlarmViewModel
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
+import com.tejasdev.bunkbuddy.util.LECTURE_ADDED
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -69,6 +71,7 @@ class TimetablePresenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
+        (activity as MainActivity).showBottomNav()
         alarmViewModel = (activity as MainActivity).alarmViewModel
         val list = viewModel.getAllSubjectSync()
         val days = resources.getStringArray(R.array.days).toList()
@@ -96,16 +99,7 @@ class TimetablePresenterFragment : Fragment() {
         })
 
         selectedDayLive.observe(viewLifecycleOwner, Observer {
-            val day = when(it){
-                0->"Monday"
-                1->"Tuesday"
-                2->"Wednesday"
-                3->"Thursday"
-                4->"Friday"
-                5->"Saturday"
-                else ->"Sunday"
-            }
-            binding.selectedDayTv.text = day
+            binding.selectedDayTv.text = getDay(it)
         })
 
         binding.addLectureBtn.root.setOnClickListener { showAddLecturePopup(list, days) }
@@ -250,6 +244,33 @@ class TimetablePresenterFragment : Fragment() {
         val notificationEnabled = (activity as MainActivity).isNotificationEnabled
         if(notificationEnabled){
             alarmViewModel.setAlarm(lecture)
+        }
+        val dayAndDate = getDayAndDate()
+        val historyItem = HistoryItem(
+            LECTURE_ADDED,
+            String.format(
+                requireContext().getString(
+                    R.string.added_lecture
+                ),
+                lecture.subject.name,
+                getDay(lecture.dayNumber),
+                lecture.startTime,
+                lecture.endTime
+            ),
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
+    }
+    private fun getDay(num: Int): String{
+        return when(num){
+            0-> requireContext().getString(R.string.monday)
+            1-> requireContext().getString(R.string.tuesday)
+            2-> requireContext().getString(R.string.wednesday)
+            3-> requireContext().getString(R.string.thursday)
+            4-> requireContext().getString(R.string.friday)
+            5-> requireContext().getString(R.string.saturday)
+            else -> requireContext().getString(R.string.sunday)
         }
     }
 }

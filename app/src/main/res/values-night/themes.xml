@@ -6,6 +6,9 @@
     <style name="ScreenBackground">
         <item name="android:background">@color/black</item>
     </style>
+    <style name="HistoryCardColor">
+        <item name="cardBackgroundColor">@color/black</item>
+    </style>
     <style name="CardBackGroundColor">
         <item name="cardBackgroundColor">@color/card_bg</item>
     </style>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="6sp"
+    android:layout_marginTop="6dp"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         app:layout_constraintTop_toTopOf="parent"
@@ -12,20 +12,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         app:cardCornerRadius="20dp"
-        android:layout_marginStart="16sp"
+        android:layout_marginStart="16dp"
         style="@style/TimeCardView"
-        android:layout_marginEnd="16sp"
-        android:layout_marginBottom="2sp"
-        android:layout_marginTop="6sp"
-        android:elevation="30sp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="6dp"
+        android:elevation="30dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_marginStart="12sp"
-            android:layout_marginEnd="12sp"
-            android:layout_marginBottom="6sp"
-            android:layout_marginTop="12sp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="12dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +35,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/subjectName"
-                    android:text="Hello"
                     android:maxLines="1"
                     style="@style/HeadingText"
                     android:textSize="20sp"
@@ -47,10 +46,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:layout_marginTop="-4sp"
+                android:layout_marginTop="-4dp"
                 android:textColor="@color/text_primary"
-                android:id="@+id/requirement_tv"
-                android:text="Requirement: 75%"/>
+                android:id="@+id/requirement_tv"/>
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:layout_width="match_parent"
                 app:trackColor="@color/red"
@@ -58,51 +56,46 @@
                 app:indicatorDirectionLinear="startToEnd"
                 android:progress="90"
                 android:layout_height="wrap_content"
-                android:elevation="32sp"
-                android:layout_marginTop="6sp"
-                app:trackCornerRadius="10sp"
-                android:layout_marginBottom="4sp"
-                app:trackThickness="20sp"
+                android:elevation="32dp"
+                android:layout_marginTop="6dp"
+                app:trackCornerRadius="10dp"
+                android:layout_marginBottom="4dp"
+                app:trackThickness="20dp"
                 android:id="@+id/subjectProgress"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8sp"
+                    android:layout_marginTop="8dp"
                     android:textColor="@color/text_primary"
-                    android:id="@+id/attended_tv"
-                    android:text="Attended: 32"/>
+                    android:id="@+id/attended_tv" />
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:layout_marginTop="2sp"
+                    android:layout_marginTop="2dp"
                     android:textColor="@color/text_primary"
-                    android:id="@+id/missed_tv"
-                    android:text="Missed: 32"/>
+                    android:id="@+id/missed_tv"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:layout_marginTop="2sp"
-                    android:id="@+id/total_tv"
-                    android:text="Total: 64"/>
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/total_tv"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_primary"
                 android:id="@+id/percent_tv"
                 android:textStyle="bold"
-                android:layout_marginTop="10sp"
-                android:text="Attendance: 80%"/>
+                android:layout_marginTop="10dp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/remarks_tv"
-                android:textStyle="bold"
-                android:text="You can miss 4 classes"/>
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,64 +106,63 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1sp"
-                    android:layout_marginTop="12sp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
                     android:src="@color/text_secondary"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/hll_btn"
-                    android:layout_marginTop="6sp"
+                    android:layout_marginTop="6dp"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_weight="1"
-                        android:layout_marginTop="2sp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:layout_height="wrap_content">
                         <include layout="@layout/decrease_button"
                             android:layout_width="wrap_content"
                             android:id="@+id/dec_attendance_btn"
-                            android:layout_marginBottom="2sp"
+                            android:layout_marginBottom="2dp"
                             android:layout_height="wrap_content"/>
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Attended"
                             android:textColor="@color/text_secondary"
-                            android:layout_marginStart="4sp"
-                            android:layout_marginEnd="4sp"/>
+                            android:text="@string/attended"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"/>
                         <include layout="@layout/increase_button"
                             android:layout_width="wrap_content"
                             android:id="@+id/inc_attendance_btn"
-                            android:layout_marginBottom="2sp"
+                            android:layout_marginBottom="2dp"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginTop="2sp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:layout_height="wrap_content">
                         <include layout="@layout/decrease_button"
                             android:layout_width="wrap_content"
-                            android:layout_marginBottom="2sp"
-
+                            android:layout_marginBottom="2dp"
                             android:id="@+id/dec_missed_btn"
                             android:layout_height="wrap_content"/>
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Missed"
                             android:textColor="@color/text_secondary"
-                            android:layout_marginStart="4sp"
-                            android:layout_marginEnd="4sp"/>
+                            android:layout_marginStart="4dp"
+                            android:text="@string/missed"
+                            android:layout_marginEnd="4dp"/>
                         <include layout="@layout/increase_button"
                             android:layout_width="wrap_content"
-                            android:layout_marginBottom="2sp"
+                            android:layout_marginBottom="2dp"
                             android:id="@+id/inc_missed_btn"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -181,183 +173,3 @@
 
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_marginBottom="6sp"-->
-<!--    android:layout_marginTop="6sp"-->
-<!--    android:layout_height="wrap_content">-->
-<!--    <androidx.cardview.widget.CardView-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:cardCornerRadius="20dp"-->
-<!--        app:cardBackgroundColor="@color/card_bg"-->
-<!--        android:layout_marginStart="16sp"-->
-<!--        android:layout_marginEnd="16sp"-->
-<!--        android:layout_marginTop="6sp"-->
-<!--        android:elevation="30sp"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_marginStart="12sp"-->
-<!--            android:layout_marginEnd="12sp"-->
-<!--            android:layout_marginBottom="12sp"-->
-<!--            android:layout_marginTop="12sp"-->
-<!--            android:layout_height="wrap_content">-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:id="@+id/subjectName"-->
-<!--                    android:text="Hello"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="20sp"-->
-<!--                    android:layout_gravity="start"-->
-<!--                    android:textStyle="bold"/>-->
-
-<!--            </LinearLayout>-->
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textSize="12sp"-->
-<!--                android:layout_marginTop="-4sp"-->
-<!--                android:textColor="@color/text_secondary"-->
-<!--                android:id="@+id/requirement_tv"-->
-<!--                android:text="Requirement: 75%"/>-->
-<!--            <com.google.android.material.progressindicator.LinearProgressIndicator-->
-<!--                android:layout_width="match_parent"-->
-<!--                app:trackColor="@color/red"-->
-<!--                app:indicatorColor="@color/blue"-->
-<!--                app:indicatorDirectionLinear="startToEnd"-->
-<!--                android:progress="90"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:elevation="32sp"-->
-<!--                android:layout_marginTop="6sp"-->
-<!--                app:trackCornerRadius="10sp"-->
-<!--                android:layout_marginBottom="4sp"-->
-<!--                app:trackThickness="20sp"-->
-<!--                android:id="@+id/subjectProgress"/>-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:textStyle="bold"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginTop="8sp"-->
-<!--                android:textColor="@color/text_primary"-->
-<!--                android:id="@+id/attended_tv"-->
-<!--                android:text="Attended: 32"/>-->
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textStyle="bold"-->
-<!--                android:layout_marginTop="2sp"-->
-<!--                android:textColor="@color/text_primary"-->
-<!--                android:id="@+id/missed_tv"-->
-<!--                android:text="Missed: 32"/>-->
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textColor="@color/text_primary"-->
-<!--                android:layout_marginTop="2sp"-->
-<!--                android:id="@+id/total_tv"-->
-<!--                android:text="Total: 64"/>-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textColor="@color/text_primary"-->
-<!--                android:id="@+id/percent_tv"-->
-<!--                android:textStyle="bold"-->
-<!--                android:layout_marginTop="10sp"-->
-<!--                android:text="Attendance: 80%"/>-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/remarks_tv"-->
-<!--                android:textStyle="bold"-->
-<!--                android:text="You can miss 4 classes"/>-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:id="@+id/ll_with_btn"-->
-<!--                android:visibility="gone"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1sp"-->
-<!--                    android:layout_marginTop="12sp"-->
-<!--                    android:src="@color/text_secondary"/>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:id="@+id/hll_btn"-->
-<!--                    android:layout_marginTop="6sp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginTop="4sp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_height="wrap_content">-->
-<!--                        <include layout="@layout/decrease_button"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:id="@+id/dec_attendance_btn"-->
-<!--                            android:layout_height="wrap_content"/>-->
-<!--                        <com.google.android.material.textview.MaterialTextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Attended"-->
-<!--                            android:textColor="@color/text_secondary"-->
-<!--                            android:layout_marginStart="4sp"-->
-<!--                            android:layout_marginEnd="4sp"/>-->
-<!--                        <include layout="@layout/increase_button"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:id="@+id/inc_attendance_btn"-->
-<!--                            android:layout_height="wrap_content"/>-->
-<!--                    </LinearLayout>-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_marginTop="4sp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_height="wrap_content">-->
-<!--                        <include layout="@layout/decrease_button"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:id="@+id/dec_missed_btn"-->
-<!--                            android:layout_height="wrap_content"/>-->
-<!--                        <com.google.android.material.textview.MaterialTextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Missed"-->
-<!--                            android:textColor="@color/text_secondary"-->
-<!--                            android:layout_marginStart="4sp"-->
-<!--                            android:layout_marginEnd="4sp"/>-->
-<!--                        <include layout="@layout/increase_button"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:id="@+id/inc_missed_btn"-->
-<!--                            android:layout_height="wrap_content"/>-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

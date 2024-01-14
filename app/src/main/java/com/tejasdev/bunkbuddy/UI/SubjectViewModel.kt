@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
@@ -20,6 +21,13 @@ class SubjectViewModel(val app: Application, private val repository: SubjectRepo
     val saturday = repository.saturday
     val sunday = repository.sunday
 
+    val allHistory = repository.getHistory()
+
+    fun addHistory(history: HistoryItem){
+        viewModelScope.launch {
+            repository.addHistoryItem(history)
+        }
+    }
 
     fun addSubject(subject: Subject){
         viewModelScope.launch {

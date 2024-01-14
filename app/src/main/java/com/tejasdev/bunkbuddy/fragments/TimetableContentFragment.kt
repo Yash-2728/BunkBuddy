@@ -20,8 +20,15 @@ import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.TimetableAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import com.tejasdev.bunkbuddy.activities.MainActivity
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
+import com.tejasdev.bunkbuddy.util.LECTURE_ADDED
+import com.tejasdev.bunkbuddy.util.LECTURE_DELETED
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TimetableContentFragment() : Fragment() {
 
@@ -124,7 +131,7 @@ class TimetableContentFragment() : Fragment() {
     private fun showUndoSnackbar(deletedItem: Lecture, position: Int) {
         val snackbar = Snackbar.make(
             requireView(),
-            "Subject deleted",
+            "Lecture deleted",
             Snackbar.LENGTH_LONG
         )
 
@@ -137,11 +144,46 @@ class TimetableContentFragment() : Fragment() {
                 if (event != DISMISS_EVENT_ACTION) {
                     viewModel.deleteLecture(deletedItem)
                     alarmViewModel.cancelAlarm(deletedItem)
+                    val dayAndDate = getDayAndDate()
+                    val historyItem = HistoryItem(
+                        LECTURE_DELETED,
+                        String.format(
+                            requireContext().getString(
+                                R.string.added_lecture
+                            ),
+                            deletedItem.subject.name,
+                            getDay(deletedItem.dayNumber),
+                            deletedItem.startTime,
+                            deletedItem.endTime
+                        ),
+                        time = dayAndDate[0],
+                        date = dayAndDate[1]
+                    )
+                    viewModel.addHistory(historyItem)
                 }
             }
         })
 
         snackbar.show()
+    }
+    private fun getDayAndDate():List<String> {
+        val currentDate = Calendar.getInstance().time
+
+        return listOf(
+            SimpleDateFormat("hh:mm a", Locale.US).format(currentDate),
+            SimpleDateFormat("d MMM yyyy", Locale.US).format(currentDate)
+        )
+    }
+    private fun getDay(num: Int): String{
+        return when(num){
+            0-> requireContext().getString(R.string.monday)
+            1-> requireContext().getString(R.string.tuesday)
+            2-> requireContext().getString(R.string.wednesday)
+            3-> requireContext().getString(R.string.thursday)
+            4-> requireContext().getString(R.string.friday)
+            5-> requireContext().getString(R.string.saturday)
+            else -> requireContext().getString(R.string.sunday)
+        }
     }
     private fun undoDelete(deletedItem: Lecture, position: Int) {
         adapter.addItem(deletedItem, position)

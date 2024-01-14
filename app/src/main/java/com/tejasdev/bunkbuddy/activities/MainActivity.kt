@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
@@ -30,9 +31,15 @@ import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import com.tejasdev.bunkbuddy.UI.AuthViewmodel
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
+import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
+import com.tejasdev.bunkbuddy.util.ALERTS_OFF
+import com.tejasdev.bunkbuddy.util.ALERTS_ON
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private val     NOTIFICATION_PERMISSION_REQUEST_CODE = 123
@@ -79,6 +86,11 @@ class MainActivity : AppCompatActivity() {
         binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) scheduleAlarms()
             else removeScheduledAlarms()
+        }
+
+        binding.llForHistory.setOnClickListener {
+            navController.navigate(R.id.historyFragment)
+            closeDrawer()
         }
     }
 
@@ -138,6 +150,24 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean(NOTIFICATION_ENABLED, isNotificationEnabled)
         binding.notificationSwitch.isChecked = isNotificationEnabled
         editor.apply()
+        val dayAndDate = getDayAndDate()
+
+        val historyItem = HistoryItem(
+            if(isNotificationEnabled) ALERTS_ON else ALERTS_OFF,
+            if(isNotificationEnabled) this.getString(R.string.alerts_on) else this.getString(R.string.alerts_off),
+            time = dayAndDate[0],
+            date = dayAndDate[1]
+        )
+        viewModel.addHistory(historyItem)
+    }
+
+    private fun getDayAndDate():List<String> {
+        val currentDate = Calendar.getInstance().time
+
+        return listOf(
+            SimpleDateFormat("hh:mm a", Locale.US).format(currentDate),
+            SimpleDateFormat("d MMM yyyy", Locale.US).format(currentDate)
+        )
     }
 
     private fun createNotificationChannel(){
@@ -224,16 +254,23 @@ class MainActivity : AppCompatActivity() {
                 velocityY: Float
             ): Boolean {
                 if((e1?.x ?: 0f) < (e2.x ?: 0f)){
-                    binding.drawerLayout.openDrawer(GravityCompat.START)
+                    openDrawer()
                     return true
                 }
                 else if((e1?.x?:0f) > (e2.x ?:0f)){
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    closeDrawer()
                     return true
                 }
                 return super.onFling(e1, e2, velocityX, velocityY)
             }
         })
+    }
+    private fun openDrawer(){
+        binding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+    private fun closeDrawer(){
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+
     }
     private fun openPrivacyPage() {
         val uri = Uri.parse(PRIVACY_POLICY_LINK)
@@ -291,6 +328,13 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean(DARK_MODE_ENABLED, isDarkTheme)
         editor.apply()
         applyTheme()
+    }
+    fun hideBottomNav(){
+        binding.bottomNav.visibility = View.GONE
+    }
+
+    fun showBottomNav(){
+        binding.bottomNav.visibility = View.VISIBLE
     }
     companion object{
         const val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
