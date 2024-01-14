@@ -30,10 +30,6 @@
                 <action android:name="com.tejasdev.bunkbuddy.START_ALARM"/>
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".activities.AccountActivity"
-            android:exported="false" />
         <activity
             android:name=".activities.OnboardingActivity"
             android:exported="false" />

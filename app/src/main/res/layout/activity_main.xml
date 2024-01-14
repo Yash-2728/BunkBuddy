@@ -106,7 +106,7 @@
             android:layout_height="wrap_content">
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="32dp"
-                android:src="@drawable/ic_privacy"
+                android:src="@drawable/ic_history"
                 android:layout_height="32dp"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
