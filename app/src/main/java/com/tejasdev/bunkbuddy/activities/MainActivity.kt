@@ -92,6 +92,10 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.historyFragment)
             closeDrawer()
         }
+//        binding.llForAccount.setOnClickListener {
+//            navController.navigate(R.id.profileFragment)
+//            closeDrawer()
+//        }
     }
 
     private fun setUpAuthViewModel() {
@@ -233,7 +237,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpDrawerLayout(){
         if(authViewModel.isLogin()){
             if(authViewModel.hasInternetConnection()){
-                Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
+                if(authViewModel.getUserImage()!=Uri.parse("")) Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
             }
             else showSnackbar(binding.userImageIv,"Couldn't load image")
 

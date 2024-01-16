@@ -147,7 +147,7 @@
                     app:boxCornerRadiusTopStart="12dp"
                     android:id="@+id/password_text_edit"
                     android:textColor="@color/white"
-                    android:hint="@string/abc_xyz_com"
+                    android:hint="@string/dot_dot_dot_dot"
                     android:textColorHint="@color/text_primary"
                     android:inputType="textPassword"
                     android:maxLines="1"

@@ -43,7 +43,6 @@ class HistoryFragment : Fragment() {
         }
         viewModel.allHistory.observe(viewLifecycleOwner, Observer{
             historyAdapter.setData(it.reversed())
-            Toast.makeText(requireContext(), "${it.size}", Toast.LENGTH_SHORT).show()
         })
     }
 

@@ -49,6 +49,7 @@ class OnboardingActivity : AppCompatActivity() {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 binding.actionBtn.text = when(position){
                     0-> "Next"
+                    1->"Next"
                     else -> "Get started"
                 }
             }
@@ -73,8 +74,15 @@ class OnboardingActivity : AppCompatActivity() {
             "Swipe left to delete your lectures/subjects"
         )
 
+        val item3 = OnboardingItem(
+            R.drawable.bunkbuddy_alerts,
+            "Alerts",
+            "Turn on alerts to stay informed about upcoming lectures where you may be at risk of not meeting attendance requirements."
+        )
+
         onBoardingItems.add(item1)
         onBoardingItems.add(item2)
+        onBoardingItems.add(item3)
 
         onboardingAdapter = OnboardingAdapter(this, onBoardingItems)
     }
