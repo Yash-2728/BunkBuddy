@@ -27,7 +27,7 @@ class WidgetService: RemoteViewsService() {
             repo = SubjectRepository(db)
             lectures = getLectureForToday(repo)
             lectures.observeForever{
-                updateList(it)
+                if(it!=null) updateList(it)
             }
         }
 
@@ -35,9 +35,7 @@ class WidgetService: RemoteViewsService() {
             if(lectureListSync.isNotEmpty()) getViewAt(0)
         }
 
-        override fun onDestroy() {
-            //I dont know what to do here
-        }
+        override fun onDestroy() {}
 
         override fun getCount(): Int {
             return lectureListSync.size
@@ -50,6 +48,7 @@ class WidgetService: RemoteViewsService() {
                 context.packageName,
                 R.layout.widget_item_view
             )
+
             remoteViews.setTextViewText(R.id.subjectNameTv, item.subject.name)
             remoteViews.setTextViewText(R.id.startTimeTv, item.startTime)
             return remoteViews

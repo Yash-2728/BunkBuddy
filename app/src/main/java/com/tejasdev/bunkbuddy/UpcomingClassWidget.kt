@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.widget.RemoteViews
 import androidx.lifecycle.LiveData
 import com.tejasdev.bunkbuddy.activities.MainActivity
@@ -19,26 +18,22 @@ import java.util.Calendar
 
 class NewAppWidget : AppWidgetProvider() {
 
-//    TODO("first check if it runs and then imrpovise")
-
     private lateinit var subjectRepository: SubjectRepository
     private lateinit var allLectureLive: LiveData<List<Lecture>>
-    private lateinit var allLectureSync: ArrayList<Lecture>
+    private var allLectureSync: ArrayList<Lecture> = arrayListOf()
 
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-
-        Log.w("widget-flow", "1 onUpdate")
-        // There may be multiple widgets active, so update all of them
-
         val db = SubjectDatabase.getDatabase(context)
         subjectRepository = SubjectRepository(db)
         allLectureLive = getLectureForToday(subjectRepository)
-        
-        allLectureSync = allLectureLive.value?.let { ArrayList(it) }!!
+
+        allLectureLive.observeForever {
+            if(it!=null) updateList(context, it)
+        }
 
         for (appWidgetId in appWidgetIds) {
             val addIntent = Intent(context, javaClass)
@@ -68,10 +63,8 @@ class NewAppWidget : AppWidgetProvider() {
                 context.packageName,
                 R.layout.new_app_widget
             )
-            remoteViews.setOnClickPendingIntent(R.id.timetable_list, pendingIntent)
             remoteViews.setRemoteAdapter(R.id.timetable_list, serviceIntent)
-
-            //not sure what this does
+            remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent)
             remoteViews.setEmptyView(R.id.timetable_list, R.id.timetable_list)
             remoteViews.setPendingIntentTemplate(
                 R.id.timetable_list, addPendingIntent
@@ -80,17 +73,30 @@ class NewAppWidget : AppWidgetProvider() {
         }
     }
 
-    private fun updateList(context: Context, list: List<Lecture>) {
-        Log.w("widget-flow", "1 updateList")
+    private fun updateList(context: Context?, newList: List<Lecture>) {
         allLectureSync.clear()
-        allLectureSync.addAll(list)
-        notifyAppWidgetViewDataChanged(context)
+        allLectureSync.addAll(newList)
+        notifyAppWidgetViewDataChanged(context!!)
+    }
+
+    private fun getLectureForToday(subjectRepository: SubjectRepository): LiveData<List<Lecture>> {
+        val calender = Calendar.getInstance()
+        val day = calender.get(Calendar.DAY_OF_WEEK)
+        return when(day){
+            1 -> subjectRepository.sunday
+            2 -> subjectRepository.monday
+            3 -> subjectRepository.tuesday
+            4 -> subjectRepository.wednesday
+            5 -> subjectRepository.thursday
+            6 -> subjectRepository.friday
+            else -> subjectRepository.sunday
+        }
     }
 
     private fun notifyAppWidgetViewDataChanged(context: Context) {
-        Log.w("widget-flow", "notifyAppWidgetDataChanged")
 
         val widgetManager = AppWidgetManager.getInstance(context.applicationContext)
+
         widgetManager.notifyAppWidgetViewDataChanged(
             widgetManager.getAppWidgetIds(
                 context.applicationContext.packageName.let{
@@ -103,34 +109,15 @@ class NewAppWidget : AppWidgetProvider() {
             R.id.timetable_list
         )
     }
-
-    private fun getLectureForToday(repo: SubjectRepository): LiveData<List<Lecture>> {
-        Log.w("widget-flow", "getLectureForDay")
-
-        val calender = Calendar.getInstance()
-        return when(calender.get(Calendar.DAY_OF_WEEK)){
-            1 -> subjectRepository.sunday
-            2 -> subjectRepository.monday
-            3 -> subjectRepository.tuesday
-            4 -> subjectRepository.wednesday
-            5 -> subjectRepository.thursday
-            6 -> subjectRepository.friday
-            else -> subjectRepository.sunday
-        }
-    }
-
     override fun onEnabled(context: Context) {
-        Log.w("widget-flow", "onEnabled")
         notifyAppWidgetViewDataChanged(context)
     }
 
     override fun onDisabled(context: Context) {
-        Log.w("widget-flow", "onDisabled")
         notifyAppWidgetViewDataChanged(context)
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.w("widget-flow", "onReceive")
 
         super.onReceive(context, intent)
         if(intent==null) return
@@ -147,7 +134,6 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }

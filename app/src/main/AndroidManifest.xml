@@ -19,6 +19,10 @@
         android:theme="@style/Base.Theme.BunkBuddy"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".WidgetConfigurationActivity"
+            android:exported="false" />
+
         <receiver
             android:name=".NewAppWidget"
             android:exported="false">
@@ -31,8 +35,9 @@
                 android:resource="@xml/new_app_widget_info" />
         </receiver>
 
-        <service android:name=".WidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver
             android:name=".AlarmReceiver"

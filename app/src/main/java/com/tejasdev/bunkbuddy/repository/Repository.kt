@@ -14,13 +14,13 @@ class SubjectRepository(
     private val historyDao = db.getHistoryDao()
 
     val savedSubjects = dao.getAllSubjects()
-    val monday = dao.getLecturesForDay(0)
-    val tuesday = dao.getLecturesForDay(1)
-    val wednesday = dao.getLecturesForDay(2)
-    val thursday = dao.getLecturesForDay(3)
-    val friday = dao.getLecturesForDay(4)
-    val saturday = dao.getLecturesForDay(5)
-    val sunday = dao.getLecturesForDay(6)
+    val monday = getLecturesForDay(0)
+    val tuesday = getLecturesForDay(1)
+    val wednesday = getLecturesForDay(2)
+    val thursday = getLecturesForDay(3)
+    val friday = getLecturesForDay(4)
+    val saturday = getLecturesForDay(5)
+    val sunday = getLecturesForDay(6)
 
     suspend fun updateSubjectAndLectures(subject: Subject){
         dao.updateSubjectAndRelatedLectures(subject)

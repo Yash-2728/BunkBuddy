@@ -10,7 +10,10 @@ import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import kotlinx.coroutines.launch
 
-class SubjectViewModel(val app: Application, private val repository: SubjectRepository): AndroidViewModel(app) {
+class SubjectViewModel(
+    val app: Application,
+    private val repository: SubjectRepository
+): AndroidViewModel(app) {
 
     val savedSubjects = repository.savedSubjects
     val monday = repository.monday
