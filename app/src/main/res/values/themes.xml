@@ -8,47 +8,76 @@
     <style name="ScreenBackground">
         <item name="android:background">@color/background_color_light</item>
     </style>
+
     <style name="HistoryCardColor">
         <item name="cardBackgroundColor">@color/background_color_light</item>
     </style>
+
     <style name="CardBackGroundColor">
         <item name="cardBackgroundColor">@color/background_color_light</item>
     </style>
+
     <style name="HeadingText">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="TabLayoutStyle">
         <item name="android:backgroundTint">@color/background_color_light</item>
     </style>
+
     <style name="IncDecButtonStyle">
         <item name="cardBackgroundColor">@color/card_bg_light</item>
     </style>
+
     <style name="BottomNavStyle">
         <item name="backgroundTint">@color/background_color_light</item>
     </style>
+
     <style name="TextInput">
         <item name="boxBackgroundColor">@color/card_bg_light</item>
     </style>
+
     <style name="PopUpCardView">
         <item name="cardBackgroundColor">@color/background_color_light</item>
     </style>
+
     <style name="Button">
         <item name="backgroundTint">@color/card_bg_light</item>
     </style>
+
     <style name="DropdownItem">
         <item name="background">@color/card_bg_light</item>
     </style>
+
     <style name="TimeCardView">
         <item name="cardBackgroundColor">@color/card_bg_light</item>
     </style>
+
     <style name="ToolbarIcon">
         <item name="tint">@color/black</item>
     </style>
+
     <style name="switchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="track">@color/white</item>
         <item name="android:thumb">@drawable/switch_thumb_light</item>
     </style>
+
     <style name="subjectCountStyle">
         <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="Base.Theme.BunkBuddy.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Base.Theme.BunkBuddy.AppWidgetContainer" parent="Base.Theme.BunkBuddy.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
     </style>
 </resources>

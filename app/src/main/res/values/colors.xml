@@ -2,15 +2,15 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-<!--    red and blue color remain constant throughout -->
+    <!--    red and blue color remain constant throughout -->
     <color name="blue">#1560BD</color>
     <color name="red">#DA2C43</color>
 
-<!--    item view card color in dark and light mode -->
+    <!--    item view card color in dark and light mode -->
     <color name="card_bg_light">#EDEDED</color>
     <color name="card_bg">#242222</color>
 
-<!--    Background colors -->
+    <!--    Background colors -->
     <color name="background_color_light">#FFFFFF</color>
     <color name="background_color">#000000</color>
 
@@ -19,4 +19,8 @@
     <color name="primary_blue">#007aff</color>
     <color name="text_primary">#717171</color>
     <color name="text_secondary">#8d8d8d</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 </resources>

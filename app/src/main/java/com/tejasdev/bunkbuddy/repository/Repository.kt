@@ -6,7 +6,9 @@ import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
 
-class SubjectRepository(private val db: SubjectDatabase) {
+class SubjectRepository(
+    private val db: SubjectDatabase
+) {
 
     private val dao = db.getDao()
     private val historyDao = db.getHistoryDao()

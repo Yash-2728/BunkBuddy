@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="style_for_chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipStrokeColor">@color/bottom_nav_icon_text_color</item>
         <item name="chipStrokeWidth">2dp</item>]
@@ -16,7 +17,8 @@
     <style name="timePickerOrange">
         <item name="android:textColorPrimary">@color/text_primary</item> <!-- color for digits -->
         <item name="android:textColor">@color/text_primary</item> <!-- color for colon -->
-        <item name="android:colorControlNormal">@color/text_secondary</item> <!-- color for (horizontal) delimeters -->
+        <item name="android:colorControlNormal">@color/text_secondary
+        </item> <!-- color for (horizontal) delimeters -->
     </style>
 
     <style name="cardShapeOverlay">
@@ -24,12 +26,24 @@
         <item name="cornerSizeTopLeft">32sp</item>
         <item name="cornerSizeTopRight">32sp</item>
     </style>
+
     <style name="circularImageView">
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="buttonStyle">
         <item name="cornerFamilyTopRight">cut</item>
         <item name="cornerSizeTopRight">25%</item>
         <item name="cornerSizeBottomLeft">25%</item>
+    </style>
+
+    <style name="Widget.BunkBuddy.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.BunkBuddy.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 </resources>
