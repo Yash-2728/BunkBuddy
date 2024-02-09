@@ -9,7 +9,9 @@ import androidx.lifecycle.LiveData
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class WidgetService: RemoteViewsService() {
 
@@ -39,6 +41,7 @@ class WidgetService: RemoteViewsService() {
         override fun onDestroy() {}
 
         override fun getCount(): Int {
+            if(lectureListSync.size==0) return 1
             return lectureListSync.size
         }
 
@@ -49,7 +52,6 @@ class WidgetService: RemoteViewsService() {
                 context.packageName,
                 R.layout.widget_item_view
             )
-
             remoteViews.setTextViewText(R.id.subjectNameTv, item.subject.name)
             remoteViews.setTextViewText(R.id.startTimeTv, item.startTime)
             return remoteViews
@@ -73,22 +75,54 @@ class WidgetService: RemoteViewsService() {
 
         private fun updateList(list: List<Lecture>){
             lectureListSync.clear()
-            lectureListSync.addAll(list)
+            var count = 0
+            list.forEach { lecture->
+                if(ifLectureLater(lecture)) {
+                    val index = search(lecture.startTime)
+                    lectureListSync.add(index+1, lecture)
+                    count++
+                }
+            }
+            Log.w("widget-flow", count.toString())
             onDataSetChanged()
         }
+        private fun search(time: String): Int{
+            val timeInMin = timeInMinutes(time)
+            var low = 0
+            var high = lectureListSync.size-1
+            var ans = -1
+            while(low<=high){
+                val mid = (low+high)/2
+                val midTime = timeInMinutes(lectureListSync[mid].startTime)
+                if(midTime<=timeInMin){
+                    ans = mid
+                    low = mid+1
+                }
+                else high = mid-1
+            }
+            return ans
+        }
+        private fun ifLectureLater(lecture: Lecture): Boolean{
+            val timeInMilis = Calendar.getInstance().time
+            val lecture24H = timeInMinutes(lecture.startTime)
+            val current24H = timeInMinutes(SimpleDateFormat("hh:mm a", Locale.US).format(timeInMilis))
+            Log.w("widget-flow", "${lecture.startTime} $lecture24H $current24H")
+            return lecture24H>=current24H
+        }
 
-//        private fun updateList(list: List<Lecture>){
-//            lectureListSync.clear()
-//            val currentTime = System.currentTimeMillis()%(24*60*1000)
-//            Log.w("widget-flow", "currentTime: $currentTime")
-//            list.forEach { lecture->
-//                val time = lecture.startTime.split(":", " ")
-//                val lectureTime = (time[0].toInt()*60 + time[1].toInt())*1000 + if(time[2] == "PM") 12*60*1000 else 0
-//                Log.w("widget-flow", "${lecture.subject.name}: $time")
-//                if(lectureTime>=currentTime) lectureListSync.add(lecture)
-//            }
-//            onDataSetChanged()
-//        }
+        private fun timeInMinutes(time: String): Int{
+            val timeArray = time.split(":", " ")
+            val amPM = if(timeArray[2]=="PM"){
+                if(timeArray[0].toInt()<12) 12*60
+                else 0
+            }
+            else {
+                if(timeArray[0].toInt()==12) -12*60
+                else 0
+            }
+            return timeArray[0].toInt()*60 + timeArray[1].toInt() + amPM
+        }
+
         private fun getLectureForToday(repo: SubjectRepository): LiveData<List<Lecture>> {
             val calender = Calendar.getInstance()
             return when(calender.get(Calendar.DAY_OF_WEEK)){
