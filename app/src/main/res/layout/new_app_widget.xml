@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
+    style="@style/ScreenBackground"
     android:id="@+id/widget_root"
     android:clickable="true"
     android:focusable="true"
@@ -15,11 +15,19 @@
         android:layout_height="wrap_content"
         android:text="Upcoming classes"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        style="@style/HeadingText"
         android:layout_marginTop="12dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="12dp"
         android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dayTv"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:text="Wednesday, 26th Jan 2023"/>
 
     <ListView
         android:layout_width="match_parent"

@@ -14,7 +14,9 @@ import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class NewAppWidget : AppWidgetProvider() {
 
@@ -63,6 +65,9 @@ class NewAppWidget : AppWidgetProvider() {
                 context.packageName,
                 R.layout.new_app_widget
             )
+
+            val dayAndDate = getDayAndDate()
+            remoteViews.setTextViewText(R.id.dayTv, "${dayAndDate[0]}, ${dayAndDate[1]}")
             remoteViews.setRemoteAdapter(R.id.timetable_list, serviceIntent)
             remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent)
             remoteViews.setEmptyView(R.id.timetable_list, R.id.timetable_list)
@@ -109,6 +114,28 @@ class NewAppWidget : AppWidgetProvider() {
             R.id.timetable_list
         )
     }
+    private fun getDayAndDate():List<String> {
+        val currentDate = Calendar.getInstance().time
+
+        return listOf(
+            getDay(),
+            SimpleDateFormat("d MMM yyyy", Locale.US).format(currentDate)
+        )
+    }
+    private fun getDay(): String {
+        val calendar = Calendar.getInstance()
+
+        return when(calendar.get(Calendar.DAY_OF_WEEK)){
+            1 -> "Sunday"
+            2 -> "Monday"
+            3 -> "Tuesday"
+            4 -> "Wednesday"
+            5 -> "Thursday"
+            6 -> "Friday"
+            else -> "Sunday"
+        }
+    }
+
     override fun onEnabled(context: Context) {
         notifyAppWidgetViewDataChanged(context)
     }

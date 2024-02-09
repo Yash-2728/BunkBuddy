@@ -2,6 +2,7 @@ package com.tejasdev.bunkbuddy
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.lifecycle.LiveData
@@ -76,6 +77,18 @@ class WidgetService: RemoteViewsService() {
             onDataSetChanged()
         }
 
+//        private fun updateList(list: List<Lecture>){
+//            lectureListSync.clear()
+//            val currentTime = System.currentTimeMillis()%(24*60*1000)
+//            Log.w("widget-flow", "currentTime: $currentTime")
+//            list.forEach { lecture->
+//                val time = lecture.startTime.split(":", " ")
+//                val lectureTime = (time[0].toInt()*60 + time[1].toInt())*1000 + if(time[2] == "PM") 12*60*1000 else 0
+//                Log.w("widget-flow", "${lecture.subject.name}: $time")
+//                if(lectureTime>=currentTime) lectureListSync.add(lecture)
+//            }
+//            onDataSetChanged()
+//        }
         private fun getLectureForToday(repo: SubjectRepository): LiveData<List<Lecture>> {
             val calender = Calendar.getInstance()
             return when(calender.get(Calendar.DAY_OF_WEEK)){
