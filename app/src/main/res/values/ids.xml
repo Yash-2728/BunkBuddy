@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="top_ll" type="id" />
+    <item name="previous_btn" type="id" />
+    <item name="selected_day_tv" type="id" />
+    <item name="next_button" type="id" />
+</resources>

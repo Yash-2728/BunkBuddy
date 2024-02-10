@@ -29,6 +29,7 @@ import com.tejasdev.bunkbuddy.util.SubjectAdapter
 import com.tejasdev.bunkbuddy.util.subjectItemClickListener
 import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
+import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.util.CLASS_ATTENDED_DEC
 import com.tejasdev.bunkbuddy.util.CLASS_ATTENDED_INC
 import com.tejasdev.bunkbuddy.util.CLASS_MISSED_DEC
@@ -73,6 +74,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         viewModel = (activity as MainActivity).viewModel
         sharedPreference = (activity as MainActivity).sharedPreferences
         editor = sharedPreference.edit()
+
         val lastUpdatedDate = sharedPreference.getString("last_updated_date", "")
         val lastUpdatedTime = sharedPreference.getString("last_updated_time", "")
         if(lastUpdatedDate.isNullOrEmpty()) binding.lastUpdatedTv.visibility = View.GONE
@@ -125,9 +127,9 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         snackbar.addCallback(object : Snackbar.Callback() {
             override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                 super.onDismissed(transientBottomBar, event)
-                if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT ||
-                    event == Snackbar.Callback.DISMISS_EVENT_SWIPE ||
-                    event == Snackbar.Callback.DISMISS_EVENT_MANUAL
+                if (event == DISMISS_EVENT_TIMEOUT ||
+                    event == DISMISS_EVENT_SWIPE ||
+                    event == DISMISS_EVENT_MANUAL
                 ) {
                     viewModel.deleteSubject(deletedItem)
                     val dayAndDate = getDayAndDate()

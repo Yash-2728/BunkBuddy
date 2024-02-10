@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy
+package com.tejasdev.bunkbuddy.alarm
 
 import android.Manifest
 import android.app.AlarmManager
@@ -14,8 +14,8 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.activities.MainActivity
-import java.lang.Long
 
 class AlarmReceiver: BroadcastReceiver() {
 
