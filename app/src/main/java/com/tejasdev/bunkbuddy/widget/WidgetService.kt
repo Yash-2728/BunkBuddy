@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy
+package com.tejasdev.bunkbuddy.widget
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.lifecycle.LiveData
+import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.SubjectDatabase
@@ -46,8 +47,13 @@ class WidgetService: RemoteViewsService() {
         }
 
         override fun getViewAt(position: Int): RemoteViews {
+            if(lectureListSync.size==0) {
+                return RemoteViews(
+                    context.packageName,
+                    R.layout.empty_widget_placeholder
+                )
+            }
             val item = lectureListSync[position]
-
             val remoteViews = RemoteViews(
                 context.packageName,
                 R.layout.widget_item_view
@@ -83,7 +89,7 @@ class WidgetService: RemoteViewsService() {
                     count++
                 }
             }
-            Log.w("widget-flow", count.toString())
+            Log.w("widget-flow", "widget service: $count")
             onDataSetChanged()
         }
         private fun search(time: String): Int{
@@ -106,7 +112,6 @@ class WidgetService: RemoteViewsService() {
             val timeInMilis = Calendar.getInstance().time
             val lecture24H = timeInMinutes(lecture.startTime)
             val current24H = timeInMinutes(SimpleDateFormat("hh:mm a", Locale.US).format(timeInMilis))
-            Log.w("widget-flow", "${lecture.startTime} $lecture24H $current24H")
             return lecture24H>=current24H
         }
 
@@ -132,7 +137,7 @@ class WidgetService: RemoteViewsService() {
                 4 -> repo.wednesday
                 5 -> repo.thursday
                 6 -> repo.friday
-                else -> repo.sunday
+                else -> repo.saturday
             }
         }
 

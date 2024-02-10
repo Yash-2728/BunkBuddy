@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy
+package com.tejasdev.bunkbuddy.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.lifecycle.LiveData
+import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
@@ -94,7 +95,7 @@ class NewAppWidget : AppWidgetProvider() {
             4 -> subjectRepository.wednesday
             5 -> subjectRepository.thursday
             6 -> subjectRepository.friday
-            else -> subjectRepository.sunday
+            else -> subjectRepository.saturday
         }
     }
 
@@ -132,7 +133,7 @@ class NewAppWidget : AppWidgetProvider() {
             4 -> "Wednesday"
             5 -> "Thursday"
             6 -> "Friday"
-            else -> "Sunday"
+            else -> "Saturday"
         }
     }
 

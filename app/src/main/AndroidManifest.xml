@@ -19,12 +19,9 @@
         android:theme="@style/Base.Theme.BunkBuddy"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".WidgetConfigurationActivity"
-            android:exported="false" />
 
         <receiver
-            android:name=".NewAppWidget"
+            android:name=".widget.NewAppWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -36,11 +33,11 @@
         </receiver>
 
         <service
-            android:name=".WidgetService"
+            android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".alarm.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

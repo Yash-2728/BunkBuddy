@@ -7,15 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
-import com.tejasdev.bunkbuddy.AlarmReceiver
+import com.tejasdev.bunkbuddy.alarm.AlarmReceiver
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import java.lang.Long.max
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.math.min
 
 class AlarmViewModel(
     application: Application
