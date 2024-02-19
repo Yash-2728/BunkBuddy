@@ -8,6 +8,7 @@
     style="@style/ScreenBackground"
     tools:context="com.tejasdev.bunkbuddy.fragments.AllSubjectsFragment">
 
+
     <include
         android:id="@+id/addSubjectIv"
         layout="@layout/add_new_lecture_btn"
