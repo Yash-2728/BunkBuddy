@@ -1,8 +1,6 @@
 package com.tejasdev.bunkbuddy.fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -21,9 +19,6 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
@@ -31,13 +26,11 @@ import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.databinding.FragmentTimetableBinding
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
-import com.tejasdev.bunkbuddy.util.TimetableAdapter
-import com.tejasdev.bunkbuddy.util.ViewPagerAdapter
-import com.google.android.material.chip.Chip
+import com.tejasdev.bunkbuddy.util.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tejasdev.bunkbuddy.UI.AlarmViewModel
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
-import com.tejasdev.bunkbuddy.util.LECTURE_ADDED
+import com.tejasdev.bunkbuddy.util.constants.LECTURE_ADDED
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.room
+package com.tejasdev.bunkbuddy.room.migrations
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase

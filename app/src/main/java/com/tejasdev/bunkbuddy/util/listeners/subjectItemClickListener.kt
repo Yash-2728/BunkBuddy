@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.util
+package com.tejasdev.bunkbuddy.util.listeners
 
 import com.tejasdev.bunkbuddy.datamodel.Subject
 

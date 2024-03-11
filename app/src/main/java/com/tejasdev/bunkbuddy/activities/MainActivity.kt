@@ -33,9 +33,9 @@ import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
-import com.tejasdev.bunkbuddy.room.SubjectDatabase
-import com.tejasdev.bunkbuddy.util.ALERTS_OFF
-import com.tejasdev.bunkbuddy.util.ALERTS_ON
+import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
+import com.tejasdev.bunkbuddy.util.constants.ALERTS_OFF
+import com.tejasdev.bunkbuddy.util.constants.ALERTS_ON
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

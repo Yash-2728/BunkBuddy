@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.room
+package com.tejasdev.bunkbuddy.room.converters
 
 import androidx.room.TypeConverter
 import com.tejasdev.bunkbuddy.datamodel.Subject

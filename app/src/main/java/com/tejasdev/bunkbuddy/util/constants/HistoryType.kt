@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.util
+package com.tejasdev.bunkbuddy.util.constants
 
 const val SUBJECT_DELETED = 0
 const val SUBJECT_ADDED = 1

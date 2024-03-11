@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
-import com.tejasdev.bunkbuddy.room.SubjectDatabase
+import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
 
 class SubjectRepository(
     private val db: SubjectDatabase

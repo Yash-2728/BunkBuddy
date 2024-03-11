@@ -1,7 +1,6 @@
-package com.tejasdev.bunkbuddy.util
+package com.tejasdev.bunkbuddy.util.adapters
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import kotlin.math.ceil
-import android.os.Handler
-import android.os.Looper
 import android.view.ViewGroup.LayoutParams
-import androidx.cardview.widget.CardView
 import com.google.android.material.card.MaterialCardView
 import java.util.Collections
 

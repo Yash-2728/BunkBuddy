@@ -1,11 +1,10 @@
-package com.tejasdev.bunkbuddy.util
+package com.tejasdev.bunkbuddy.util.adapters
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import org.w3c.dom.Text
+import com.tejasdev.bunkbuddy.util.listeners.subjectItemClickListener
 import java.util.Collections
 import kotlin.math.ceil
 import kotlin.math.floor

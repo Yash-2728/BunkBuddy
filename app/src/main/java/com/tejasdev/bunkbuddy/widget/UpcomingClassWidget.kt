@@ -14,7 +14,7 @@ import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
-import com.tejasdev.bunkbuddy.room.SubjectDatabase
+import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

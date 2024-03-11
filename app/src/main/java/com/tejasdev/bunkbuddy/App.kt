@@ -24,7 +24,7 @@ class App: Application(){
 
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE)
-            as NotificationManager
+                        as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
         }

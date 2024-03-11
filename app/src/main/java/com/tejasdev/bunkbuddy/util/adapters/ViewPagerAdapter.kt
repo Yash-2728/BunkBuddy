@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.util
+package com.tejasdev.bunkbuddy.util.adapters
 
 import android.os.Bundle
 import android.os.Handler

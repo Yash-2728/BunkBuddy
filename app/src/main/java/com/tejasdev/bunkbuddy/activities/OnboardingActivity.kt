@@ -3,17 +3,12 @@ package com.tejasdev.bunkbuddy.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.databinding.ActivityOnboardingBinding
 import com.tejasdev.bunkbuddy.datamodel.OnboardingItem
-import com.tejasdev.bunkbuddy.util.OnboardingAdapter
+import com.tejasdev.bunkbuddy.util.adapters.OnboardingAdapter
 
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var onboardingAdapter: OnboardingAdapter

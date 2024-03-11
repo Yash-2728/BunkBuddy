@@ -1,4 +1,4 @@
-package com.tejasdev.bunkbuddy.room
+package com.tejasdev.bunkbuddy.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

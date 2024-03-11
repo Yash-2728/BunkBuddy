@@ -1,16 +1,17 @@
-package com.tejasdev.bunkbuddy.room
+package com.tejasdev.bunkbuddy.room.db
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
+import com.tejasdev.bunkbuddy.room.converters.TypeConverter
+import com.tejasdev.bunkbuddy.room.dao.HistoryDao
+import com.tejasdev.bunkbuddy.room.dao.SubjectDao
+import com.tejasdev.bunkbuddy.room.migrations.MigrationFrom1to2
 
 @Database(
     entities = [Subject::class, Lecture::class, HistoryItem::class],
