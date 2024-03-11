@@ -48,6 +48,7 @@
     <string name="cancel2">Cancel</string>
     <string name="notifications">Notifications</string>
     <string name="alerts">Alerts</string>
+    <string name="notification_channel_description">Used for lecture notifications</string>
     <string name="history">History</string>
     <string-array name="days">
         <item>Monday</item>
@@ -74,4 +75,7 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <string name="guest">Guest</string>
+    <string name="error_loading_image_message">Couldn\'t load image</string>
+    <string name="user_not_logged_in_message">Couldn\'t find logged in user</string>
 </resources>

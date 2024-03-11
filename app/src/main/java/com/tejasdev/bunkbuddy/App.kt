@@ -17,11 +17,10 @@ class App: Application(){
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             val channel = NotificationChannel(
                 AlarmReceiver.NOTIFICATION_CHANNEL_ID,
-                "BunkBuddy",
+                this.getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            channel.description = "Used for lecture notifications"
-
+            channel.description = this.getString(R.string.notification_channel_description)
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE)
                         as NotificationManager

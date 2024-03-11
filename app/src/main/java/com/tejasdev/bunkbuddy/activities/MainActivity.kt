@@ -12,12 +12,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -41,7 +43,6 @@ import java.util.Calendar
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
-    private val     NOTIFICATION_PERMISSION_REQUEST_CODE = 123
     private var _binding: ActivityMainBinding? = null
     private val binding get()=_binding!!
     lateinit var sharedPreferences: SharedPreferences
@@ -91,10 +92,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.historyFragment)
             closeDrawer()
         }
-//        binding.llForAccount.setOnClickListener {
-//            navController.navigate(R.id.profileFragment)
-//            closeDrawer()
-//        }
     }
 
     private fun setUpAuthViewModel() {
@@ -103,17 +100,13 @@ class MainActivity : AppCompatActivity() {
         if(authViewModel.isLogin()) {
             binding.authTv.text = getString(R.string.logout)
             binding.authIcon.setImageDrawable(
-                resources.getDrawable(
-                    R.drawable.ic_logout
-                )
+                ResourcesCompat.getDrawable(this.resources, R.drawable.ic_logout, null)
             )
         }
         else if(authViewModel.isSkipped()) {
             binding.authTv.text = getString(R.string.log_in)
             binding.authIcon.setImageDrawable(
-                resources.getDrawable(
-                    R.drawable.ic_login
-                )
+                ResourcesCompat.getDrawable(this.resources, R.drawable.ic_login, null)
             )
         }
     }
@@ -222,6 +215,7 @@ class MainActivity : AppCompatActivity() {
             activity.startActivityForResult(intent, NOTIFICATION_PERMISSION_REQUEST_CODE)
         }
     }
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
@@ -238,14 +232,14 @@ class MainActivity : AppCompatActivity() {
             if(authViewModel.hasInternetConnection()){
                 if(authViewModel.getUserImage()!=Uri.parse("")) Glide.with(this).load(authViewModel.getUserImage()).into(binding.userImageIv)
             }
-            else showSnackbar(binding.userImageIv,"Couldn't load image")
+            else showSnackbar(binding.userImageIv, getString(R.string.error_loading_image_message))
 
             binding.usernameTv.text = authViewModel.getUserName()
             binding.emailTv.text = authViewModel.getEmail()
         }
         else {
             binding.userImageIv.setImageDrawable(resources.getDrawable(R.drawable.default_profile))
-            binding.usernameTv.text = "Guest"
+            binding.usernameTv.text = this.getString(R.string.guest)
             binding.emailTv.visibility = View.GONE
         }
 
@@ -256,11 +250,12 @@ class MainActivity : AppCompatActivity() {
                 velocityX: Float,
                 velocityY: Float
             ): Boolean {
-                if((e1?.x ?: 0f) < (e2.x ?: 0f)){
+                Log.w("motion-event-main", "${e1?.x} ${e1?.y} ${e2.x} ${e2.y} $velocityX $velocityY")
+                if((e1?.x ?: 0f) < e2.x){
                     openDrawer()
                     return true
                 }
-                else if((e1?.x?:0f) > (e2.x ?:0f)){
+                else if((e1?.x?:0f) > e2.x){
                     closeDrawer()
                     return true
                 }
@@ -283,8 +278,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAbout() {
         val version = getAppVersion(applicationContext)
-        Toast.makeText(this, "Bunkbuddy $version", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, version.toVersionText(), Toast.LENGTH_SHORT).show()
     }
+
+    private fun String.toVersionText(): String = "Bunkbuddy $this"
     private fun getAppVersion(context: Context): String {
         try {
             val packageManager: PackageManager = context.packageManager
@@ -309,7 +306,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         else{
-            showSnackbar(view,"Could't find logged in user")
+            showSnackbar(view, getString(R.string.user_not_logged_in_message))
         }
     }
 
@@ -340,6 +337,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.visibility = View.VISIBLE
     }
     companion object{
+        const val NOTIFICATION_PERMISSION_REQUEST_CODE = 123
         const val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"
         const val SHARED_PREF = "BunkBuddySharedPref"
         const val DARK_MODE_ENABLED = "dark_mode"
