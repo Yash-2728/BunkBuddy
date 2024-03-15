@@ -26,7 +26,7 @@ import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.databinding.FragmentAllSubjectsBinding
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.util.adapters.SubjectAdapter
-import com.tejasdev.bunkbuddy.util.listeners.subjectItemClickListener
+import com.tejasdev.bunkbuddy.util.listeners.SubjectItemClickListener
 import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.util.constants.CLASS_ATTENDED_DEC
@@ -39,11 +39,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class AllSubjectsFragment : Fragment(), subjectItemClickListener {
+class AllSubjectsFragment : Fragment(), SubjectItemClickListener {
     private var _binding: FragmentAllSubjectsBinding? = null
     private val binding get()=_binding!!
 
-    private lateinit var listener: subjectItemClickListener
+    private lateinit var listener: SubjectItemClickListener
     private var popUpWindow: PopupWindow? = null
     private lateinit var viewModel: SubjectViewModel
     private lateinit var adapter: SubjectAdapter
@@ -94,7 +94,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         })
 
         binding.addSubjectIv.root.setOnClickListener {
-            showAddSubjectPopup()
+            showAddSubjectPopup(null)
         }
 
         binding.allSubjectsRcv.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -152,7 +152,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                 super.onShown(sb)
             }
         })
-
+        adapter.deleteAt(position)
         snackbar.show()
     }
     private fun undoDelete(deletedItem: Subject, position: Int) {
@@ -160,6 +160,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     }
     private fun setUpRecyclerView() {
         adapter = SubjectAdapter(requireContext(), listener)
+        binding.allSubjectsRcv.setHasFixedSize(true)
         binding.allSubjectsRcv.adapter = adapter
         binding.allSubjectsRcv.layoutManager=LinearLayoutManager(requireContext())
         val itemTouchHelper = ItemTouchHelper(
@@ -177,7 +178,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val pos = viewHolder.adapterPosition
                     val subject = adapter.getAtPostion(pos)
-                    adapter.deleteAt(pos)
                     showUndoSnackbar(subject, pos)
                 }
 
@@ -186,7 +186,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         itemTouchHelper.attachToRecyclerView(binding.allSubjectsRcv)
     }
 
-    private fun showAddSubjectPopup() {
+    private fun showAddSubjectPopup(subject: Subject?) {
         val popUpView = LayoutInflater.from(requireContext()).inflate(R.layout.add_subject_popup, null)
 
         val incAttendedBtn: CardView = popUpView.findViewById(R.id.incAttendenceButton)
@@ -208,6 +208,15 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         val missed = MutableLiveData(0)
         val requirement = MutableLiveData(75)
         val addBtnState = MutableLiveData(false)
+
+
+        subject?.let{
+            attended.postValue(it.attended)
+            missed.postValue(it.missed)
+            requirement.postValue(it.requirement)
+            addBtnState.postValue(true)
+            subjectNameEdtxt.setText(it.name)
+        }
 
 
         addBtnState.observe(viewLifecycleOwner, Observer {
@@ -283,8 +292,19 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         popUpWindow?.isFocusable=true
 
         addBtn.setOnClickListener {
-            addNewSubject(Subject(subjectNameEdtxt.text.toString().trim(), missed.value!!, attended.value!!, 0, getDayAndDate()[1], requirement.value!!))
-            popUpView.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.pop_up_out_anim))
+            if(subject!=null){
+                subject.attended = attended.value!!
+                subject.missed = missed.value!!
+                subject.name = subjectNameEdtxt.text.toString()
+                subject.requirement = requirement.value!!
+                updateSubject(
+                    subject
+                )
+            }
+            else{
+                addNewSubject(Subject(subjectNameEdtxt.text.toString().trim(), missed.value!!, attended.value!!, 0, getDayAndDate()[1], requirement.value!!))
+                popUpView.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.pop_up_out_anim))
+            }
             popUpWindow?.dismiss()
         }
 
@@ -332,9 +352,6 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
             .start()
     }
 
-    private fun showToast(message: String){
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
     private fun addNewSubject(subject: Subject){
         viewModel.addSubject(subject)
         val dayAndDate = getDayAndDate()
@@ -357,12 +374,12 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         updateDateAndTime(dayAndDate)
     }
 
-    override fun onDeleteBtnClicked(subject: Subject) {
-        viewModel.deleteSubject(subject)
-        val dayAndDate = getDayAndDate()
-        editor.putString("last_updated_date", dayAndDate[1])
-        editor.putString("last_updated_time", dayAndDate[0])
-        updateDateAndTime(getDayAndDate())
+    override fun onDeleteBtnClicked(pos: Int, subject: Subject) {
+        showUndoSnackbar(subject, pos)
+    }
+
+    override fun onEditOptionSelected(subject: Subject) {
+        showAddSubjectPopup(subject)
     }
 
     private fun Int.toPercent(a: Int): String{
@@ -383,7 +400,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
     private fun updateDateAndTime(list: List<String>){
         binding.lastUpdatedTv.text = "Last updated on ${list[1]} at ${list[0]}"
     }
-    override fun onIncreaseAttendenceBtnClicked(subject: Subject) {
+    override fun onIncreaseAttendanceBtnClicked(subject: Subject) {
         val dayAndDate = getDayAndDate()
         editor.putString("last_updated_date", dayAndDate[1])
         editor.putString("last_updated_time", dayAndDate[0])
@@ -404,7 +421,7 @@ class AllSubjectsFragment : Fragment(), subjectItemClickListener {
         )
         viewModel.addHistory(historyItem)
     }
-    override fun onDecreaseAttendenceBtnClicked(subject: Subject){
+    override fun onDecreaseAttendanceBtnClicked(subject: Subject){
         if(subject.attended==0) {
             showSnackbar("Attendance classes cannot be less than 0")
             return

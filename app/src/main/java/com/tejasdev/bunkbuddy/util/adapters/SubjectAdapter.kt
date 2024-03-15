@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.datamodel.Subject
-import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.tejasdev.bunkbuddy.util.listeners.subjectItemClickListener
+import com.tejasdev.bunkbuddy.util.listeners.SubjectItemClickListener
 import java.util.Collections
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -20,14 +22,14 @@ import kotlin.math.roundToInt
 
 class SubjectAdapter(
     private val context: Context,
-    private val listener: subjectItemClickListener
+    private val listener: SubjectItemClickListener
     ): RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>() {
 
     private var list: ArrayList<Subject> = arrayListOf()
 
     class SubjectViewHolder(view: View):RecyclerView.ViewHolder(view){
         val nameTv: TextView = view.findViewById(R.id.subjectName)
-        val progress: LinearProgressIndicator = view.findViewById(R.id.subjectProgress)
+        val progress: CircularProgressIndicator = view.findViewById(R.id.progress_bar)
         val attendedClassTv: TextView = view.findViewById(R.id.attended_tv)
         val remarks: TextView = view.findViewById(R.id.remarks_tv)
         val missedClasTv: TextView = view.findViewById(R.id.missed_tv)
@@ -41,6 +43,7 @@ class SubjectAdapter(
 
         val attendanceTv: TextView = view.findViewById(R.id.percent_tv)
         val incDecLl: LinearLayout = view.findViewById(R.id.ll_with_btn)
+        val optionsBtn: ShapeableImageView = view.findViewById(R.id.options_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder {
@@ -57,11 +60,20 @@ class SubjectAdapter(
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
         val item = list[position]
 
+        holder.optionsBtn.setOnClickListener {
+            showPopupMenu(
+                holder.itemView.context,
+                it,
+                item,
+                position
+            )
+        }
+
         holder.incAttendanceBtn.setOnClickListener {
-            listener.onIncreaseAttendenceBtnClicked(item)
+            listener.onIncreaseAttendanceBtnClicked(item)
         }
         holder.decAttendanceBtn.setOnClickListener {
-            if(item.missed+item.attended>1) listener.onDecreaseAttendenceBtnClicked(item)
+            if(item.missed+item.attended>1) listener.onDecreaseAttendanceBtnClicked(item)
         }
 
         holder.decMissedBtn.setOnClickListener {
@@ -92,7 +104,7 @@ class SubjectAdapter(
             val attendedPerc = 100 - missedPerc
             val requirement = item.requirement
 
-            attendanceTv.text = "Attendance: ${attendedPerc}%"
+            attendanceTv.text = "${attendedPerc}%"
 
             progress.setProgress(attendedPerc, true)
             var remarksText=""
@@ -113,7 +125,23 @@ class SubjectAdapter(
             }
         }
     }
-
+    private fun showPopupMenu(context: Context, view: View, subject: Subject, pos: Int){
+        val popupMenu = PopupMenu(context, view)
+        popupMenu.inflate(R.menu.subject_popup_options)
+        popupMenu.setOnMenuItemClickListener { item->
+            when(item.itemId){
+                R.id.edit -> {
+                    listener.onEditOptionSelected(subject)
+                    true
+                }
+                else -> {
+                    listener.onDeleteBtnClicked(pos, subject)
+                    true
+                }
+            }
+        }
+        popupMenu.show()
+    }
     fun addItem(subject: Subject, pos: Int){
         list.add(pos, subject)
         notifyDataSetChanged()

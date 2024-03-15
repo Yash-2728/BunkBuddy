@@ -10,6 +10,14 @@
         <item name="android:backgroundTint">@color/card_bg_light</item>
     </style>
 
+    <style name="WidgetView">
+        <item name="android:background">@color/background_color_light</item>
+        <item name="android:bottomLeftRadius">12dp</item>
+        <item name="android:bottomRightRadius">12dp</item>
+        <item name="android:topLeftRadius">12dp</item>
+        <item name="android:topRightRadius">12dp</item>
+    </style>
+
     <style name="ScreenBackground">
         <item name="android:background">@color/background_color_light</item>
     </style>

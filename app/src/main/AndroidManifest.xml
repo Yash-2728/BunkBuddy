@@ -25,6 +25,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.tejasdev.bunkbuddy.widget.WidgetService.MARK_LECTURE_ATTENDED"/>
             </intent-filter>
 
             <meta-data

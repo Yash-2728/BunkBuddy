@@ -78,4 +78,7 @@
     <string name="guest">Guest</string>
     <string name="error_loading_image_message">Couldn\'t load image</string>
     <string name="user_not_logged_in_message">Couldn\'t find logged in user</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="upcoming_classes">Upcoming classes</string>
 </resources>
