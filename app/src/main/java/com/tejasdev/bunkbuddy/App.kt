@@ -6,7 +6,9 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import com.tejasdev.bunkbuddy.alarm.AlarmReceiver
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App: Application(){
     override fun onCreate() {
         super.onCreate()
