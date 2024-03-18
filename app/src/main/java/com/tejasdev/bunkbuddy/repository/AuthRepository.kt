@@ -3,18 +3,20 @@ package com.tejasdev.bunkbuddy.repository
 import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
-import com.tejasdev.bunkbuddy.api.RetrofitInstance
+import com.tejasdev.bunkbuddy.api.AuthAPI
 import com.tejasdev.bunkbuddy.datamodel.ErrorResponse
 import com.tejasdev.bunkbuddy.datamodel.User
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AuthRepository(private val context: Context){
-    private val retrofit = RetrofitInstance
-
+class AuthRepository @Inject constructor(
+    private val api: AuthAPI
+){
     fun login(email: String, password: String, callback: (User?, String?)-> Unit){
-        val call = retrofit.api.loginUser(email, password)
+        val call = api.loginUser(email, password)
 
         call.enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -39,7 +41,7 @@ class AuthRepository(private val context: Context){
     }
 
     fun changePassword(email: String, currentPassword: String, newPassword: String, callback: (User?, String?)->Unit){
-        val call = retrofit.api.updatePassword(email, currentPassword, newPassword)
+        val call = api.updatePassword(email, currentPassword, newPassword)
         call.enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if(response.isSuccessful){
@@ -62,7 +64,7 @@ class AuthRepository(private val context: Context){
     }
 
     fun changeUsername(email: String, newUsername: String, password: String, callback: (User?, String?)-> Unit){
-        val call = retrofit.api.updateUsername(email, newUsername, password)
+        val call = api.updateUsername(email, newUsername, password)
 
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -85,7 +87,7 @@ class AuthRepository(private val context: Context){
         })
     }
     fun changeProfilePicture(email: String, newImageUrl: String, callback: (User?, String?)->Unit){
-        val call = retrofit.api.updateProfilePic(email, newImageUrl)
+        val call = api.updateProfilePic(email, newImageUrl)
 
         call.enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -109,7 +111,7 @@ class AuthRepository(private val context: Context){
     }
 
     fun signup(name: String, email: String, password: String, image: String, callback: (User?, String?)-> Unit){
-        val call = retrofit.api.signupUser(name, email, password, image)
+        val call = api.signupUser(name, email, password, image)
 
         call.enqueue(object: Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

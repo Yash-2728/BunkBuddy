@@ -17,6 +17,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
@@ -38,10 +39,12 @@ import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
 import com.tejasdev.bunkbuddy.util.constants.ALERTS_OFF
 import com.tejasdev.bunkbuddy.util.constants.ALERTS_ON
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get()=_binding!!
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     var isDarkTheme = true
     var isNotificationEnabled = false
     private lateinit var gestureDetector:GestureDetector
-    private lateinit var authViewModel: AuthViewmodel
+    private val authViewModel: AuthViewmodel by viewModels()
     private lateinit var editor: SharedPreferences.Editor
     lateinit var alarmViewModel: AlarmViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +98,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAuthViewModel() {
-        authViewModel = AuthViewmodel(application, this)
 
         if(authViewModel.isLogin()) {
             binding.authTv.text = getString(R.string.logout)
