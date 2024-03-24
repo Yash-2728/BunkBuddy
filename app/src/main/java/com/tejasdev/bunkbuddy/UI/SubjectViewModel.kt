@@ -8,10 +8,15 @@ import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SubjectViewModel(
-    val app: Application,
+@HiltViewModel
+class SubjectViewModel @Inject constructor(
+    @ApplicationContext private val app: Application,
     private val repository: SubjectRepository
 ): AndroidViewModel(app) {
 

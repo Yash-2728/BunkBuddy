@@ -35,8 +35,6 @@ import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
-import com.tejasdev.bunkbuddy.repository.SubjectRepository
-import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
 import com.tejasdev.bunkbuddy.util.constants.ALERTS_OFF
 import com.tejasdev.bunkbuddy.util.constants.ALERTS_ON
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,24 +47,22 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get()=_binding!!
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var viewModel: SubjectViewModel
+    val viewModel: SubjectViewModel by viewModels()
     private lateinit var navController: NavController
-    var isDarkTheme = true
+    private var isDarkTheme = true
     var isNotificationEnabled = false
     private lateinit var gestureDetector:GestureDetector
     private val authViewModel: AuthViewmodel by viewModels()
     private lateinit var editor: SharedPreferences.Editor
-    lateinit var alarmViewModel: AlarmViewModel
+    val alarmViewModel: AlarmViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        setUpAlarmViewModel()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
-        setUpSubjectViewModel()
         setUpSharedPref()
         setUpSwitchWithFeatureFlags()
         checkNotificationSettings()
@@ -113,10 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpAlarmViewModel() {
-        alarmViewModel = AlarmViewModel(application)
-    }
-
     private fun setUpSwitchWithFeatureFlags() {
         isDarkTheme = sharedPreferences.getBoolean(DARK_MODE_ENABLED, true)
         isNotificationEnabled = sharedPreferences.getBoolean(NOTIFICATION_ENABLED, false)
@@ -129,11 +121,7 @@ class MainActivity : AppCompatActivity() {
         editor = sharedPreferences.edit()
     }
 
-    private fun setUpSubjectViewModel() {
-        val db = SubjectDatabase.getDatabase(this)
-        val repository = SubjectRepository(db)
-        viewModel = SubjectViewModel(application, repository)
-    }
+
 
     private fun removeScheduledAlarms() {
         val lectures = viewModel.getAllLecturesSync()

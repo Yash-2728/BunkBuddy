@@ -10,13 +10,17 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.tejasdev.bunkbuddy.alarm.AlarmReceiver
 import com.tejasdev.bunkbuddy.datamodel.Lecture
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.Long.max
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
-class AlarmViewModel(
-    application: Application
+@HiltViewModel
+class AlarmViewModel @Inject constructor(
+    @ApplicationContext application: Application
 ): AndroidViewModel(application) {
 
     private val app = application
