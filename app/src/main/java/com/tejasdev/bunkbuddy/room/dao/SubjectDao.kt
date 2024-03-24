@@ -17,6 +17,9 @@ interface SubjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addSubject(subject: Subject)
 
+    @Query("SELECT * FROM subjects where id= :id")
+    fun getSubject(id: Int): Subject
+
     @Query("SELECT * FROM subjects")
     fun getAllSubjects(): LiveData<List<Subject>>
 
