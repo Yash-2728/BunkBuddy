@@ -13,13 +13,17 @@ import androidx.lifecycle.AndroidViewModel
 import com.tejasdev.bunkbuddy.datamodel.User
 import com.tejasdev.bunkbuddy.repository.AuthRepository
 import com.tejasdev.bunkbuddy.session.Session
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class AuthViewmodel(
-    private val app: Application,
-    private val context: Context
-): AndroidViewModel(app) {
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    @ApplicationContext private val app: Application,
+    private val repo: AuthRepository
+    ): AndroidViewModel(app) {
 
-    private val repo = AuthRepository(context)
+    private val context = app.applicationContext
     private val session = Session.getInstance(context)
 
     fun updateImage(image: String){

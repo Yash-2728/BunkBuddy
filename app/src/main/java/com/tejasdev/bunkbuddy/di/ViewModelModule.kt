@@ -1,9 +1,8 @@
 package com.tejasdev.bunkbuddy.di
 
 import android.app.Application
-import android.content.Context
 import com.tejasdev.bunkbuddy.UI.AlarmViewModel
-import com.tejasdev.bunkbuddy.UI.AuthViewmodel
+import com.tejasdev.bunkbuddy.UI.AuthViewModel
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.repository.AuthRepository
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
@@ -20,8 +19,8 @@ object ViewModelModule {
     fun provideAuthViewModel(
         app: Application,
         repo: AuthRepository
-    ): AuthViewmodel{
-        return AuthViewmodel(app, repo)
+    ): AuthViewModel{
+        return AuthViewModel(app, repo)
     }
 
     @Provides

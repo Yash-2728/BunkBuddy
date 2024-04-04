@@ -30,7 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.tejasdev.bunkbuddy.alarm.AlarmReceiver
 import com.tejasdev.bunkbuddy.R
 import com.tejasdev.bunkbuddy.UI.AlarmViewModel
-import com.tejasdev.bunkbuddy.UI.AuthViewmodel
+import com.tejasdev.bunkbuddy.UI.AuthViewModel
 import com.tejasdev.bunkbuddy.UI.SubjectViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityMainBinding
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private var isDarkTheme = true
     var isNotificationEnabled = false
     private lateinit var gestureDetector:GestureDetector
-    private val authViewModel: AuthViewmodel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var editor: SharedPreferences.Editor
     val alarmViewModel: AlarmViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {

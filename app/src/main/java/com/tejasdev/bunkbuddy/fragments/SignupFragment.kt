@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.tejasdev.bunkbuddy.R
-import com.tejasdev.bunkbuddy.UI.AuthViewmodel
+import com.tejasdev.bunkbuddy.UI.AuthViewModel
 import com.tejasdev.bunkbuddy.activities.AuthActivity
 import com.tejasdev.bunkbuddy.activities.MainActivity
 import com.tejasdev.bunkbuddy.activities.OnboardingActivity
@@ -28,7 +28,7 @@ class SignupFragment : Fragment() {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: AuthViewmodel
+    private lateinit var viewModel: AuthViewModel
     private lateinit var sharedPref: SharedPreferences
     private var enterBtnState = MutableLiveData(true)
 

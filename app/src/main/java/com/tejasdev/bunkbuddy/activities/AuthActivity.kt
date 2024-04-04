@@ -8,10 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tejasdev.bunkbuddy.R
-import com.tejasdev.bunkbuddy.UI.AuthViewmodel
+import com.tejasdev.bunkbuddy.UI.AuthViewModel
 import com.tejasdev.bunkbuddy.databinding.ActivityAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
@@ -19,7 +18,7 @@ class AuthActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var navController: NavController
-    val viewModel: AuthViewmodel by viewModels()
+    val viewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
