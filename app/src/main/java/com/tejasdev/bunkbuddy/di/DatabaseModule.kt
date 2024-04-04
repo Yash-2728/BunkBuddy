@@ -31,4 +31,6 @@ object DatabaseModule {
     fun provideRepository(database: SubjectDatabase): SubjectRepository{
         return SubjectRepository(database)
     }
+
+
 }

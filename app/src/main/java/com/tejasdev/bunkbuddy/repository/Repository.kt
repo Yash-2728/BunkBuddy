@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
+import com.tejasdev.bunkbuddy.interfaces.SubjectRepositoryInterface
 import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
+import javax.inject.Inject
 
-class SubjectRepository(
+class SubjectRepository @Inject constructor(
     private val db: SubjectDatabase
-) {
+): SubjectRepositoryInterface {
 
     private val dao = db.getDao()
     private val historyDao = db.getHistoryDao()
@@ -22,37 +24,37 @@ class SubjectRepository(
     val saturday = getLecturesForDay(5)
     val sunday = getLecturesForDay(6)
 
-    suspend fun updateSubjectAndLectures(subject: Subject){
+    override suspend fun updateSubjectAndLectures(subject: Subject){
         dao.updateSubjectAndRelatedLectures(subject)
     }
-    fun getSubjectSync(): List<Subject>{
+    override fun getSubjectSync(): List<Subject>{
         return dao.getAllSubjectsSync()
     }
-    suspend fun addSubject(subject: Subject){
+    override suspend fun addSubject(subject: Subject){
         dao.addSubject(subject)
     }
 
-    suspend fun deleteSubject(subject: Subject){
+    override suspend fun deleteSubject(subject: Subject){
         dao.deleteSubject(subject)
     }
 
-    fun getAllLectures(): List<Lecture>{
+    override fun getAllLectures(): List<Lecture>{
         return dao.getAllLectures()
     }
-    fun updateSubject(subject: Subject){
+    override fun updateSubject(subject: Subject){
         dao.updateSubject(subject)
     }
 
-    fun addLecture(lecture: Lecture):Int {
+    override fun addLecture(lecture: Lecture):Int {
         return dao.addLecture(lecture).toInt()
     }
-    fun deleteLecture(lecture: Lecture) {
+    override fun deleteLecture(lecture: Lecture) {
         dao.deleteLecture(lecture)
     }
-    fun getLecturesForDay(day: Int): LiveData<List<Lecture>> {
+    override fun getLecturesForDay(day: Int): LiveData<List<Lecture>> {
         return dao.getLecturesForDay(day)
     }
 
-    fun getHistory(): LiveData<List<HistoryItem>> = historyDao.getHistory()
-    suspend fun addHistoryItem(history: HistoryItem) = historyDao.addHistory(history = history)
+    override fun getHistory(): LiveData<List<HistoryItem>> = historyDao.getHistory()
+    override suspend fun addHistoryItem(history: HistoryItem) = historyDao.addHistory(history = history)
 }
