@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
 import android.util.Log
-
 import androidx.lifecycle.AndroidViewModel
 import com.tejasdev.bunkbuddy.datamodel.User
 import com.tejasdev.bunkbuddy.repository.AuthRepository
@@ -18,7 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewmodel @Inject constructor(
+class AuthViewModel @Inject constructor(
     @ApplicationContext private val app: Application,
     private val repo: AuthRepository
 ): AndroidViewModel(app) {
@@ -65,9 +64,9 @@ class AuthViewmodel @Inject constructor(
         }
     }
 
-   fun signOut(){
-       session.signOut()
-   }
+    fun signOut(){
+        session.signOut()
+    }
 
     fun signupUser(email: String, name: String, password: String, image: String, callback: (User?, String?)->Unit){
         repo.signup(name, email, password, image){user, message ->
