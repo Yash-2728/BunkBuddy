@@ -131,13 +131,13 @@ class WidgetService: RemoteViewsService() {
         private fun getLectureForToday(repo: SubjectRepository): LiveData<List<Lecture>> {
             val calender = Calendar.getInstance()
             return when(calender.get(Calendar.DAY_OF_WEEK)){
-                1 -> repo.sunday
-                2 -> repo.monday
-                3 -> repo.tuesday
-                4 -> repo.wednesday
-                5 -> repo.thursday
-                6 -> repo.friday
-                else -> repo.saturday
+                1 -> repo.getLecturesForDay(6)
+                2 -> repo.getLecturesForDay(0)
+                3 -> repo.getLecturesForDay(1)
+                4 -> repo.getLecturesForDay(2)
+                5 -> repo.getLecturesForDay(3)
+                6 -> repo.getLecturesForDay(4)
+                else -> repo.getLecturesForDay(5)
             }
         }
 

@@ -3,10 +3,12 @@ package com.tejasdev.bunkbuddy.UI
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tejasdev.bunkbuddy.datamodel.HistoryItem
 import com.tejasdev.bunkbuddy.datamodel.Lecture
 import com.tejasdev.bunkbuddy.datamodel.Subject
+import com.tejasdev.bunkbuddy.interfaces.SubjectRepositoryInterface
 import com.tejasdev.bunkbuddy.repository.SubjectRepository
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,18 +18,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SubjectViewModel @Inject constructor(
-    @ApplicationContext private val app: Application,
-    private val repository: SubjectRepository
-): AndroidViewModel(app) {
+    private val repository: SubjectRepositoryInterface
+): ViewModel() {
 
-    val savedSubjects = repository.savedSubjects
-    val monday = repository.monday
-    val tuesday = repository.tuesday
-    val wednesday = repository.wednesday
-    val thursday = repository.thursday
-    val friday = repository.friday
-    val saturday = repository.saturday
-    val sunday = repository.sunday
+    val savedSubjects = repository.getAllSubjects()
+
+    val monday = repository.getLecturesForDay(0)
+    val tuesday = repository.getLecturesForDay(1)
+    val wednesday = repository.getLecturesForDay(2)
+    val thursday = repository.getLecturesForDay(3)
+    val friday = repository.getLecturesForDay(4)
+    val saturday = repository.getLecturesForDay(5)
+    val sunday = repository.getLecturesForDay(6)
 
     val allHistory = repository.getHistory()
 

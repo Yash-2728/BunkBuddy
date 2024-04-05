@@ -7,6 +7,8 @@ import com.tejasdev.bunkbuddy.datamodel.Subject
 
 interface SubjectRepositoryInterface {
 
+
+    fun getAllSubjects(): LiveData<List<Subject>>
     suspend fun updateSubjectAndLectures(subject: Subject)
 
     fun getSubjectSync(): List<Subject>
