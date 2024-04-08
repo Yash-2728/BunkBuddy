@@ -34,8 +34,8 @@ class MockSubjectRepository: SubjectRepositoryInterface{
     }
 
     private fun refreshLiveData(){
-        observableSubjectItems.postValue(subjectItems)
-        observableLectureItems.postValue(lectureItems)
+        observableSubjectItems.value = subjectItems
+        observableLectureItems.value = lectureItems
     }
 
     override fun getAllSubjects(): LiveData<List<Subject>> {

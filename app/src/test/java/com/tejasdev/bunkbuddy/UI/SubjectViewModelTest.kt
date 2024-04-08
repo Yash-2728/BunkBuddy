@@ -72,7 +72,9 @@ class SubjectViewModelTest{
     fun `any missing tuesday lecture, returns error`(){
         val tuesdayLectures = viewModel.tuesday.getOrAwaitValue()
         val tuesdayLecturesSync = mutableListOf<Lecture>()
-//        for(lecture in )
+        assertThat(tuesdayLectures).isNotEmpty()
+        for(lecture in allLectures) if(lecture.dayNumber==1) tuesdayLecturesSync.add(lecture)
+        assertThat(tuesdayLecturesSync).isNotEmpty()
         assertThat(tuesdayLectures).isEqualTo(tuesdayLecturesSync)
     }
     @Test
