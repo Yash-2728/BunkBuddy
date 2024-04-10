@@ -64,7 +64,6 @@ class TimetablePresenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        (activity as MainActivity).showBottomNav()
         alarmViewModel = (activity as MainActivity).alarmViewModel
         val list = viewModel.getAllSubjectSync()
         val days = resources.getStringArray(R.array.days).toList()
