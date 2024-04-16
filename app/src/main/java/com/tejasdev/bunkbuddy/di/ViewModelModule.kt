@@ -25,10 +25,9 @@ object ViewModelModule {
 
     @Provides
     fun provideSubjectViewModel(
-        app: Application,
         repo: SubjectRepository
     ): SubjectViewModel{
-        return SubjectViewModel(app, repo)
+        return SubjectViewModel(repo)
     }
 
     @Provides

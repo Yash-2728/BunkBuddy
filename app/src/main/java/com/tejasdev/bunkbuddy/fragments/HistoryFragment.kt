@@ -34,7 +34,6 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        hideBottomNav()
         setUpRecyclerView()
         binding.backLl.setOnClickListener {
             findNavController().popBackStack()
@@ -42,10 +41,6 @@ class HistoryFragment : Fragment() {
         viewModel.allHistory.observe(viewLifecycleOwner, Observer{
             historyAdapter.setData(it.reversed())
         })
-    }
-
-    private fun hideBottomNav() {
-        (activity as MainActivity).hideBottomNav()
     }
 
     private fun setUpRecyclerView(){

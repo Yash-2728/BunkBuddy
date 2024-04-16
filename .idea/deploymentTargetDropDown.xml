@@ -2,19 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ResourceCompareTest">
+      <entry key="FragmentTest">
+        <State />
+      </entry>
+      <entry key="ProfileFragmentUI">
         <State />
       </entry>
       <entry key="SubjectDaoTest">
         <State />
       </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="insertShoppingItem()">
-        <State />
-      </entry>
-      <entry key="updateSubjectAttendance()">
         <State />
       </entry>
     </value>

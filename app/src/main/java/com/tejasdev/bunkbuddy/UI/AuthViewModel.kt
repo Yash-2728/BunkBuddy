@@ -21,7 +21,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     @ApplicationContext private val app: Application,
     private val repo: AuthRepository
-    ): AndroidViewModel(app) {
+): AndroidViewModel(app) {
 
     private val context = app.applicationContext
     private val session = Session.getInstance(context)

@@ -1,5 +1,6 @@
 package com.tejasdev.bunkbuddy.fragments
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Gravity
@@ -15,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -35,17 +37,20 @@ import com.tejasdev.bunkbuddy.util.constants.CLASS_MISSED_DEC
 import com.tejasdev.bunkbuddy.util.constants.CLASS_MISSED_INC
 import com.tejasdev.bunkbuddy.util.constants.SUBJECT_ADDED
 import com.tejasdev.bunkbuddy.util.constants.SUBJECT_DELETED
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AllSubjectsFragment : Fragment(), SubjectItemClickListener {
     private var _binding: FragmentAllSubjectsBinding? = null
     private val binding get()=_binding!!
 
     private lateinit var listener: SubjectItemClickListener
     private var popUpWindow: PopupWindow? = null
-    private lateinit var viewModel: SubjectViewModel
+    val viewModel: SubjectViewModel by viewModels()
     private lateinit var adapter: SubjectAdapter
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -69,9 +74,7 @@ class AllSubjectsFragment : Fragment(), SubjectItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.also { listener = it }
-        (activity as MainActivity).showBottomNav()
-        viewModel = (activity as MainActivity).viewModel
-        sharedPreference = (activity as MainActivity).sharedPreferences
+        sharedPreference = requireContext().getSharedPreferences(MainActivity.SHARED_PREF, Context.MODE_PRIVATE)
         editor = sharedPreference.edit()
 
         val lastUpdatedDate = sharedPreference.getString("last_updated_date", "")
@@ -107,6 +110,8 @@ class AllSubjectsFragment : Fragment(), SubjectItemClickListener {
             }
         })
     }
+
+
 
     private fun setCurrentDate(date: String) {
         binding.currentDateTv.text = date

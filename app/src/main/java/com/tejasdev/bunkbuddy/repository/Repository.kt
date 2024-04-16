@@ -9,20 +9,13 @@ import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
 import javax.inject.Inject
 
 class SubjectRepository @Inject constructor(
-    private val db: SubjectDatabase
+    db: SubjectDatabase
 ): SubjectRepositoryInterface {
 
     private val dao = db.getDao()
     private val historyDao = db.getHistoryDao()
+    override fun getAllSubjects(): LiveData<List<Subject>> = dao.getAllSubjects()
 
-    val savedSubjects = dao.getAllSubjects()
-    val monday = getLecturesForDay(0)
-    val tuesday = getLecturesForDay(1)
-    val wednesday = getLecturesForDay(2)
-    val thursday = getLecturesForDay(3)
-    val friday = getLecturesForDay(4)
-    val saturday = getLecturesForDay(5)
-    val sunday = getLecturesForDay(6)
 
     override suspend fun updateSubjectAndLectures(subject: Subject){
         dao.updateSubjectAndRelatedLectures(subject)

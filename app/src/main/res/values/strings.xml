@@ -81,4 +81,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="upcoming_classes">Upcoming classes</string>
+    <string name="account_">Account</string>
 </resources>

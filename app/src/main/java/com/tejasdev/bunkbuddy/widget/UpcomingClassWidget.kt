@@ -89,13 +89,13 @@ class NewAppWidget : AppWidgetProvider() {
         val calender = Calendar.getInstance()
         val day = calender.get(Calendar.DAY_OF_WEEK)
         return when(day){
-            1 -> subjectRepository.sunday
-            2 -> subjectRepository.monday
-            3 -> subjectRepository.tuesday
-            4 -> subjectRepository.wednesday
-            5 -> subjectRepository.thursday
-            6 -> subjectRepository.friday
-            else -> subjectRepository.saturday
+            1 -> subjectRepository.getLecturesForDay(6)
+            2 -> subjectRepository.getLecturesForDay(0)
+            3 -> subjectRepository.getLecturesForDay(1)
+            4 -> subjectRepository.getLecturesForDay(2)
+            5 -> subjectRepository.getLecturesForDay(3)
+            6 -> subjectRepository.getLecturesForDay(4)
+            else -> subjectRepository.getLecturesForDay(5)
         }
     }
 

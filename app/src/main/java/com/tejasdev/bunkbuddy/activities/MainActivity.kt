@@ -319,13 +319,6 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
         applyTheme()
     }
-    fun hideBottomNav(){
-        binding.bottomNav.visibility = View.GONE
-    }
-
-    fun showBottomNav(){
-        binding.bottomNav.visibility = View.VISIBLE
-    }
     companion object{
         const val NOTIFICATION_PERMISSION_REQUEST_CODE = 123
         const val PRIVACY_POLICY_LINK = "https://bunkbuddyprivacypolicy.blogspot.com/2023/12/privacy-policy-for-bunkbuddy.html"

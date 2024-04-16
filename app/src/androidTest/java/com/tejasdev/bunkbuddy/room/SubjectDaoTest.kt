@@ -13,6 +13,8 @@ import com.tejasdev.bunkbuddy.datamodel.Subject
 import com.tejasdev.bunkbuddy.getOrAwaitValue
 import com.tejasdev.bunkbuddy.room.dao.SubjectDao
 import com.tejasdev.bunkbuddy.room.db.SubjectDatabase
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -20,26 +22,28 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
 @SmallTest
+@HiltAndroidTest
 class SubjectDaoTest {
+
+    @get:Rule
+    val hiltRule = HiltAndroidRule(this)
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var database: SubjectDatabase
+    @Inject
+    @Named("test_db")
+    lateinit var database: SubjectDatabase
     private lateinit var dao: SubjectDao
 
     @Before
     fun setup(){
-        database = Room.inMemoryDatabaseBuilder(
-                ApplicationProvider.getApplicationContext(),
-                SubjectDatabase::class.java
-            )
-            .allowMainThreadQueries()
-            .build()
+        hiltRule.inject()
         dao = database.getDao()
     }
     @After
