@@ -2,6 +2,7 @@ package com.tejasdev.bunkbuddy.api
 
 import com.tejasdev.bunkbuddy.datamodel.User
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -12,6 +13,7 @@ interface AuthAPI {
         @Query("email") email: String,
         @Query("password") password: String
     ): Call<User>
+
 
     @GET("/signup")
     fun signupUser(

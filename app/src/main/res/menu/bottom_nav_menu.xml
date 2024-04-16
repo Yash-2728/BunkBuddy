@@ -10,4 +10,9 @@
         android:title="@string/timetable"
         android:id="@+id/timetableFragment"
         android:icon="@drawable/ic_timetable"/>
+
+    <item
+        android:title="@string/account_"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_account_outlined"/>
 </menu>

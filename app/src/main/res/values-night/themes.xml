@@ -60,6 +60,8 @@
     <style name="subjectCountStyle">
         <item name="cardBackgroundColor">@color/black</item>
     </style>
-
+    <style name="ImageviewStrokeColor">
+        <item name="android:strokeColor">@color/black</item>
+    </style>
 
 </resources>

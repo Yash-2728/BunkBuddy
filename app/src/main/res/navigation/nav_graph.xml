@@ -15,14 +15,17 @@
         android:name="com.tejasdev.bunkbuddy.fragments.TimetablePresenterFragment"
         android:label="fragment_timetable"
         tools:layout="@layout/fragment_timetable" />
+
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.tejasdev.bunkbuddy.fragments.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.tejasdev.bunkbuddy.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
 </navigation>
